@@ -1,0 +1,63 @@
+.parallax-home {
+    background-image: url(../img/bg.jpg);
+}
+
+.caret {
+    margin-left: 5px !important;
+}
+
+.widget-title {
+    border-left: 4px solid #5264AE;
+    padding-left: 1rem;
+    padding-top: .7rem;
+    padding-bottom: .7rem;
+    margin-top: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.jumbotron {
+    color: #FFF;
+}
+
+.fb-bg {
+    background-color: #3B5998;
+}
+
+.tw-bg {
+    background-color: #6cb7f0;
+}
+
+.tw-bg, .fb-bg {
+    color: #FFF;
+}
+
+.tw-bg:hover, .fb-bg:hover {
+    color: #FFF;
+}
+
+/** Card */
+.elegant-card {
+    margin-bottom: 1em;
+}
+
+.elegant-card  .card-header {
+    color: #FFF;
+    padding: 1px 15px;
+}
+
+.elegant-card .btn-floating {
+    margin: -2.1em 2em;
+    float: right;
+}
+
+.elegant-card .card-body {
+    padding: 2em;
+}
+
+.elegant-card .card-footer {
+    height: 30px;
+    line-height: 30px;
+    color: #fff;
+    text-align: center;
+    font-size: 15px;
+}

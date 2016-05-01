@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="hackatech">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Hackatech - The easiest way to organize hackathon</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Styles -->
+    <link href="app-content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="app-content/css/mdb.min.css" rel="stylesheet">
+    <link href="app-content/css/app.css" rel="stylesheet">
+</head>
+<body id="app-layout" ng-controller="AppController as appCtrl">
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+
+                <!-- Collapsed Hamburger -->
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <!-- Branding Image -->
+                <a class="navbar-brand" href="#/">
+                    Hackatech
+                </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                <!-- Left Side Of Navbar -->
+                <ul class="nav navbar-nav">
+                    <li><a href="#/" class="waves-effect waves-light">Home</a></li>
+                    <li><a href="#/hackathon" class="waves-effect waves-light">Hackathon</a></li>
+                    <li><a href="#/help" class="waves-effect waves-light">Help</a></li>
+                </ul>
+
+                <!-- Right Side Of Navbar -->
+                <ul class="nav navbar-nav navbar-right" ng-hide="appCtrl.isLogged()">
+                    <!-- Authentication Links -->
+                    <li><a href="#/login" class="waves-effect waves-light">Login</a></li>
+                    <li><a href="#/register" class="waves-effect waves-light">Register</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" ng-show="appCtrl.isLogged()">
+                    <!-- Authentication Links -->
+                    <li><a href="#/" class="waves-effect waves-light"></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div ng-view>
+    </div>
+
+    <div class="container">
+
+        <footer class="col-md-12">
+            <hr>
+            <p>© 2016 Hackatech - <a href="#">alexis-andrieu.fr</a></p>
+        </footer>
+
+    </div>
+
+    <!-- Angular -->
+    <script src="//code.angularjs.org/1.2.20/angular.js"></script>
+    <script src="//code.angularjs.org/1.2.20/angular-route.js"></script>
+    <script src="//code.angularjs.org/1.2.13/angular-cookies.js"></script>
+    
+    <script src="app.js"></script>
+    <script src="app-services/services.js"></script>
+    <script src="app-controller/controllers.js"></script>
+
+    <!-- JavaScripts -->
+    <script type="text/javascript" src="app-content/js/jquery.min.js"></script>
+    <script type="text/javascript" src="app-content/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="app-content/js/mdb.min.js"></script>
+    
+</body>
+</html>

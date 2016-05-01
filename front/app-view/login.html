@@ -1,0 +1,54 @@
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Login to HackaTech !</h3>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="col-md-12" ng-show="loginCtrl.errorMessage">
+                            <div class="alert danger-color">
+                                <span class="white-text">{{ loginCtrl.errorMessage }}
+                          </span>
+                            </div>
+                        </div>
+
+                        <form class="form-signin" role="form" name="form" ng-submit="loginCtrl.login()">
+
+                            <div ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
+
+                                <div class="input-field col-md-12">
+                                    <input type="email" class="form-control" id="email" name="email" ng-model="loginCtrl.email" autofocus required>
+                                    <label for="email">Email</label>
+
+                                    <span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">Email is required</span>
+                                </div>
+                            </div>
+
+                            <div ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+                                <div class="input-field col-md-12">
+                                    <input type="password" class="form-control" id="password" name="password" ng-model="loginCtrl.password" required>
+                                    <label for="password">Password</label>
+
+                                    <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+                                </div>
+                            </div>
+
+                            <button type="submit" ng-disabled="form.$invalid || loginCtrl.dataLoading" class="btn btn-primary btn-block">
+                               <i ng-show="loginCtrl.dataLoading" class="fa fa-circle-o-notch fa-spin fa-3x fa-fw margin-bottom left"></i> Login
+                            </button>
+
+                        </form><!-- /form -->
+                        <a href="#" class="forgot-password">
+                            <a href="#/password/reset">Forgot your password ?</a>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
