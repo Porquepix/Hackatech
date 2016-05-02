@@ -37,7 +37,7 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="#/" class="waves-effect waves-light">Home</a></li>
+                    <li><a href="#{{ appCtrl.route('index') }}" class="waves-effect waves-light">Home</a></li>
                     <li><a href="#/hackathon" class="waves-effect waves-light">Hackathon</a></li>
                     <li><a href="#/help" class="waves-effect waves-light">Help</a></li>
                 </ul>
@@ -45,7 +45,7 @@
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right" ng-hide="appCtrl.isLogged()">
                     <!-- Authentication Links -->
-                    <li><a href="#/login" class="waves-effect waves-light">Login</a></li>
+                    <li><a ng-href="#{{ appCtrl.route('login') }}" class="waves-effect waves-light">Login</a></li>
                     <li><a href="#/register" class="waves-effect waves-light">Register</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" ng-show="appCtrl.isLogged()">
@@ -61,6 +61,10 @@
 
     <div class="container">
 
+        <div ng-show='stateIsLoading' class="col-md-12">
+            Loading...
+        </div>
+
         <footer class="col-md-12">
             <hr>
             <p>© 2016 Hackatech - <a href="#">alexis-andrieu.fr</a></p>
@@ -69,13 +73,15 @@
     </div>
 
     <!-- Angular -->
-    <script src="//code.angularjs.org/1.2.20/angular.js"></script>
-    <script src="//code.angularjs.org/1.2.20/angular-route.js"></script>
-    <script src="//code.angularjs.org/1.2.13/angular-cookies.js"></script>
+    <script src="//code.angularjs.org/1.2.20/angular.min.js"></script>
+    <script src="//code.angularjs.org/1.2.20/angular-route.min.js"></script>
+    <script src="//code.angularjs.org/1.2.13/angular-cookies.min.js"></script>
+
+    <script src="app-module/satellizer.min.js"></script>
     
     <script src="app.js"></script>
-    <script src="app-services/services.js"></script>
-    <script src="app-controller/controllers.js"></script>
+    <script src="services.js"></script>
+    <script src="controllers.js"></script>
 
     <!-- JavaScripts -->
     <script type="text/javascript" src="app-content/js/jquery.min.js"></script>

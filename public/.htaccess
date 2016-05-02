@@ -5,6 +5,9 @@
 
     RewriteEngine On
 
+    RewriteCond %{HTTP:Authorization} ^(.*)
+    RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+
     # Handle Angular
     RewriteCond %{REQUEST_METHOD} OPTIONS
     RewriteRule ^(.*)$ blank.php [QSA,L]
