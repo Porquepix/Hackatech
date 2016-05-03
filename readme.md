@@ -14,4 +14,4 @@ Front-end :
 
 Back-end :
 * Laravel
-* PostegreSQL
+* PostgreSQL
