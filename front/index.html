@@ -37,26 +37,37 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="#{{ appCtrl.route('index') }}" class="waves-effect waves-light">Home</a></li>
+                    <li><a ui-sref="index" class="waves-effect waves-light">Home</a></li>
                     <li><a href="#/hackathon" class="waves-effect waves-light">Hackathon</a></li>
                     <li><a href="#/help" class="waves-effect waves-light">Help</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right" ng-hide="appCtrl.isLogged()">
+                <ul class="nav navbar-nav navbar-right" ng-hide="authenticated">
                     <!-- Authentication Links -->
-                    <li><a ng-href="#{{ appCtrl.route('login') }}" class="waves-effect waves-light">Login</a></li>
+                    <li><a ui-sref="login" class="waves-effect waves-light">Login</a></li>
                     <li><a href="#/register" class="waves-effect waves-light">Register</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right" ng-show="appCtrl.isLogged()">
-                    <!-- Authentication Links -->
-                    <li><a href="#/" class="waves-effect waves-light"></a></li>
+                <ul class="nav navbar-nav navbar-right ng-hide" ng-show="authenticated">
+                    <li class="dropdown">
+                      <a href="#" data-target="#" class="dropdown-toggle capitalize" data-toggle="dropdown"> {{ currentUser.name }} <span class="badge">3</span>
+                        <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="">Messages <span class="badge">3</span></a></li>
+                        <li class="divider"></li>
+                        <li><a href="">My organizations</a></li>
+                        <li class="divider"></li>
+                        <li><a href="">My profile</a></li>
+                        <li><a href="">Edit my profile</a></li>
+                      </ul>
+                    </li>
+                    <li><a ng-click="appCtrl.logout()" class="waves-effect waves-light">Logout</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div ng-view>
+    <div ui-view>
     </div>
 
     <div class="container">
@@ -73,9 +84,8 @@
     </div>
 
     <!-- Angular -->
-    <script src="//code.angularjs.org/1.2.20/angular.min.js"></script>
-    <script src="//code.angularjs.org/1.2.20/angular-route.min.js"></script>
-    <script src="//code.angularjs.org/1.2.13/angular-cookies.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
 
     <script src="app-module/satellizer.min.js"></script>
     
