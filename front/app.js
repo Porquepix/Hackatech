@@ -4,7 +4,8 @@
         var routes = {
             index: '/',
             auth: '/authenticate',
-            auth_user: '/authenticate/user'
+            auth_user: '/authenticate/user',
+            register: '/register'
         };
 
         return "http://api.hackatech.alexis-andrieu.fr" + routes[name];
@@ -12,7 +13,7 @@
 
 
     app = angular
-            .module('hackatech', ['ui.router', 'satellizer'])
+            .module('hackatech', ['ui.router', 'satellizer', 'MessageCenterModule'])
             .config(config)
             .run(run);
 
@@ -59,9 +60,13 @@
 
         $authProvider.loginUrl = api('auth');
 
-        $urlRouterProvider.otherwise('/login');
         $stateProvider
             .state('index', {
+                url: '',
+                templateUrl: './app-view/home.html',
+                controller: 'HomeController as homeCtrl'
+            })
+            .state('indexAg', {
                 url: '/',
                 templateUrl: './app-view/home.html',
                 controller: 'HomeController as homeCtrl'
@@ -70,7 +75,13 @@
                 url: '/login',
                 templateUrl: './app-view/login.html',
                 controller: 'LoginController as loginCtrl'
+            })
+            .state('register', {
+                url: '/register',
+                templateUrl: './app-view/register.html',
+                controller: 'RegisterController as registerCtrl'
             });
+         $urlRouterProvider.otherwise('/login');
     }
 
 

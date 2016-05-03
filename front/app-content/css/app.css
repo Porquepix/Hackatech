@@ -65,3 +65,7 @@
 .capitalize {
     text-transform: capitalize;
 }
+
+.alert {
+    border-radius: 0px;
+}

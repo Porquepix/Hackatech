@@ -1,0 +1,74 @@
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Register for free !</h3>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="col-md-12" ng-show="registerCtrl.errorMessage">
+                            <div class="alert danger-color">
+                                <span class="white-text">{{ registerCtrl.errorMessage }}
+                          </span>
+                            </div>
+                        </div>
+
+                        <form class="form-signup" role="form" name="form" ng-submit="registerCtrl.register()">
+
+                            <div ng-class="{ 'has-error': form.name.$dirty && form.email.$name.required }">
+
+                                <div class="input-field col-md-12">
+                                    <input type="text" class="form-control" id="name" name="name" ng-model="registerCtrl.name" autofocus required>
+                                    <label for="name">Username</label>
+
+                                    <span ng-show="form.name.$dirty && form.name.$error.required" class="help-block">Username is required</span>
+                                </div>
+                            </div>
+
+                            <div ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
+
+                                <div class="input-field col-md-12">
+                                    <input type="email" class="form-control" id="email" name="email" ng-model="registerCtrl.email" required>
+                                    <label for="email">Email</label>
+
+                                    <span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">Email is required</span>
+                                </div>
+                            </div>
+
+                            <div ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+
+                                <div class="input-field col-md-12">
+                                    <input type="password" class="form-control" id="password" name="password" ng-model="registerCtrl.password" required>
+                                    <label for="password">Password</label>
+
+                                    <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+                                </div>
+                            </div>
+
+                            <div ng-class="{ 'has-error': form.password2.$dirty && (form.password2.$error.required || form.password2.$error.pattern) }">
+
+                                <div class="input-field col-md-12">
+                                    <input type="password" class="form-control" id="password2" name="password2" ng-model="password2" ng-pattern="(registerCtrl.password)" required>
+                                    <label for="password2">Confirm password</label>
+
+                                    <span ng-show="form.password2.$dirty && form.password2.$error.required" class="help-block">Password confirmation is required</span>
+                                    <span ng-show="form.password2.$dirty && form.password2.$error.pattern" class="help-block">Passwords have to match</span>
+                                </div>
+                            </div>
+
+                            <button type="submit" ng-disabled="form.$invalid || registerCtrl.dataLoading" class="btn btn-primary btn-block">
+                               <i ng-show="registerCtrl.dataLoading" class="fa fa-circle-o-notch fa-spin fa-3x fa-fw margin-bottom left"></i> Register for free !
+                            </button>
+
+                        </form><!-- /form -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

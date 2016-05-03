@@ -1,13 +1,16 @@
 (function() {
 
     var texts = {
+        appController: {
+            logout: 'You have successfully logout !'
+        },
         loginController: {
-            invalidCredentials: "Wrong identifiers !",
-            unknowError: "Unknow error !"
+            invalidCredentials: 'Wrong identifiers !',
+            unknowError: 'Unknow error !'
         },
     };
 
-    app.controller('AppController', function($auth, $rootScope) {
+    app.controller('AppController', function($auth, $rootScope, messageCenterService) {
         this.logout = function() {
             $auth.logout().then(function() {
                 // Remove the authenticated user from local storage
@@ -19,6 +22,9 @@
 
                 // Remove the current user info from rootscope
                 $rootScope.currentUser = null;
+
+
+                messageCenterService.add('success', texts.appController.logout, { timeout: 3000 });
             });
         }
     });
@@ -38,7 +44,7 @@
             var credentials = {
                 email: ctrl.email,
                 password: ctrl.password
-            }
+            };
 
             $auth.login(credentials).then(function(response) {
                 // Return an $http request for the now authenticated
@@ -62,6 +68,24 @@
                 $state.go('index');
             });
         }
+    });
+
+    app.controller('RegisterController', function() {
+        var ctrl = this;
+
+        ctrl.register = function($http, $state) {
+            var data = {
+                name: ctrl.name,
+                email: ctrl.email,
+                password: ctrl.password
+            };
+
+            $http.post(api('register'), data).then(function(response) {
+
+            }, function(response) {
+
+            });
+        };
     });
 
 })();
