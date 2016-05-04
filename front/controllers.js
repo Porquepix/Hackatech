@@ -38,7 +38,7 @@
     });
 
 
-    app.controller('LoginController', function($auth, $state, $http, $rootScope) {
+    app.controller('LoginController', function($auth, $state, $http, $rootScope, messageCenterService) {
         var ctrl = this;
 
         ctrl.login = function() {
@@ -54,10 +54,19 @@
                 return $http.get(api('auth_user'));
             // Handle errors
             }, function(response) {
+                messageCenterService.reset();
+
                 if (response.status == 401) {
-                    ctrl.errorMessage = texts.loginController.invalidCredentials;
+                    messageCenterService.add('danger', texts.loginController.invalidCredentials, {});
+                } else if (response.status == 422) {
+                    if (response.data.email)
+                        messageCenterService.add('danger', response.data.email[0], {});
+
+                    if (response.data.password)
+                        messageCenterService.add('danger', response.data.password[0], {});
+
                 } else {
-                    ctrl.errorMessage = texts.loginController.unknowError;
+                    messageCenterService.add('danger', texts.loginController.unknowError, {});
                 }
                 ctrl.dataLoading = false;
                 ctrl.password = '';

@@ -10,13 +10,6 @@
 
                     <div class="panel-body">
 
-                        <div class="col-md-12" ng-show="loginCtrl.errorMessage">
-                            <div class="alert danger-color">
-                                <span class="white-text">{{ loginCtrl.errorMessage }}
-                          </span>
-                            </div>
-                        </div>
-
                         <form class="form-signin" role="form" name="form" ng-submit="loginCtrl.login()">
 
                             <div ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
