@@ -8,6 +8,9 @@
             invalidCredentials: 'Wrong identifiers !',
             unknowError: 'Unknow error !'
         },
+        registerController: {
+            success: 'You have successfully registered !'
+        }
     };
 
     app.controller('AppController', function($auth, $rootScope, messageCenterService) {
@@ -24,7 +27,7 @@
                 $rootScope.currentUser = null;
 
 
-                messageCenterService.add('success', texts.appController.logout, { timeout: 3000 });
+                messageCenterService.add('success', texts.appController.logout, {});
             });
         }
     });
@@ -70,10 +73,12 @@
         }
     });
 
-    app.controller('RegisterController', function() {
+    app.controller('RegisterController', function($http, $state, messageCenterService) {
         var ctrl = this;
 
-        ctrl.register = function($http, $state) {
+        ctrl.register = function() {
+            ctrl.dataLoading = true;
+
             var data = {
                 name: ctrl.name,
                 email: ctrl.email,
@@ -81,9 +86,23 @@
             };
 
             $http.post(api('register'), data).then(function(response) {
-
+                messageCenterService.add('success', texts.registerController.success, { status: messageCenterService.status.next });
+                $state.go('login');
             }, function(response) {
+                messageCenterService.reset();
 
+                if (response.data.name)
+                    messageCenterService.add('danger', response.data.name[0], {});
+
+                if (response.data.email)
+                    messageCenterService.add('danger', response.data.email[0], {});
+
+                if (response.data.password)
+                    messageCenterService.add('danger', response.data.password[0], {});
+
+                ctrl.dataLoading = false;
+                ctrl.password = '';
+                ctrl.password2 = '';
             });
         };
     });

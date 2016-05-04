@@ -52,7 +52,7 @@
                             <div ng-class="{ 'has-error': form.password2.$dirty && (form.password2.$error.required || form.password2.$error.pattern) }">
 
                                 <div class="input-field col-md-12">
-                                    <input type="password" class="form-control" id="password2" name="password2" ng-model="password2" ng-pattern="(registerCtrl.password)" required>
+                                    <input type="password" class="form-control" id="password2" name="password2" ng-model="registerCtrl.password2" ng-pattern="(registerCtrl.password)" required>
                                     <label for="password2">Confirm password</label>
 
                                     <span ng-show="form.password2.$dirty && form.password2.$error.required" class="help-block">Password confirmation is required</span>

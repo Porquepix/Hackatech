@@ -82,6 +82,9 @@
                 controller: 'RegisterController as registerCtrl'
             });
          $urlRouterProvider.otherwise('/login');
+
+         // Config for laravel
+         $httpProvider.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
     }
 
 

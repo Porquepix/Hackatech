@@ -11,10 +11,9 @@
 |
 */
 
-
-Route::group(['middleware' => 'jwt.auth'], function() {
-    Route::get('/', 'AuthenticateController@test');
-});
-
+/*
+ * Login / Register / Password reset routes
+ */
+Route::post('register', 'AuthenticateController@register');
 Route::post('authenticate', 'AuthenticateController@authenticate');
 Route::get('authenticate/user', 'AuthenticateController@getAuthenticatedUser');

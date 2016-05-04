@@ -70,7 +70,7 @@ MessageCenterModule
           this.mcMessages.splice(index, 1);
         },
         reset: function () {
-          this.mcMessages = [];
+          this.mcMessages.splice(0, this.mcMessages.length);
         },
         removeShown: function () {
           for (var index = this.mcMessages.length - 1; index >= 0; index--) {
@@ -103,7 +103,7 @@ MessageCenterModule.
     /*jshint multistr: true */
     var templateString = '\
     <div id="mc-messages-wrapper">\
-      <div class="alert alert-{{ message.type }} {{ animation }}" ng-repeat="message in mcMessages">\
+      <div class="alert {{ message.type }}-color {{ animation }}" ng-repeat="message in mcMessages">\
         <div class="container">\
         <a class="close" ng-click="message.close();" data-dismiss="alert" aria-hidden="true">&times;</a>\
         <span ng-switch on="message.html">\
