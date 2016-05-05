@@ -1,5 +1,6 @@
 (function() {
 
+    // URL of each API functions
     api = function(name) {
         var routes = {
             index: '/',
@@ -7,13 +8,14 @@
             auth_user: '/authenticate/user',
             register: '/register',
             password_email: '/password/email',
-            password_reset: '/password/reset'
+            password_reset: '/password/reset',
+            profil_edit: '/user/{0}'
         };
 
         return "http://api.hackatech.alexis-andrieu.fr" + routes[name];
     };
 
-
+    // Define our application
     app = angular
             .module('hackatech', ['ui.router', 'satellizer', 'MessageCenterModule'])
             .config(config)

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\User;
 
 use App\Http\Requests\Request;
+use JWTAuth;
 
-class UpdateUserRequest extends Request
+class ShowProfileRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,7 @@ class UpdateUserRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return JWTAuth::parseToken()->authenticate()->id == $this->route('user')->id;
     }
 
     /**

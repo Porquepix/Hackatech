@@ -36,6 +36,7 @@
     app.controller('HomeController', function($http) {
         var ctrl = this;
 
+        // Get some stats to display on the home page
         $http.get(api('index'), {}).then(function(response) {
             ctrl.nbChallengers = response.data.nbChallengers;
         });
@@ -46,9 +47,10 @@
     /**
      * Login Controller. Available in login page.
      */
-    app.controller('LoginController', function($auth, $state, $http, $rootScope, messageCenterService) {
+    app.controller('LoginController', function($auth, $state, $http, $rootScope, messageCenterService, user) {
         var ctrl = this;
 
+        // Submit of the login form
         ctrl.login = function() {
             ctrl.dataLoading = true;
 
@@ -58,8 +60,8 @@
             };
 
             $auth.login(credentials).then(function(response) {
-                // Return an $http request for the now authenticated
-                return $http.get(api('auth_user'));
+                user.saveLocalFresh();
+                $state.go('indexAuth');
             // Handle errors
             }, function(response) {
                 messageCenterService.reset();
@@ -78,14 +80,6 @@
                 }
                 ctrl.dataLoading = false;
                 ctrl.password = '';
-            }).then(function(response) {
-                var user = JSON.stringify(response.data.user);
-                localStorage.setItem('user', user);
-
-                $rootScope.authenticated = true;
-                $rootScope.currentUser = response.data.user;
-
-                $state.go('indexAuth');
             });
         }
     });
@@ -96,6 +90,7 @@
     app.controller('RegisterController', function($http, $state, messageCenterService) {
         var ctrl = this;
 
+        // Submit of the register form
         ctrl.register = function() {
             ctrl.dataLoading = true;
 
@@ -108,6 +103,7 @@
             $http.post(api('register'), data).then(function(response) {
                 messageCenterService.add('success', response.data.message, { status: messageCenterService.status.next });
                 $state.go('login');
+            // Handle errors
             }, function(response) {
                 messageCenterService.reset();
 
@@ -152,6 +148,7 @@
                 messageCenterService.add('success', response.data.message, {});
 
                 ctrl.dataLoading = false;
+            // Handle errors                
             }, function(response) {
                 if (response.data.email)
                     messageCenterService.add('danger', response.data.email[0], {});
@@ -175,6 +172,7 @@
                 messageCenterService.add('success', response.data.message, {});
 
                 ctrl.dataLoading = false;
+            // Handle errors                
             }, function(response) {
                 if (response.data.email)
                     messageCenterService.add('danger', response.data.email[0], {});
@@ -199,10 +197,44 @@
     /**
      * User Controller. Available in user pages.
      */
-    app.controller('UserController', function($rootScope, $http, $state, messageCenterService) {
+    app.controller('UserController', function($rootScope, $http, $state, messageCenterService, user) {
         var ctrl = this;
-        ctrl.profile = $rootScope.currentUser;
-        ctrl.profile.created_at = new Date(ctrl.profile.created_at);
+
+        // Initialize the data about the user in profile pages
+        ctrl.init = function() {
+            user.getFreshData(function(data) {
+                ctrl.profile = data;
+                ctrl.profile.created_at = new Date(ctrl.profile.created_at);
+            });
+        };
+        ctrl.init();
+
+        // Submit of the update profil form
+        ctrl.update = function() {
+            messageCenterService.reset();
+
+            var data = {};
+            if (ctrl.profile.email != $rootScope.currentUser.email)
+                data.email = ctrl.profile.email;
+            if (ctrl.profile.password)
+                data.password = ctrl.profile.password;
+
+            $http.put(api('profil_edit').format([$rootScope.currentUser.id]), data).then(function(response) {
+                messageCenterService.add('success', response.data.message, {});
+                user.saveLocalFresh();
+            // Handle errors               
+            }, function(response) {
+                if (response.data.email)
+                    messageCenterService.add('danger', response.data.email[0], {});
+
+                if (response.data.error)
+                    messageCenterService.add('danger', response.data.error, {});
+
+                ctrl.password = '';
+                ctrl.password2 = '';
+                ctrl.dataLoading = false;
+            });
+        };
     });
 
 })();

@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Requests\ShowProfileRequest;
+use App\Http\Requests\User\ShowProfileRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\User;
 
 class UserController extends Controller
@@ -21,9 +22,11 @@ class UserController extends Controller
         return $user;
     }
 
-    public function update()
+    public function update(UpdateUserRequest $request, User $user)
     {
-
+        $user->fill($request->except(['id', 'name']));
+        $user->save();
+        return response()->json(['message' => 'Your profile has been successfully updated !']);
     }
 
 }

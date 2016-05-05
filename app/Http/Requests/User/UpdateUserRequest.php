@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\User;
 
 use App\Http\Requests\Request;
 use JWTAuth;
 
-class ShowProfileRequest extends Request
+class UpdateUserRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class ShowProfileRequest extends Request
     public function rules()
     {
         return [
-            //
+            'email' => 'email|unique:users'
         ];
     }
 }

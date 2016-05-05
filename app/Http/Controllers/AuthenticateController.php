@@ -116,7 +116,7 @@ class AuthenticateController extends Controller
             $message->to($email)->subject('[Hackatech] Password reset !');
         });
 
-        return response()->json(['message' => 'We will send you an email with a link to reset your password.'], 200);
+        return response()->json(['message' => 'We will send you an email with a link to reset your password.']);
     }
 
     /**
