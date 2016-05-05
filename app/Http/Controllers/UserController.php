@@ -25,6 +25,11 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $user->fill($request->except(['id', 'name']));
+
+        if ($request->has('password')) {
+            $user->password = bcrypt($request->input('password'));
+        }
+
         $user->save();
         return response()->json(['message' => 'Your profile has been successfully updated !']);
     }

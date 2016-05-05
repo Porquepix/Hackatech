@@ -23,14 +23,14 @@
 
                     <div>
                         <div class="input-field col-md-12">
-                            <input type="password" class="form-control" id="password" name="password" ng-model="userCtrl.password">
+                            <input type="password" class="form-control" id="password" name="password" ng-model="userCtrl.profile.password">
                             <label for="password">Password</label>
                         </div>
                     </div>
 
                     <div ng-class="{ 'has-error': form.password2.$dirty && form.password2.$error.pattern }">
                         <div class="input-field col-md-12">
-                            <input type="password" class="form-control" id="password2" name="password2" ng-model="userCtrl.password2" ng-pattern="(userCtrl.password)">
+                            <input type="password" class="form-control" id="password2" name="password2" ng-model="userCtrl.profile.password2" ng-pattern="(userCtrl.profile.password)">
                             <label for="password2">Confirm password</label>
 
                             <span ng-show="form.password2.$dirty && form.password2.$error.pattern" class="help-block">Passwords have to match</span>

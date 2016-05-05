@@ -2,6 +2,7 @@
     <div class="row">
         <div class="col-md-12">
             <h3>My profile: {{ userCtrl.profile.name }} <small>#{{ userCtrl.profile.id }}</small></h3>
+            <a class="btn btn-primary btn-md btn-raised" ui-sref="profile_edit"><i class="material-icons left">create</i> Edit my profil</a>
             <section id="user_data">
                 <article><b>Username:</b> {{ userCtrl.profile.name }}</article>
                 <article><b>Email:</b> <a href="mailto:{{ userCtrl.profile.email }}">{{ userCtrl.profile.email }}</a></article>

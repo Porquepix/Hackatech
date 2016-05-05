@@ -222,6 +222,9 @@
             $http.put(api('profil_edit').format([$rootScope.currentUser.id]), data).then(function(response) {
                 messageCenterService.add('success', response.data.message, {});
                 user.saveLocalFresh();
+                
+                ctrl.password = '';
+                ctrl.password2 = '';
             // Handle errors               
             }, function(response) {
                 if (response.data.email)
