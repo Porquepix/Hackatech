@@ -8,7 +8,10 @@ use App\User;
 use App\Http\Requests;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\AuthRequest;
+use App\Http\Requests\PasswdSendResetRequest;
 use JWTAuth;
+use DB;
+use Mail;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
@@ -34,10 +37,10 @@ class AuthenticateController extends Controller
             }
         } catch (JWTException $e) {
             // something went wrong
-            return response()->json(['error' => 'could_not_create_token'], 500);
+            return response()->json(['error' => 'Could not create token.'], 500);
         }
 
-        return response()->json(['error' => 'invalid_credentials'], 401);
+        return response()->json(['error' => 'Invalid credentials !'], 401);
     }
 
     /**
@@ -57,19 +60,19 @@ class AuthenticateController extends Controller
 
         } catch (TokenExpiredException $e) {
 
-            return response()->json(['token_expired'], $e->getStatusCode());
+            return response()->json(['error' => 'Token expired !'], $e->getStatusCode());
 
         } catch (TokenInvalidException $e) {
 
-            return response()->json(['token_invalid'], $e->getStatusCode());
+            return response()->json(['error' => 'Token invalid !'], $e->getStatusCode());
 
         } catch (JWTException $e) {
 
-            return response()->json(['token_absent'], $e->getStatusCode());
+            return response()->json(['error' => 'Token absent !'], $e->getStatusCode());
 
         }
 
-        return response()->json(['user_not_found'], 404);
+        return response()->json(['error' => 'User not found !'], 404);
     }
 
     /**
@@ -81,11 +84,39 @@ class AuthenticateController extends Controller
     public function register(RegisterRequest $request)
     {
         $user = User::create([
-            'name' => $request->get('name'),
-            'email' => $request->get('email'),
-            'password' => bcrypt($request->get('password'))
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password'))
         ]);
-        return response()->json(compact('user'));
+        $message = 'You have successfully registered !';
+        return response()->json(compact('user', 'message'), 201);
     }
+
+    /**
+     * Send a reset password email.
+     *
+     * @param PasswdSendResetRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sendReset(PasswdSendResetRequest $request)
+    {
+        $email = $request->get('email');
+        $token = sha1($email . uniqid());
+
+        DB::table('password_resets')->where('email', '=', $email)->delete();
+        DB::table('password_resets')->insert(['email' => $email, 'token' => $token, 'created_at' => date("Y-m-d H:i:s")]);
+
+        $body = '<a href="' . $request->input('link') . '?token=' . $token . '&email=' . $email . '">' .
+                $request->input('title', 'Reset my password') .
+            '</a>';
+        Mail::raw($body, function($message) use ($email) {
+            $message->from('noreply.hackatech@alexis-andrieu.fr', 'Hackatech');
+
+            $message->to($email)->subject('[Hackatech] Password reset !');
+        });
+
+        return response()->json(['message' => 'We will send you an email with a link to reset your password.'], 200);
+    }
+
 
 }

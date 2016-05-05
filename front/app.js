@@ -5,7 +5,9 @@
             index: '/',
             auth: '/authenticate',
             auth_user: '/authenticate/user',
-            register: '/register'
+            register: '/register',
+            password_email: '/password/email',
+            password_reset: '/password/reset'
         };
 
         return "http://api.hackatech.alexis-andrieu.fr" + routes[name];
@@ -80,6 +82,16 @@
                 url: '/register',
                 templateUrl: './app-view/register.html',
                 controller: 'RegisterController as registerCtrl'
+            })            
+            .state('passwd_email', {
+                url: '/password/email',
+                templateUrl: './app-view/passwd_reset_email.html',
+                controller: 'PasswordController as passwordCtrl'
+            }) 
+            .state('passwd_reset', {
+                url: '/password/reset',
+                templateUrl: './app-view/passwd_reset.html',
+                controller: 'PasswordController as passwordCtrl'
             });
          $urlRouterProvider.otherwise('/login');
 

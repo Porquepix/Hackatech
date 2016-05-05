@@ -17,3 +17,5 @@
 Route::post('register', 'AuthenticateController@register');
 Route::post('authenticate', 'AuthenticateController@authenticate');
 Route::get('authenticate/user', 'AuthenticateController@getAuthenticatedUser');
+Route::post('password/email', 'AuthenticateController@sendReset');
+

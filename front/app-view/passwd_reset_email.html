@@ -1,0 +1,35 @@
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Reset my password !</h3>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <form class="form-signin" role="form" name="form" ng-submit="passwordCtrl.sendEmail()">
+
+                            <div ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
+
+                                <div class="input-field col-md-12">
+                                    <input type="email" class="form-control" id="email" name="email" ng-model="passwordCtrl.email" autofocus required>
+                                    <label for="email">Email</label>
+
+                                    <span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">Email is required</span>
+                                </div>
+                            </div>
+
+                            <button type="submit" ng-disabled="form.$invalid || passwordCtrl.dataLoading" class="btn btn-primary btn-block">
+                               <i ng-show="passwordCtrl.dataLoading" class="fa fa-circle-o-notch fa-spin fa-3x fa-fw margin-bottom left"></i> Reset my password
+                            </button>
+
+                        </form><!-- /form -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

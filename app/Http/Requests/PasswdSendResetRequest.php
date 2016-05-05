@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class AuthRequest extends Request
+class PasswdSendResetRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class AuthRequest extends Request
     public function rules()
     {
         return [
-            'email' => 'required|email|max:255',
-            'password' => 'required'
+            'email' => 'required|email|max:255|exists:users,email',
+            'link' => 'required|url'
         ];
     }
 }
