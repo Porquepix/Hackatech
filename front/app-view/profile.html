@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>My profile: {{ userCtrl.profile.name }} <small>#{{ userCtrl.profile.id }}</small></h3>
+            <section id="user_data">
+                <article><b>Username:</b> {{ userCtrl.profile.name }}</article>
+                <article><b>Email:</b> <a href="mailto:{{ userCtrl.profile.email }}">{{ userCtrl.profile.email }}</a></article>
+                <article><b>Member since:</b> {{ userCtrl.profile.created_at | date:'longDate' }}</article>
+            </section>
+        </div>
+    </div>
+</div>

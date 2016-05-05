@@ -73,6 +73,13 @@
                 templateUrl: './app-view/home.html',
                 controller: 'HomeController as homeCtrl'
             })
+            .state('indexAuth', {
+                url: '/home',
+                templateUrl: './app-view/home.html',
+                controller: 'HomeController as homeCtrl'
+            })
+
+            // AUTH
             .state('login', {
                 url: '/login',
                 templateUrl: './app-view/login.html',
@@ -92,6 +99,18 @@
                 url: '/password/reset',
                 templateUrl: './app-view/passwd_reset.html',
                 controller: 'PasswordController as passwordCtrl'
+            })  
+
+            // USER          
+            .state('profile', {
+                url: '/profile',
+                templateUrl: './app-view/profile.html',
+                controller: 'UserController as userCtrl'
+            })
+            .state('profile_edit', {
+                url: '/profile/edit',
+                templateUrl: './app-view/profile_edit.html',
+                controller: 'UserController as userCtrl'
             });
          $urlRouterProvider.otherwise('/login');
 
@@ -133,7 +152,7 @@
                     event.preventDefault();
 
                     // go to the "main" state which in our case is index
-                   $state.go('index');
+                   $state.go('indexAuth');
                 }       
             }
         });

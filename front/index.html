@@ -29,7 +29,10 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" ui-sref="indexAg">
+                <a class="navbar-brand" ui-sref="indexAg" ng-hide="authenticated">
+                    Hackatech
+                </a>
+                <a class="navbar-brand" ui-sref="indexAuth" ng-show="authenticated">
                     Hackatech
                 </a>
             </div>
@@ -37,7 +40,8 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a ui-sref="indexAg" class="waves-effect waves-light">Home</a></li>
+                    <li ng-hide="authenticated"><a ui-sref="indexAg" class="waves-effect waves-light">Home</a></li>
+                    <li ng-show="authenticated"><a ui-sref="indexAuth" class="waves-effect waves-light">Home</a></li>
                     <li><a href="#/hackathon" class="waves-effect waves-light">Hackathon</a></li>
                     <li><a href="#/help" class="waves-effect waves-light">Help</a></li>
                 </ul>
@@ -50,15 +54,14 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right ng-hide" ng-show="authenticated">
                     <li class="dropdown">
-                      <a href="#" data-target="#" class="dropdown-toggle capitalize" data-toggle="dropdown"> {{ currentUser.name }} <span class="badge">3</span>
+                      <a class="dropdown-toggle capitalize" data-toggle="dropdown"> {{ currentUser.name }}
                         <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="">Messages <span class="badge">3</span></a></li>
-                        <li class="divider"></li>
                         <li><a href="">My organizations</a></li>
+                        <li><a href="">My hackathons</a></li>
                         <li class="divider"></li>
-                        <li><a href="">My profile</a></li>
-                        <li><a href="">Edit my profile</a></li>
+                        <li><a ui-sref="profile">My profile</a></li>
+                        <li><a ui-sref="profile_edit">Edit my profile</a></li>
                       </ul>
                     </li>
                     <li><a ng-click="appCtrl.logout()" class="waves-effect waves-light">Logout</a></li>

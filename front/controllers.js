@@ -9,7 +9,7 @@
     /**
      * Main Controller. Available in every page.
      */
-    app.controller('AppController', function($auth, $rootScope, messageCenterService) {
+    app.controller('AppController', function($state, $auth, $rootScope, messageCenterService) {
         this.logout = function() {
             $auth.logout().then(function() {
                 // Remove the authenticated user from local storage
@@ -23,7 +23,9 @@
                 $rootScope.currentUser = null;
 
 
-                messageCenterService.add('success', texts.appController.logout, {});
+                messageCenterService.add('success', texts.appController.logout, { status: messageCenterService.status.next });
+
+                $state.go('index');
             });
         }
     });
@@ -32,7 +34,12 @@
      * Home Controller. Available in home page.
      */
     app.controller('HomeController', function($http) {
-        this.nbChallengers = 0;
+        var ctrl = this;
+
+        $http.get(api('index'), {}).then(function(response) {
+            ctrl.nbChallengers = response.data.nbChallengers;
+        });
+
         this.nbHackathons = 0;
     });
 
@@ -78,7 +85,7 @@
                 $rootScope.authenticated = true;
                 $rootScope.currentUser = response.data.user;
 
-                $state.go('index');
+                $state.go('indexAuth');
             });
         }
     });
@@ -131,6 +138,7 @@
         ctrl.email = $location.search().email;
         ctrl.token = $location.search().token;
 
+        // Send an email to reset password
         ctrl.sendEmail = function() {
             ctrl.dataLoading = true;
             messageCenterService.reset();
@@ -141,7 +149,7 @@
             };
 
             $http.post(api('password_email'), data).then(function(response) {
-                messageCenterService.add('success', response.data.message, { status: messageCenterService.status.next });
+                messageCenterService.add('success', response.data.message, {});
 
                 ctrl.dataLoading = false;
             }, function(response) {
@@ -152,6 +160,7 @@
             });
         };
 
+        // Reset the password
         ctrl.reset = function() {
             ctrl.dataLoading = true;
             messageCenterService.reset();
@@ -163,7 +172,7 @@
             };
 
             $http.put(api('password_reset'), data).then(function(response) {
-                messageCenterService.add('success', response.data.message, { status: messageCenterService.status.next });
+                messageCenterService.add('success', response.data.message, {});
 
                 ctrl.dataLoading = false;
             }, function(response) {
@@ -185,6 +194,15 @@
             });
         };
 
+    });
+
+    /**
+     * User Controller. Available in user pages.
+     */
+    app.controller('UserController', function($rootScope, $http, $state, messageCenterService) {
+        var ctrl = this;
+        ctrl.profile = $rootScope.currentUser;
+        ctrl.profile.created_at = new Date(ctrl.profile.created_at);
     });
 
 })();

@@ -12,6 +12,17 @@
 */
 
 /*
+ * Base route
+ */
+Route::get('/', 'IndexController@index');
+
+/*
+ * User routes
+ */
+Route::get('/user/{user}', 'UserController@show');
+Route::put('/user/{user}', 'UserController@update');
+
+/*
  * Login / Register / Password reset routes
  */
 Route::post('register', 'AuthenticateController@register');
