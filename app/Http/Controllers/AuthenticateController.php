@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\AuthRequest;
 use App\Http\Requests\PasswdSendResetRequest;
+use App\Http\Requests\PasswdResetRequest;
 use JWTAuth;
 use DB;
 use Mail;
@@ -103,7 +104,7 @@ class AuthenticateController extends Controller
         $email = $request->get('email');
         $token = sha1($email . uniqid());
 
-        DB::table('password_resets')->where('email', '=', $email)->delete();
+        DB::table('password_resets')->where('email', $email)->delete();
         DB::table('password_resets')->insert(['email' => $email, 'token' => $token, 'created_at' => date("Y-m-d H:i:s")]);
 
         $body = '<a href="' . $request->input('link') . '?token=' . $token . '&email=' . $email . '">' .
@@ -116,6 +117,28 @@ class AuthenticateController extends Controller
         });
 
         return response()->json(['message' => 'We will send you an email with a link to reset your password.'], 200);
+    }
+
+    /**
+     * Reset password for a user.
+     *
+     * @param PasswdResetRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function reset(PasswdResetRequest $request)
+    {
+        $email = $request->get('email');
+        $token = $request->get('token');
+        $passwd = $request->get('password');
+
+        $query = DB::table('password_resets')->where('email', $email)->where('token', $token);
+        if ($query->count() == 1)  {
+            $query->delete();
+            User::where('email', $email)->update(['password' => bcrypt($passwd)]);
+            return response()->json(['message' => 'Password reset.'], 200);
+        } else {
+            return response()->json(['error' => 'Token invalid !'], 400);
+        }
     }
 
 

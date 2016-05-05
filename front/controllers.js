@@ -176,6 +176,9 @@
                 if (response.data.password)
                     messageCenterService.add('danger', response.data.password[0], {});
 
+                if (response.data.error)
+                    messageCenterService.add('danger', response.data.error, {});
+
                 ctrl.password = '';
                 ctrl.password2 = '';
                 ctrl.dataLoading = false;
