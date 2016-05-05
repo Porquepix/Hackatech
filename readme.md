@@ -6,6 +6,8 @@ People can organize, share and communicate about their hackathons. Moreover, hac
 
 * [Hackatech](http://hackatech.alexis-andrieu.fr)
 * [Hackatech API](http://api.hackatech.alexis-andrieu.fr)
+ 
+To get more information about the API, go on the [Wiki pages](https://github.com/Porquepix/Hackatech/wiki).
 
 ___
 
