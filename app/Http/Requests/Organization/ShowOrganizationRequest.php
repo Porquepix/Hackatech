@@ -15,7 +15,7 @@ class ShowOrganizationRequest extends Request
     public function authorize()
     {
         $user = JWTAuth::parseToken()->authenticate();
-        
+
         $adminCount = $user->organizationAdmin()->where('id', $this->route('organizations'))->count();
         $memberCount = $user->organizationMember()->where('id', $this->route('organizations'))->count();
 

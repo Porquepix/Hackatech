@@ -35,10 +35,14 @@
          * Do an ajax call.
          * The data are passed in the callback function as argument.
          */
-        service.getFreshData = function(callback) {
+        service.getFreshData = function(callback, errorCallback) {
             service.temp = $http.get(api('auth_user')).then(function(response) {
                 service.data = response.data.user;
                 callback(service.data);
+            }, function(response) {
+                if (errorCallback) {
+                    errorCallback(response);
+                }
             });
         };
 

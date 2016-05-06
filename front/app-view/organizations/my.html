@@ -1,0 +1,72 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-primary btn-md btn-raised" ui-sref="organization_create"><i class="material-icons left">add</i> Create an organization</a>
+            <h3>My organizations</h3>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Social</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="orga in orgaCtrl.orga.admin">
+                    <td>{{ orga.id }}</td>
+                    <td>{{ orga.name }}</td>
+                    <td>{{ orga.email }}</td>
+                    <td><span class="label label-danger">Administrator</span></td>
+                    <td>
+                        <a href="http://facebook.com/{{ orga.facebook }}" ng-show="orga.facebook" class="btn-floating fb-bg waves-effect waves-light" target="_blank"><i class="fa fa-facebook"> </i></a>
+                        <a href="http://twiter.com/{{ orga.twitter }}" ng-show="orga.twitter" class="btn-floating tw-bg waves-effect waves-light" target="_blank"><i class="fa fa-twitter"> </i></a>
+                    </td>
+                    <td>
+
+                        <a ui-sref="organization_members" class="btn-floating waves-effect waves-light primary-color"><i class="material-icons">group</i></a>
+                        <a ui-sref="organization_edit({organizationId: orga.id})" class="btn-floating waves-effect waves-light primary-color"><i class="material-icons">edit</i></a>
+                        <a class="btn-floating waves-effect waves-light red" data-toggle="modal" data-target="#delete-{{ orga.id }}"><i class="material-icons">delete</i></a> 
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="delete-{{ orga.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Delete organization : {{ orga.name }}</h4>
+                              </div>
+                              <div class="modal-body">
+                                Are you sure you want to delete this organization? 
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="$('#delete-' + orga.id).modal('toggle'); orgaCtrl.delete(orga.id)">Delete</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                    </td>
+                  </tr>
+
+                   <tr ng-repeat="orga in orgaCtrl.orga.member">
+                    <td>{{ orga.id }}</td>
+                    <td>{{ orga.name }}</td>
+                    <td>{{ orga.email }}</td>
+                    <td><span class="label label-primary">Member</span></td>
+                    <td>
+                        <a href="http://facebook.com/{{ orga.facebook }}" ng-show="orga.facebook" class="btn-floating fb-bg waves-effect waves-light" target="_blank"><i class="fa fa-facebook"> </i></a>
+                        <a href="http://twiter.com/{{ orga.twitter }}" ng-show="orga.twitter" class="btn-floating tw-bg waves-effect waves-light" target="_blank"><i class="fa fa-twitter"> </i></a>
+                    </td>
+                    <td>
+                        <a class="btn-floating waves-effect waves-light red"><i class="material-icons">clear</i></a>
+                    </td>
+                  </tr>
+                                   
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>

@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Requests\Organization\ShowOrganizationRequest;
 use App\Http\Requests\Organization\UpdateOrganizationRequest;
 use App\Http\Requests\Organization\CreateOrganizationRequest;
+use App\Http\Requests\Organization\DeleteOrganizationRequest;
 use App\Http\Requests\User\ShowProfileRequest;
 use App\Organization;
 use App\User;
@@ -37,7 +38,11 @@ class OrganizationController extends Controller
      */
     public function store(CreateOrganizationRequest $request)
     {
-        //
+        $organization = new Organization();
+        $organization->fill($request->all());
+        $organization->admin_id = JWTAuth::parseToken()->authenticate()->id;
+        $organization->save();
+        return response()->json(['message' => 'The organization has been successfully updated !']);
     }
 
     /**
@@ -76,18 +81,22 @@ class OrganizationController extends Controller
      */
     public function update(UpdateOrganizationRequest $request, $id)
     {
-        //
+        $organization = Organization::findOrFail($id);
+        $organization->fill($request->all());
+        $organization->save();
+        return response()->json(['message' => 'The organization has been successfully updated !']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param UpdateOrganizationRequest $request
+     * @param DeleteOrganizationRequest $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UpdateOrganizationRequest $request, $id)
+    public function destroy(DeleteOrganizationRequest $request, $id)
     {
-        //
+        Organization::destroy($id);
+        return response()->json(['message' => 'The organization has been successfully deleted !']);
     }
 }

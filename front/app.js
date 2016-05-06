@@ -4,12 +4,19 @@
     api = function(name) {
         var routes = {
             index: '/',
+            
             auth: '/authenticate',
             auth_user: '/authenticate/user',
             register: '/register',
             password_email: '/password/email',
             password_reset: '/password/reset',
-            profil_edit: '/users/{0}'
+            profil_edit: '/users/{0}',
+
+            user_organizations: '/users/{0}/organizations',
+            organizations_view: '/organizations/{0}',
+            organizations_create: '/organizations',
+            organizations_edit: '/organizations/{0}',
+            organizations_delete: '/organizations/{0}',
         };
 
         return "http://api.hackatech.alexis-andrieu.fr" + routes[name];
@@ -113,6 +120,23 @@
                 url: '/profile/edit',
                 templateUrl: './app-view/profile_edit.html',
                 controller: 'UserController as userCtrl'
+            })
+
+            // ORGANIZATIONS
+            .state('my_organizations', {
+                url: '/profile/organizations',
+                templateUrl: './app-view/organizations/my.html',
+                controller: 'OrganizationController as orgaCtrl'
+            })
+            .state('organization_create', {
+                url: '/organizations/create',
+                templateUrl: './app-view/organizations/edit.html',
+                controller: 'OrganizationController as orgaCtrl'
+            })
+            .state('organization_edit', {
+                url: '/organizations/{organizationId}/edit',
+                templateUrl: './app-view/organizations/edit.html',
+                controller: 'OrganizationController as orgaCtrl'
             });
          $urlRouterProvider.otherwise('/login');
 
@@ -120,11 +144,27 @@
          $httpProvider.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
     }
 
+    function run($rootScope, $state, user, $auth) {
 
-    function run($rootScope, $state) {
+        var userService = user;
+
         // $stateChangeStart is fired whenever the state changes. We can use some parameters
         // such as toState to hook into details about the state as it is changing
         $rootScope.$on('$stateChangeStart', function(event, toState) {
+
+            userService.getFreshData(function(data) {}, function(data) {
+                $auth.logout().then(function() {
+                    // Remove the authenticated user from local storage
+                    localStorage.removeItem('user');
+
+                    // Flip authenticated to false so that we no longer
+                    // show UI elements dependant on the user being logged in
+                    $rootScope.authenticated = false;
+
+                    // Remove the current user info from rootscope
+                    $rootScope.currentUser = null;
+                });
+            });
 
             // Grab the user from local storage and parse it to an object
             var user = JSON.parse(localStorage.getItem('user'));            

@@ -1,0 +1,58 @@
+<div class="container" ng-init="orgaCtrl.loadFormData()">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 ng-hide="orgaCtrl.current.id"> Create organization </h3>
+            <h3 ng-show="orgaCtrl.current.id"> Edit organization : {{ orgaCtrl.current.name }} </h3>
+
+                <form class="form-signup" role="form" name="form" ng-submit="orgaCtrl.save()">
+                    
+                    <div ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
+                        <div class="form-group col-md-12">
+                            <label for="name">Name <span class="required red-text">*</span></label>
+                            <input type="text" class="form-control" id="name" name="name" ng-model="orgaCtrl.current.name" required>
+
+                            <span ng-show="form.name.$dirty && form.name.$error.required" class="help-block">Name is required</span>
+                        </div>
+                    </div>
+
+                    <div ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
+                        <div class="form-group col-md-12">
+                            <label for="email">Email <span class="required red-text">*</span></label>
+                            <input type="email" class="form-control" id="email" name="email" ng-model="orgaCtrl.current.email" required>
+
+                            <span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">Email is required</span>
+                        </div>
+                    </div>
+
+                    <div>
+                      <div class="form-group col-md-12">
+                        <label for="facebook">Facebook</label>
+                        <div class="input-group">
+                          <div class="input-group-addon">http://facebook.com/</div>
+                          <input type="text" class="form-control" id="facebook" name="facebook" ng-model="orgaCtrl.current.facebook">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div class="form-group col-md-12">
+                        <label for="twitter">Twitter</label>
+                        <div class="input-group">
+                          <div class="input-group-addon">http://twitter.com/</div>
+                          <input type="text" class="form-control" id="twitter" name="twitter" ng-model="orgaCtrl.current.twitter">
+                        </div>
+                      </div>
+                    </div>
+
+                    <button type="submit" ng-disabled="form.$invalid || orgaCtrl.dataLoading" class="btn btn-primary">
+                        <i ng-show="orgaCtrl.dataLoading" class="fa fa-circle-o-notch fa-spin fa-3x fa-fw margin-bottom left"></i> 
+                        <span ng-hide="orgaCtrl.current.id"> Create organization </span>
+                        <span ng-show="orgaCtrl.current.id"> Edit organization </span>
+                    </button>
+
+                </form><!-- /form -->
+
+
+        </div>
+    </div>
+</div>

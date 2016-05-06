@@ -240,4 +240,46 @@
         };
     });
 
+    /**
+     * Organization Controller. Available in organization pages.
+     */
+    app.controller('OrganizationController', function($rootScope, $http, $state, $stateParams, messageCenterService) {
+        var ctrl = this;
+        // All organisations of the user
+        ctrl.orga = {};
+        // Organization which is currently updated
+        ctrl.current = {};
+
+        // Get the organizations of the user
+        ctrl.init = function() {
+            $http.get(api('user_organizations').format([$rootScope.currentUser.id]), {}).then(function(response) {
+                ctrl.orga.admin = response.data.admin;
+                ctrl.orga.member = response.data.member;
+            });
+        };
+        ctrl.init();
+
+        // Load the data for a form (edit)
+        ctrl.loadFormData = function() {
+            if ($stateParams.organizationId != null) {
+                $http.get(api('organizations_view').format([$stateParams.organizationId]), {}).then(function(response) {
+                    ctrl.current = response.data;
+                });
+            }
+        };
+
+        ctrl.edit = function() {
+
+        };
+
+        ctrl.delete = function(orgaId) {
+            messageCenterService.reset();
+            $http.delete(api('organizations_delete').format([orgaId]), {}).then(function(response) {
+                messageCenterService.add('success', response.data.message, {});
+                ctrl.init();
+            });
+        };
+
+    });
+
 })();

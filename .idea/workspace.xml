@@ -2,14 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5c107c11-1032-4298-be04-b560ca15fca6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Requests/User/ShowProfileRequest.php" afterPath="$PROJECT_DIR$/app/Http/Requests/User/ShowProfileRequest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Requests/User/UpdateUserRequest.php" afterPath="$PROJECT_DIR$/app/Http/Requests/User/UpdateUserRequest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/routes.php" afterPath="$PROJECT_DIR$/app/Http/routes.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/User.php" afterPath="$PROJECT_DIR$/app/User.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/OrganizationController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/OrganizationController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Requests/Organization/CreateOrganizationRequest.php" afterPath="$PROJECT_DIR$/app/Http/Requests/Organization/CreateOrganizationRequest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Requests/Organization/ShowOrganizationRequest.php" afterPath="$PROJECT_DIR$/app/Http/Requests/Organization/ShowOrganizationRequest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Requests/Organization/UpdateOrganizationRequest.php" afterPath="$PROJECT_DIR$/app/Http/Requests/Organization/UpdateOrganizationRequest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Organization.php" afterPath="$PROJECT_DIR$/app/Organization.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/app-content/css/app.css" afterPath="$PROJECT_DIR$/front/app-content/css/app.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/app.js" afterPath="$PROJECT_DIR$/front/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/controllers.js" afterPath="$PROJECT_DIR$/front/controllers.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/index.html" afterPath="$PROJECT_DIR$/front/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/services.js" afterPath="$PROJECT_DIR$/front/services.js" />
     </list>
     <ignored path="hackatech.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -44,8 +46,8 @@
       <file leaf-file-name="OrganizationController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/OrganizationController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-20.923077">
-              <caret line="65" column="43" selection-start-line="65" selection-start-column="25" selection-end-line="65" selection-end-column="43" />
+            <state vertical-scroll-proportion="-14.115385">
+              <caret line="37" column="7" selection-start-line="37" selection-start-column="7" selection-end-line="37" selection-end-column="7" />
               <folding>
                 <element signature="e#40#68#0#PHP" expanded="true" />
               </folding>
@@ -53,23 +55,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShowOrganizationRequest.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/Http/Requests/Organization/ShowOrganizationRequest.php">
+      <file leaf-file-name="CreateOrganizationRequest.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Requests/Organization/CreateOrganizationRequest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3295325">
-              <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
-              <folding>
-                <element signature="e#50#80#0#PHP" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.36830103">
+              <caret line="19" column="58" selection-start-line="19" selection-start-column="58" selection-end-line="19" selection-end-column="58" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="User.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/User.php">
+      <file leaf-file-name="UpdateOrganizationRequest.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Requests/Organization/UpdateOrganizationRequest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-20.26923">
-              <caret line="31" column="38" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="38" />
+            <state vertical-scroll-proportion="-17.653847">
+              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="32" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -78,8 +78,8 @@
       <file leaf-file-name="UserController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-22.23077">
-              <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+            <state vertical-scroll-proportion="-18.307692">
+              <caret line="28" column="48" selection-start-line="26" selection-start-column="8" selection-end-line="28" selection-end-column="48" />
               <folding>
                 <element signature="e#40#68#0#PHP" expanded="true" />
               </folding>
@@ -90,8 +90,18 @@
       <file leaf-file-name="Organization.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Organization.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.1923075">
-              <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+            <state vertical-scroll-proportion="-9.807693">
+              <caret line="15" column="45" selection-start-line="15" selection-start-column="45" selection-end-line="15" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="User.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/User.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.8846154">
+              <caret line="9" column="47" selection-start-line="9" selection-start-column="47" selection-end-line="9" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -116,14 +126,17 @@
         <option value="$PROJECT_DIR$/app/Http/Requests/ShowProfileRequest.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/AuthenticateController.php" />
         <option value="$PROJECT_DIR$/app/Involve.php" />
-        <option value="$PROJECT_DIR$/app/Organization.php" />
         <option value="$PROJECT_DIR$/app/User.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/UserController.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/User/UpdateUserRequest.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/User/ShowProfileRequest.php" />
         <option value="$PROJECT_DIR$/app/Http/routes.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/OrganizationController.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/Organization/ShowOrganizationRequest.php" />
+        <option value="$PROJECT_DIR$/app/Http/Requests/Organization/DeleteOrganizationRequest.php" />
+        <option value="$PROJECT_DIR$/app/Http/Requests/Organization/UpdateOrganizationRequest.php" />
+        <option value="$PROJECT_DIR$/app/Organization.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/OrganizationController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Requests/Organization/CreateOrganizationRequest.php" />
       </list>
     </option>
   </component>
@@ -676,27 +689,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Organization.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.1923075">
-          <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+        <state vertical-scroll-proportion="-3.2692308">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/User.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Requests/Organization/ShowOrganizationRequest.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-20.26923">
-          <caret line="31" column="38" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Requests/User/UpdateUserRequest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29076397">
-          <caret line="16" column="78" selection-start-line="16" selection-start-column="78" selection-end-line="16" selection-end-column="78" />
-          <folding />
+        <state vertical-scroll-proportion="0.36830103">
+          <caret line="19" column="69" selection-start-line="19" selection-start-column="64" selection-end-line="19" selection-end-column="93" />
+          <folding>
+            <element signature="e#50#80#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -710,18 +717,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Requests/User/UpdateUserRequest.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.2692308">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.29076397">
+          <caret line="16" column="78" selection-start-line="16" selection-start-column="78" selection-end-line="16" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Requests/Organization/DeleteOrganizationRequest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3295325">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="19" selection-end-column="52" />
+          <folding>
+            <element signature="e#50#80#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.8846154">
+          <caret line="9" column="47" selection-start-line="9" selection-start-column="47" selection-end-line="9" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Organization.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.807693">
+          <caret line="15" column="45" selection-start-line="15" selection-start-column="45" selection-end-line="15" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/UserController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-22.23077">
-          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+        <state vertical-scroll-proportion="-18.307692">
+          <caret line="28" column="48" selection-start-line="26" selection-start-column="8" selection-end-line="28" selection-end-column="48" />
           <folding>
             <element signature="e#40#68#0#PHP" expanded="true" />
           </folding>
@@ -730,21 +763,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/OrganizationController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-20.923077">
-          <caret line="65" column="43" selection-start-line="65" selection-start-column="25" selection-end-line="65" selection-end-column="43" />
+        <state vertical-scroll-proportion="-14.115385">
+          <caret line="37" column="7" selection-start-line="37" selection-start-column="7" selection-end-line="37" selection-end-column="7" />
           <folding>
             <element signature="e#40#68#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Requests/Organization/ShowOrganizationRequest.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Requests/Organization/UpdateOrganizationRequest.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3295325">
-          <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
-          <folding>
-            <element signature="e#50#80#0#PHP" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="-17.653847">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="32" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Requests/Organization/CreateOrganizationRequest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36830103">
+          <caret line="19" column="58" selection-start-line="19" selection-start-column="58" selection-end-line="19" selection-end-column="58" />
+          <folding />
         </state>
       </provider>
     </entry>

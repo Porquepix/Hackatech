@@ -13,7 +13,9 @@ class UpdateOrganizationRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        $user = JWTAuth::parseToken()->authenticate();
+        $organisation = Organization::findOrFail($this->route('organizations'));
+        return $organisation->admin_id == $user->id;
     }
 
     /**
@@ -24,7 +26,10 @@ class UpdateOrganizationRequest extends Request
     public function rules()
     {
         return [
-            //
+            'name' => 'required|max:255|unique:organizations',
+            'email' => 'required|email',
+            'facebook' => 'max:255',
+            'twitter' => 'max:255'
         ];
     }
 }
