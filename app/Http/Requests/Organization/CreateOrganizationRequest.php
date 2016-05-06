@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\Organization;
 
 use App\Http\Requests\Request;
-use JWTAuth;
 
-class UpdateUserRequest extends Request
+class CreateOrganizationRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +13,7 @@ class UpdateUserRequest extends Request
      */
     public function authorize()
     {
-        return JWTAuth::parseToken()->authenticate()->id == $this->route('id');
+        return false;
     }
 
     /**
@@ -25,7 +24,7 @@ class UpdateUserRequest extends Request
     public function rules()
     {
         return [
-            'email' => 'email|unique:users'
+            //
         ];
     }
 }

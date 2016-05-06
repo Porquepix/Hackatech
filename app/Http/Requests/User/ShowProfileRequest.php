@@ -14,7 +14,7 @@ class ShowProfileRequest extends Request
      */
     public function authorize()
     {
-        return JWTAuth::parseToken()->authenticate()->id == $this->route('user')->id;
+        return JWTAuth::parseToken()->authenticate()->id == $this->route('id');
     }
 
     /**

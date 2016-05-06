@@ -9,7 +9,7 @@
             register: '/register',
             password_email: '/password/email',
             password_reset: '/password/reset',
-            profil_edit: '/user/{0}'
+            profil_edit: '/users/{0}'
         };
 
         return "http://api.hackatech.alexis-andrieu.fr" + routes[name];

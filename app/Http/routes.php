@@ -19,8 +19,9 @@ Route::get('/', 'IndexController@index');
 /*
  * User routes
  */
-Route::get('/user/{user}', 'UserController@show');
-Route::put('/user/{user}', 'UserController@update');
+Route::get('users/{id}/organizations', 'OrganizationController@showForUser');
+Route::get('users/{id}', 'UserController@show');
+Route::put('users/{id}', 'UserController@update');
 
 /*
  * Login / Register / Password reset routes
@@ -30,4 +31,10 @@ Route::post('authenticate', 'AuthenticateController@authenticate');
 Route::get('authenticate/user', 'AuthenticateController@getAuthenticatedUser');
 Route::post('password/email', 'AuthenticateController@sendReset');
 Route::put('password/reset', 'AuthenticateController@reset');
+
+/*
+ * Organization routes
+ */
+Route::resource('organizations', 'OrganizationController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
+
 

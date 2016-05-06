@@ -17,20 +17,22 @@ class UserController extends Controller
         $this->middleware('jwt.auth');
     }
 
-    public function show(ShowProfileRequest $request, User $user)
+    public function show(ShowProfileRequest $request, $id)
     {
-        return $user;
+        return User::findOrFail($id);
     }
 
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, $id)
     {
-        $user->fill($request->except(['id', 'name']));
+        $user = User::findOrFail($id);
 
-        if ($request->has('password')) {
+        $user->fill($request->except(['name']));
+        if ($request->has('password'))
+        {
             $user->password = bcrypt($request->input('password'));
         }
-
         $user->save();
+
         return response()->json(['message' => 'Your profile has been successfully updated !']);
     }
 

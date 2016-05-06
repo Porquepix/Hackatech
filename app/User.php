@@ -23,4 +23,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function organizationAdmin()
+    {
+        return $this->hasMany('App\Organization', 'admin_id', 'id');
+    }
+
+    public function organizationMember()
+    {
+        return $this->belongsToMany('App\Organization', 'involve');
+    }
 }
