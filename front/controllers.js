@@ -283,9 +283,9 @@
                 data.name = ctrl.current.name;
             if ($scope.form.email.$dirty) 
                 data.email = ctrl.current.email;
-            if (ctrl.current.facebook) 
+            if ($scope.form.facebook.$dirty) 
                 data.facebook = ctrl.current.facebook;
-            if (ctrl.current.twitter) 
+            if ($scope.form.twitter.$dirty) 
                 data.twitter = ctrl.current.twitter;
 
             var succesCallback = function(response) {
