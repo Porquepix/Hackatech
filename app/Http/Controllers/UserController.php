@@ -17,11 +17,25 @@ class UserController extends Controller
         $this->middleware('jwt.auth');
     }
 
+    /**
+     * Display data about the user.
+     *
+     * @param ShowProfileRequest $request
+     * @param int $id
+     * @return mixed
+     */
     public function show(ShowProfileRequest $request, $id)
     {
         return User::findOrFail($id);
     }
 
+    /**
+     * Update a user profile.
+     *
+     * @param UpdateUserRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(UpdateUserRequest $request, $id)
     {
         $user = User::findOrFail($id);

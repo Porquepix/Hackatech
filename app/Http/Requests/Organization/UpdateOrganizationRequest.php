@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Organization;
 
 use App\Http\Requests\Request;
+use JWTAuth;
+use App\Organization;
 
 class UpdateOrganizationRequest extends Request
 {
@@ -26,8 +28,8 @@ class UpdateOrganizationRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|max:255|unique:organizations',
-            'email' => 'required|email',
+            'name' => 'max:255|unique:organizations',
+            'email' => 'email',
             'facebook' => 'max:255',
             'twitter' => 'max:255'
         ];

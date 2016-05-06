@@ -211,6 +211,7 @@
 
         // Submit of the update profil form
         ctrl.update = function() {
+            ctrl.dataLoading = true;
             messageCenterService.reset();
 
             var data = {};
@@ -225,6 +226,7 @@
                 
                 ctrl.password = '';
                 ctrl.password2 = '';
+                ctrl.dataLoading = false;
             // Handle errors               
             }, function(response) {
                 if (response.data.email)
@@ -243,7 +245,7 @@
     /**
      * Organization Controller. Available in organization pages.
      */
-    app.controller('OrganizationController', function($rootScope, $http, $state, $stateParams, messageCenterService) {
+    app.controller('OrganizationController', function($scope, $rootScope, $http, $state, $stateParams, messageCenterService) {
         var ctrl = this;
         // All organisations of the user
         ctrl.orga = {};
@@ -263,15 +265,56 @@
         ctrl.loadFormData = function() {
             if ($stateParams.organizationId != null) {
                 $http.get(api('organizations_view').format([$stateParams.organizationId]), {}).then(function(response) {
-                    ctrl.current = response.data;
+                    if (response.data.admin_id == $rootScope.currentUser.id)
+                        ctrl.current = response.data;
+                    else
+                        $state.go('my_organizations');
                 });
             }
         };
 
-        ctrl.edit = function() {
+        // Save data when the organization is created or edited
+        ctrl.save = function(orgaId) {
+            ctrl.dataLoading = true;
+            messageCenterService.reset();
 
+            var data = {};
+            if ($scope.form.name.$dirty) 
+                data.name = ctrl.current.name;
+            if ($scope.form.email.$dirty) 
+                data.email = ctrl.current.email;
+            if (ctrl.current.facebook) 
+                data.facebook = ctrl.current.facebook;
+            if (ctrl.current.twitter) 
+                data.twitter = ctrl.current.twitter;
+
+            var succesCallback = function(response) {
+                messageCenterService.add('success', response.data.message, {});
+                ctrl.init();
+                ctrl.dataLoading = false;
+            };
+            var errorCallback = function(response) {
+                if (response.data.name)
+                    messageCenterService.add('danger', response.data.name[0], {});
+
+                if (response.data.email)
+                    messageCenterService.add('danger', response.data.email[0], {});
+
+                if (response.data.error)
+                    messageCenterService.add('danger', response.data.error, {});
+
+                ctrl.dataLoading = false;
+            };
+
+            // If null => create case, else edit case
+            if ($stateParams.organizationId != null) {
+                $http.put(api('organizations_edit').format([orgaId]), data).then(succesCallback, errorCallback);
+            } else {
+                $http.post(api('organizations_create'), data).then(succesCallback, errorCallback);
+            }
         };
 
+        // Delete the organization
         ctrl.delete = function(orgaId) {
             messageCenterService.reset();
             $http.delete(api('organizations_delete').format([orgaId]), {}).then(function(response) {
