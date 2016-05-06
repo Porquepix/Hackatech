@@ -25,7 +25,10 @@ class UpdateUserRequest extends Request
     public function rules()
     {
         return [
-            'email' => 'email|unique:users'
+            'email' => 'email|unique:users',
+            'facebook' => 'max:255',
+            'twitter' => 'max:255',
+            'github' => 'max:255'
         ];
     }
 }

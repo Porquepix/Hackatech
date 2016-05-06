@@ -61,15 +61,15 @@ class AuthenticateController extends Controller
 
         } catch (TokenExpiredException $e) {
 
-            return response()->json(['error' => 'Token expired !'], $e->getStatusCode());
+            return response()->json(['error' => 'token_expired'], $e->getStatusCode());
 
         } catch (TokenInvalidException $e) {
 
-            return response()->json(['error' => 'Token invalid !'], $e->getStatusCode());
+            return response()->json(['error' => 'token_invalid'], $e->getStatusCode());
 
         } catch (JWTException $e) {
 
-            return response()->json(['error' => 'Token absent !'], $e->getStatusCode());
+            return response()->json(['error' => 'token_absent'], $e->getStatusCode());
 
         }
 

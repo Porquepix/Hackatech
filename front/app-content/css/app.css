@@ -18,13 +18,22 @@
     background-color: #6cb7f0;
 }
 
-.tw-bg, .fb-bg {
+.email-bg {
+    background-color: #4B515D;
+}
+
+.git-bg {
+    background-color: #5490ca;    
+}
+
+.tw-bg, .fb-bg, .email-bg, .git-bg {
     color: #FFF;
 }
 
-.tw-bg:hover, .fb-bg:hover {
+.tw-bg:hover, .fb-bg:hover, .email-bg:hover, .git-bg:hover {
     color: #FFF;
 }
+
 
 /** Card */
 .elegant-card {
@@ -70,10 +79,4 @@
 .alert .close:hover {
    color: rgba(255,255,255,1); 
    opacity: 1;
-}
-
-input[required], select[required] {
-    background-image: url('/img/star.png');
-    background-repeat: no-repeat;
-    background-position-x: right;
 }

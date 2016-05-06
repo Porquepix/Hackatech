@@ -27,7 +27,8 @@ class CreateOrganizationRequest extends Request
             'name' => 'required|max:255|unique:organizations',
             'email' => 'required|email',
             'facebook' => 'max:255',
-            'twitter' => 'max:255'
+            'twitter' => 'max:255',
+            'github' => 'max:255'
         ];
     }
 }

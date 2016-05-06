@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'facebook', 'twitter', 'github'
     ];
 
     /**
@@ -24,11 +24,21 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * List of organizations where the user is admin.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function organizationAdmin()
     {
         return $this->hasMany('App\Organization', 'admin_id', 'id');
     }
 
+    /**
+     * List of organizations where the user is member.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function organizationMember()
     {
         return $this->belongsToMany('App\Organization', 'involve');

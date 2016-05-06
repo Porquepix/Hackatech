@@ -197,7 +197,7 @@
     /**
      * User Controller. Available in user pages.
      */
-    app.controller('UserController', function($rootScope, $http, $state, messageCenterService, user) {
+    app.controller('UserController', function($scope, $rootScope, $http, $state, messageCenterService, user, form) {
         var ctrl = this;
 
         // Initialize the data about the user in profile pages
@@ -215,10 +215,7 @@
             messageCenterService.reset();
 
             var data = {};
-            if (ctrl.profile.email != $rootScope.currentUser.email)
-                data.email = ctrl.profile.email;
-            if (ctrl.profile.password)
-                data.password = ctrl.profile.password;
+            form.populate($scope.form, data);
 
             $http.put(api('profil_edit').format([$rootScope.currentUser.id]), data).then(function(response) {
                 messageCenterService.add('success', response.data.message, {});
@@ -245,7 +242,7 @@
     /**
      * Organization Controller. Available in organization pages.
      */
-    app.controller('OrganizationController', function($scope, $rootScope, $http, $state, $stateParams, messageCenterService) {
+    app.controller('OrganizationController', function($scope, $rootScope, $http, $state, $stateParams, messageCenterService, form) {
         var ctrl = this;
         // All organisations of the user
         ctrl.orga = {};
@@ -279,14 +276,7 @@
             messageCenterService.reset();
 
             var data = {};
-            if ($scope.form.name.$dirty) 
-                data.name = ctrl.current.name;
-            if ($scope.form.email.$dirty) 
-                data.email = ctrl.current.email;
-            if ($scope.form.facebook.$dirty) 
-                data.facebook = ctrl.current.facebook;
-            if ($scope.form.twitter.$dirty) 
-                data.twitter = ctrl.current.twitter;
+            form.populate($scope.form, data);
 
             var succesCallback = function(response) {
                 messageCenterService.add('success', response.data.message, {});

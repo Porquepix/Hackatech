@@ -31,7 +31,8 @@ class UpdateOrganizationRequest extends Request
             'name' => 'max:255|unique:organizations',
             'email' => 'email',
             'facebook' => 'max:255',
-            'twitter' => 'max:255'
+            'twitter' => 'max:255',
+            'github' => 'max:255'
         ];
     }
 }

@@ -6,15 +6,15 @@
                 <form class="form-signup" role="form" name="form" ng-submit="userCtrl.update()">
                     
                     <div>
-                        <div class="col-md-12">
-                            <label for="name">Username</label>
+                        <div class="form-group col-md-12">
+                            <label for="name">Username <span class="required red-text">*</span></label>
                             <input type="text" class="form-control" id="name" name="name" ng-model="userCtrl.profile.name" disabled>
                         </div>
                     </div>
 
                     <div ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
-                        <div class="col-md-12">
-                            <label for="email">Email</label>
+                        <div class="form-group col-md-12">
+                            <label for="email">Email <span class="required red-text">*</span></label>
                             <input type="email" class="form-control" id="email" name="email" ng-model="userCtrl.profile.email" required>
 
                             <span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">Email is required</span>
@@ -22,19 +22,49 @@
                     </div>
 
                     <div>
-                        <div class="input-field col-md-12">
+                        <div class="form-group input-field col-md-12">
                             <input type="password" class="form-control" id="password" name="password" ng-model="userCtrl.profile.password">
                             <label for="password">Password</label>
                         </div>
                     </div>
 
                     <div ng-class="{ 'has-error': form.password2.$dirty && form.password2.$error.pattern }">
-                        <div class="input-field col-md-12">
+                        <div class="form-group input-field col-md-12">
                             <input type="password" class="form-control" id="password2" name="password2" ng-model="userCtrl.profile.password2" ng-pattern="(userCtrl.profile.password)">
                             <label for="password2">Confirm password</label>
 
                             <span ng-show="form.password2.$dirty && form.password2.$error.pattern" class="help-block">Passwords have to match</span>
                         </div>
+                    </div>
+
+                    <div>
+                      <div class="form-group col-md-12">
+                        <label for="facebook">Facebook</label>
+                        <div class="input-group">
+                          <div class="input-group-addon">http://facebook.com/</div>
+                          <input type="text" class="form-control" id="facebook" name="facebook" ng-model="userCtrl.profile.facebook">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div class="form-group col-md-12">
+                        <label for="twitter">Twitter</label>
+                        <div class="input-group">
+                          <div class="input-group-addon">http://twitter.com/</div>
+                          <input type="text" class="form-control" id="twitter" name="twitter" ng-model="userCtrl.profile.twitter">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div class="form-group col-md-12">
+                        <label for="github">Github</label>
+                        <div class="input-group">
+                          <div class="input-group-addon">http://github.com/</div>
+                          <input type="text" class="form-control" id="github" name="github" ng-model="userCtrl.profile.github">
+                        </div>
+                      </div>
                     </div>
 
                     <button type="submit" ng-disabled="form.$invalid || userCtrl.dataLoading" class="btn btn-primary">

@@ -18,6 +18,7 @@ class CreateOrganizationsTable extends Migration
             $table->string('email')->unique();
             $table->string('facebook')->nullable();
             $table->string('twitter')->nullable();
+            $table->string('github')->nullable();
             $table->integer('admin_id')->unsigned();
 
             $table->unique('name');
