@@ -42,17 +42,17 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li ng-hide="authenticated"><a ui-sref="indexAg" class="waves-effect waves-light">Home</a></li>
-                    <li ng-show="authenticated"><a ui-sref="indexAuth" class="waves-effect waves-light">Home</a></li>
-                    <li><a href="#/hackathon" class="waves-effect waves-light">Hackathon</a></li>
+                    <li ng-hide="authenticated" ng-class="{active: currentState.match('^index')}"><a ui-sref="indexAg" class="waves-effect waves-light">Home</a></li>
+                    <li ng-show="authenticated" ng-class="{active: currentState.match('^index')}"><a ui-sref="indexAuth" class="waves-effect waves-light">Home</a></li>
+                    <li ng-class="{active: currentState.match('^hackathons')}"><a ui-sref="hackathons" class="waves-effect waves-light">Hackathon</a></li>
                     <li><a href="#/help" class="waves-effect waves-light">Help</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right" ng-hide="authenticated">
                     <!-- Authentication Links -->
-                    <li><a ui-sref="login" class="waves-effect waves-light">Login</a></li>
-                    <li><a ui-sref="register" class="waves-effect waves-light">Register</a></li>
+                    <li ng-class="{active: currentState.match('^login')}"><a ui-sref="login" class="waves-effect waves-light">Login</a></li>
+                    <li ng-class="{active: currentState.match('^register')}"><a ui-sref="register" class="waves-effect waves-light">Register</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right ng-hide" ng-show="authenticated">
                     <li class="dropdown">
@@ -74,8 +74,7 @@
 
     <mc-messages></mc-messages>
 
-    <div ui-view>
-    </div>
+    <main ui-view></main>        
 
     <div class="container">
 
@@ -91,11 +90,13 @@
     </div>
 
     <!-- Angular -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
 
     <script src="app-module/satellizer.min.js"></script>
     <script src="app-module/message-center.js"></script>
+    <script src="app-module/angucomplete-alt.js"></script>
     
     <script src="app.js"></script>
     <script src="services.js"></script>

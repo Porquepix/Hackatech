@@ -248,24 +248,29 @@
         ctrl.orga = {};
         // Organization which is currently updated
         ctrl.current = {};
+        ctrl.dataLoading = false;
 
         // Get the organizations of the user
         ctrl.init = function() {
             $http.get(api('user_organizations').format([$rootScope.currentUser.id]), {}).then(function(response) {
-                ctrl.orga.admin = response.data.admin;
-                ctrl.orga.member = response.data.member;
+                ctrl.orga = response.data.admin;
+                ctrl.orga.forEach(function(e) {
+                    e.isAdmin = true;
+                });
+                ctrl.orga = ctrl.orga.concat(response.data.member);
             });
         };
-        ctrl.init();
 
-        // Load the data for a form (edit)
-        ctrl.loadFormData = function() {
+        // Load the data for a form (edit / members edit)
+        ctrl.loadData = function() {
             if ($stateParams.organizationId != null) {
                 $http.get(api('organizations_view').format([$stateParams.organizationId]), {}).then(function(response) {
                     if (response.data.admin_id == $rootScope.currentUser.id)
                         ctrl.current = response.data;
                     else
                         $state.go('my_organizations');
+                }, function(response) {
+                    $state.go('my_organizations');
                 });
             }
         };
@@ -280,7 +285,6 @@
 
             var succesCallback = function(response) {
                 messageCenterService.add('success', response.data.message, {});
-                ctrl.init();
                 ctrl.dataLoading = false;
             };
             var errorCallback = function(response) {
@@ -305,11 +309,74 @@
         };
 
         // Delete the organization
-        ctrl.delete = function(orgaId) {
+        ctrl.delete = function(orga) {
             messageCenterService.reset();
-            $http.delete(api('organizations_delete').format([orgaId]), {}).then(function(response) {
+            $http.delete(api('organizations_delete').format([orga.id]), {}).then(function(response) {
                 messageCenterService.add('success', response.data.message, {});
-                ctrl.init();
+                var index = ctrl.orga.indexOf(orga);
+                ctrl.orga.splice(index, 1);
+            });
+        };
+
+        // Add a user to an organization
+        ctrl.add = function(orgaId) {
+            ctrl.dataLoading = true;
+            messageCenterService.reset();
+
+            var data = {
+                name: ctrl.member.title
+            };
+
+            $http.post(api('organizations_add_user').format([orgaId]), data).then(function(response) {
+                messageCenterService.add('success', response.data.message, {});
+                ctrl.dataLoading = false;
+                $scope.$broadcast('angucomplete-alt:clearInput');
+                ctrl.loadData();
+            }, function(response) {
+                if (response.data.name)
+                    messageCenterService.add('danger', response.data.name[0], {});
+
+                if (response.data.error)
+                    messageCenterService.add('danger', response.data.error, {});
+
+                ctrl.dataLoading = false;
+            });
+        };
+
+        // Remove a user from an organization
+        ctrl.remove = function(orgaId, member) {
+            messageCenterService.reset();
+            $http.delete(api('organizations_remove_user').format([orgaId, member.id]), {}).then(function(response) {
+                messageCenterService.add('success', response.data.message, {});
+                var index = ctrl.current.members.indexOf(member);
+                ctrl.current.members.splice(index, 1);
+            });
+        };
+
+        // Quit an organization
+        ctrl.quit = function(orga) {
+            messageCenterService.reset();
+            $http.delete(api('organizations_remove_user').format([orga.id, $rootScope.currentUser.id]), {}).then(function(response) {
+                messageCenterService.add('success', response.data.message, {});
+                var index = ctrl.orga.indexOf(orga);
+                ctrl.orga.splice(index, 1);
+            });
+        };
+
+    });
+
+
+    /**
+     * Hackathon Controller. Available in hackathon pages.
+     */
+    app.controller('UserController', function($scope, $rootScope, $http, $state, messageCenterService, user, form) {
+        var ctrl = this;
+        ctrl.hackathons = {};
+
+        // Initialize the data about the hackathons
+        ctrl.init = function() {
+            $http.get(api('hackathons'), {}).then(function(response) {
+                ctrl.hackathons = response.data;
             });
         };
 

@@ -19,6 +19,7 @@ Route::get('/', 'IndexController@index');
 /*
  * User routes
  */
+Route::get('users/autocomplete/{username}', 'UserController@autocomplete');
 Route::get('users/{id}/organizations', 'OrganizationController@showForUser');
 Route::get('users/{id}', 'UserController@show');
 Route::put('users/{id}', 'UserController@update');
@@ -35,6 +36,6 @@ Route::put('password/reset', 'AuthenticateController@reset');
 /*
  * Organization routes
  */
+Route::delete('organizations/{organizations}/members/{members}', 'OrganizationController@removeMember');
+Route::post('organizations/{organizations}/members', 'OrganizationController@addMember');
 Route::resource('organizations', 'OrganizationController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
-
-

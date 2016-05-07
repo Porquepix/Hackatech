@@ -25,7 +25,7 @@ class CreateOrganizationRequest extends Request
     {
         return [
             'name' => 'required|max:255|unique:organizations',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:organizations',
             'facebook' => 'max:255',
             'twitter' => 'max:255',
             'github' => 'max:255'

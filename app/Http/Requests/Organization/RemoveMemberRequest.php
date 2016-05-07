@@ -3,10 +3,10 @@
 namespace App\Http\Requests\Organization;
 
 use App\Http\Requests\Request;
-use JWTAuth;
 use App\Organization;
+use JWTAuth;
 
-class UpdateOrganizationRequest extends Request
+class RemoveMemberRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,7 +17,11 @@ class UpdateOrganizationRequest extends Request
     {
         $user = JWTAuth::parseToken()->authenticate();
         $organisation = Organization::findOrFail($this->route('organizations'));
-        return $organisation->admin_id == $user->id;
+
+        $isOrganizationAdmin = $organisation->admin_id == $user->id;
+        $isMember = $user->id == $this->route('members');
+
+        return $isOrganizationAdmin || $isMember;
     }
 
     /**
@@ -28,11 +32,7 @@ class UpdateOrganizationRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'max:255|unique:organizations',
-            'email' => 'email|unique:organizations',
-            'facebook' => 'max:255',
-            'twitter' => 'max:255',
-            'github' => 'max:255'
+            //
         ];
     }
 }

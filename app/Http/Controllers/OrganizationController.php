@@ -9,6 +9,8 @@ use App\Http\Requests\Organization\ShowOrganizationRequest;
 use App\Http\Requests\Organization\UpdateOrganizationRequest;
 use App\Http\Requests\Organization\CreateOrganizationRequest;
 use App\Http\Requests\Organization\DeleteOrganizationRequest;
+use App\Http\Requests\Organization\AddMemberRequest;
+use App\Http\Requests\Organization\RemoveMemberRequest;
 use App\Http\Requests\User\ShowProfileRequest;
 use App\Organization;
 use App\User;
@@ -100,4 +102,35 @@ class OrganizationController extends Controller
         Organization::destroy($id);
         return response()->json(['message' => 'The organization has been successfully deleted !']);
     }
+
+    public function addMember(AddMemberRequest $request, $id)
+    {
+        $organization = Organization::findOrFail($id);
+        $user = User::where('name', $request->input('name'))->first();
+
+        if ($organization->admin_id != $user->id)
+        {
+            $alreadyMember = $organization->members()->where('user_id', $user->id)->first();
+            if (!$alreadyMember)
+            {
+                $organization->members()->attach($user->id);
+                return response()->json(['message' => 'The user has been successfully added !']);
+            }
+            else
+            {
+                return response()->json(['error' => 'Can\'t add this user: he is already a member of this organization.'], 400);
+            }
+        }
+        else
+        {
+            return response()->json(['error' => 'Can\'t add this user: he is already the administrator of this organization.'], 400);
+        }
+    }
+
+    public function removeMember(RemoveMemberRequest $request, $id, $user_id) {
+        $organization = Organization::findOrFail($id);
+        $organization->members()->detach($user_id);
+        return response()->json(['message' => 'The user has been successfully removed !']);
+    }
+
 }

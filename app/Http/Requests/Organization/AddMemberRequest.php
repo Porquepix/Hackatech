@@ -3,10 +3,10 @@
 namespace App\Http\Requests\Organization;
 
 use App\Http\Requests\Request;
-use JWTAuth;
 use App\Organization;
+use JWTAuth;
 
-class UpdateOrganizationRequest extends Request
+class AddMemberRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,11 +28,7 @@ class UpdateOrganizationRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'max:255|unique:organizations',
-            'email' => 'email|unique:organizations',
-            'facebook' => 'max:255',
-            'twitter' => 'max:255',
-            'github' => 'max:255'
+            'name' => 'required|exists:users,name'
         ];
     }
 }

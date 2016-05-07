@@ -1,0 +1,70 @@
+<div class="container" ng-init="orgaCtrl.loadData()">
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-primary btn-md btn-raised" ui-sref="my_organizations"><i class="material-icons left">arrow_back</i> My organizations</a>
+            <h3>Members of {{ orgaCtrl.current.name }}</h3>
+
+
+            <div class="panel panel-default">
+              <div class="panel-body">
+              <h5 class="widget-title">Add a member</h5>
+                <form role="form" name="form" ng-submit="orgaCtrl.add(orgaCtrl.current.id)">
+
+                  <angucomplete-alt id="name" placeholder="Username" pause="400" selected-object="orgaCtrl.member" remote-url="http://api.hackatech.alexis-andrieu.fr/users/autocomplete/" remote-url-data-field="results" title-field="name" description-field="email" minlength="1" input-class="form-control" match-class="highlight"></angucomplete-alt>
+
+                    <button type="submit" ng-disabled="form.$invalid || orgaCtrl.dataLoading" class="btn btn-primary">
+                        <i ng-show="orgaCtrl.dataLoading" class="fa fa-circle-o-notch fa-spin fa-3x fa-fw margin-bottom left"></i><i ng-hide="orgaCtrl.dataLoading" class="material-icons left">add</i> Add user
+                    </button>
+                </form>
+              </div>
+            </div>
+
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Social</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="member in orgaCtrl.current.members">
+                    <td>{{ member.id }}</td>
+                    <td>{{ member.name }}</td>
+                    <td>{{ member.email }}</td>
+                    <td>
+
+                    <socialLink of="member"></socialLink>
+
+                    </td>
+                    <td>
+                        <a class="btn-floating waves-effect waves-light red" data-toggle="modal" data-target="#remove-{{ member.id }}"><i class="material-icons">clear</i></a> 
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="remove-{{ member.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Remove user : {{ member.name }}</h4>
+                              </div>
+                              <div class="modal-body">
+                                Are you sure you want to remove this user? 
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="$('#remove-' + member.id).modal('toggle'); orgaCtrl.remove(orgaCtrl.current.id, member)">Remove</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                    </td>
+
+                  </tr>                                   
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>

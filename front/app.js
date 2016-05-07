@@ -11,12 +11,17 @@
             password_email: '/password/email',
             password_reset: '/password/reset',
             profil_edit: '/users/{0}',
+            user_autocomplete: '/users/autocomplete/',
 
             user_organizations: '/users/{0}/organizations',
             organizations_view: '/organizations/{0}',
             organizations_create: '/organizations',
             organizations_edit: '/organizations/{0}',
             organizations_delete: '/organizations/{0}',
+            organizations_add_user: '/organizations/{0}/members',
+            organizations_remove_user: '/organizations/{0}/members/{1}',
+
+            hackathons: '/hackathons',
         };
 
         return "http://api.hackatech.alexis-andrieu.fr" + routes[name];
@@ -24,7 +29,7 @@
 
     // Define our application
     app = angular
-            .module('hackatech', ['ui.router', 'satellizer', 'MessageCenterModule'])
+            .module('hackatech', ['ui.router', 'ngAnimate', 'satellizer', 'MessageCenterModule', 'angucomplete-alt'])
             .config(config)
             .run(run);
 
@@ -72,6 +77,11 @@
         $authProvider.loginUrl = api('auth');
 
         $stateProvider
+            .state('error_404', {
+                url: '/e404',
+                templateUrl: './app-view/404.html',
+            })
+
             .state('index', {
                 url: '',
                 templateUrl: './app-view/home.html',
@@ -137,8 +147,20 @@
                 url: '/organizations/{organizationId}/edit',
                 templateUrl: './app-view/organizations/edit.html',
                 controller: 'OrganizationController as orgaCtrl'
+            })            
+            .state('organization_members', {
+                url: '/organizations/{organizationId}/members',
+                templateUrl: './app-view/organizations/member.html',
+                controller: 'OrganizationController as orgaCtrl'
+            })
+
+            // HACKATHONS
+            .state('hackathons', {
+                url: '/hackathons',
+                templateUrl: './app-view/hackathons/index.html',
+                controller: 'HackathonController as hackCtrl'
             });
-         $urlRouterProvider.otherwise('/login');
+         $urlRouterProvider.otherwise('/e404');
 
          // Config for laravel
          $httpProvider.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
@@ -152,19 +174,21 @@
         // such as toState to hook into details about the state as it is changing
         $rootScope.$on('$stateChangeStart', function(event, toState) {
 
-            userService.getFreshData(function(data) {}, function(data) {
-                $auth.logout().then(function() {
-                    // Remove the authenticated user from local storage
-                    localStorage.removeItem('user');
+            if (localStorage.getItem('satellizer_token')) {
+                userService.getFreshData(function(data) {}, function(data) {
+                    $auth.logout().then(function() {
+                        // Remove the authenticated user from local storage
+                        localStorage.removeItem('user');
 
-                    // Flip authenticated to false so that we no longer
-                    // show UI elements dependant on the user being logged in
-                    $rootScope.authenticated = false;
+                        // Flip authenticated to false so that we no longer
+                        // show UI elements dependant on the user being logged in
+                        $rootScope.authenticated = false;
 
-                    // Remove the current user info from rootscope
-                    $rootScope.currentUser = null;
+                        // Remove the current user info from rootscope
+                        $rootScope.currentUser = null;
+                    });
                 });
-            });
+            }
 
             // Grab the user from local storage and parse it to an object
             var user = JSON.parse(localStorage.getItem('user'));            
@@ -187,7 +211,8 @@
 
                 // If the user is logged in and we hit the auth route we don't need
                 // to stay there and can send the user to the main state
-                if(toState.name === "login") {
+                $authState = ['login', 'register', 'passwd_email', 'passwd_reset'];
+                if($authState.indexOf(toState.name) != -1) {
 
                     // Preventing the default behavior allows us to use $state.go
                     // to change states
@@ -197,8 +222,34 @@
                    $state.go('indexAuth');
                 }       
             }
-        });
-    }          
 
+            $rootScope.currentState = toState.name;
+        });
+    }
+
+
+    /**
+     * DIRECTIVES
+     */
+
+    app.directive('socialLink', function() {
+        return {
+            restrict: 'E',
+            scope: {
+                variable: '=of'
+            },
+            templateUrl: './app-view/directive/social-link.html'
+        };
+    });         
+
+    app.directive('socialForm', function() {
+        return {
+            restrict: 'E',
+            scope: {
+                model: '=model',
+            },
+            templateUrl: './app-view/directive/social-form.html'
+        };
+    });  
 
 })();
