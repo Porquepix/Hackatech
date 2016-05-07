@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" ng-init="hackCtrl.init()">
     <div class="row">
 
         <a href="#" class="btn btn-primary"><i class="material-icons left">add</i>Add an hackathon</a>
@@ -8,7 +8,7 @@
 
                 <div class="panel-body">
 
-                    <h5 class="widget-title">Hackathon (4)</h5>
+                    <h5 class="widget-title">Hackathon ({{ hackCtrl.hackathons.total }})</h5>
 
                     <form method="GET">
                       <div class="row">
@@ -26,117 +26,37 @@
         </div>
 
 
-        <div class="col-md-4">
+        <div class="col-md-4" ng-repeat="hackathon in hackCtrl.hackathons.data">
             <div class="elegant-card z-depth-1">
 
-                <div class="card-header secondary-color">
-                    <h1>Ca</h1>
+                <div class="card-header {{ hackathon.color }}">
+                    <h1>{{ hackathon.two }}</h1>
                 </div>
 
                 <a class="btn-floating btn-large waves-effect waves-light btn-default"><i class="material-icons">chevron_right</i></a>
 
                 <div class="card-body">
-                    <h5><a href="#">Carcassonne et ses Remparts</a></h5>
+                    <h5><a href="#">{{ hackathon.name }}</a></h5>
                     <hr>
-                    <p>La ville de Carcassonne organise un hackathon sur le thème « Carcassonne et ses remparts »...</p>
+                    <div btf-markdown="(hackathon.description | limitTo:100) + '...'"></div>
                 </div>
 
-                <div class="card-footer secondary-color">
+                <div class="card-footer {{ hackathon.color }}">
                     <ul class="list-inline">
-                        <li><i class="fa fa-clock-o"></i> 11/03/2016</li>
-                        <li><i class="fa fa-map-marker"></i>  Notre Dame de l’Abbaye</li>
+                        <li><i class="fa fa-clock-o"></i> {{ hackathon.beginning | date:'mediumDate' }}</li>
+                        <li><i class="fa fa-map-marker"></i> {{ hackathon.place_adr }}</li>
                     </ul>
                 </div>
             </div>
         </div>
 
-<div class="col-md-4">
-                                    <div class="elegant-card z-depth-1">
-                                        <!-- Image wrapper -->
-                                        <div class="card-header red">
-                                            <h1>Mo</h1>
-                                        </div>
-
-                                        <!-- Button -->
-                                        <a class="btn-floating btn-large waves-effect waves-light btn-default"><i class="material-icons">chevron_right</i></a>
-                                        <!-- Content -->
-                                        <div class="card-body">
-                                            <h5><a href="#">Mon hackathon</a></h5>
-                                            <hr>
-                                            <p>La ville de Carcassonne organise un hackathon sur le thème « Carcassonne et ses remparts »...</p>
-                                        </div>
-                                        <!-- Footer -->
-                                        <div class="card-footer red">
-                                            <ul class="list-inline">
-                                                <li><i class="fa fa-clock-o"></i> 20/04/2016</li>
-                                                <li><i class="fa fa-map-marker"></i>  Montpellier</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-<div class="col-md-4">
-                                    <div class="elegant-card z-depth-1">
-                                        <!-- Image wrapper -->
-                                        <div class="card-header blue">
-                                            <h1>Ca</h1>
-                                        </div>
-
-                                        <!-- Button -->
-                                        <a class="btn-floating btn-large waves-effect waves-light btn-default"><i class="material-icons">chevron_right</i></a>
-                                        <!-- Content -->
-                                        <div class="card-body">
-                                            <h5><a href="#">Carcassonne et ses Remparts</a></h5>
-                                            <hr>
-                                            <p>La ville de Carcassonne organise un hackathon sur le thème « Carcassonne et ses remparts »...</p>
-                                        </div>
-                                        <!-- Footer -->
-                                        <div class="card-footer blue">
-                                            <ul class="list-inline">
-                                                <li><i class="fa fa-clock-o"></i> 11/03/2016</li>
-                                                <li><i class="fa fa-map-marker"></i>  Notre Dame de l’Abbaye</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-<div class="col-md-4">
-                                    <div class="elegant-card z-depth-1">
-                                        <!-- Image wrapper -->
-                                        <div class="card-header yellow">
-                                            <h1>Ca</h1>
-                                        </div>
-
-                                        <!-- Button -->
-                                        <a class="btn-floating btn-large waves-effect waves-light btn-default"><i class="material-icons">chevron_right</i></a>
-                                        <!-- Content -->
-                                        <div class="card-body">
-                                            <h5><a href="#">Carcassonne et ses Remparts</a></h5>
-                                            <hr>
-                                            <p>La ville de Carcassonne organise un hackathon sur le thème « Carcassonne et ses remparts »...</p>
-                                        </div>
-                                        <!-- Footer -->
-                                        <div class="card-footer yellow">
-                                            <ul class="list-inline">
-                                                <li><i class="fa fa-clock-o"></i> 11/03/2016</li>
-                                                <li><i class="fa fa-map-marker"></i>  Notre Dame de l’Abbaye</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>                                                                
-
-
-
         <div class="col-md-12">
             <ul class="pagination pag-circle">
-                <li><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                <li><a href="#">1</a></li>
-                <li class="active"><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                <li><a ui-sref="hackathons({page:1})"><i class="material-icons">chevron_left</i></a></li>
+                <li ng-class="{ active : hackCtrl.hackathons.current_page == ($index + 1) }" ng-repeat="i in range(hackCtrl.hackathons.last_page) track by $index">
+                    <a ui-sref="hackathons({page:$index + 1})">{{ $index + 1 }} </a>
+                </li>
+                <li><a ui-sref="hackathons({page:hackCtrl.hackathons.last_page})"><i class="material-icons">chevron_right</i></a></li>
             </ul>
         </div>
 

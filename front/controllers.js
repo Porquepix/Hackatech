@@ -369,14 +369,24 @@
     /**
      * Hackathon Controller. Available in hackathon pages.
      */
-    app.controller('UserController', function($scope, $rootScope, $http, $state, messageCenterService, user, form) {
+    app.controller('HackathonController', function($rootScope, $http, $state, messageCenterService, form, $stateParams) {
         var ctrl = this;
-        ctrl.hackathons = {};
+        ctrl.hackathons = [];
 
         // Initialize the data about the hackathons
         ctrl.init = function() {
-            $http.get(api('hackathons'), {}).then(function(response) {
+            page = $stateParams.page;
+            $http.get(api('hackathons') + '?page=' + page, {}).then(function(response) {
                 ctrl.hackathons = response.data;
+                ctrl.hackathons.data.forEach(function(e) {
+                    e.beginning = new Date(e.beginning);
+
+                    e.two = e.name;
+                    e.two = e.two.charAt(0).toUpperCase() + e.two.charAt(1).toLowerCase();
+
+                    var classes = ['secondary-color', 'primary-color', 'red', 'blue', 'yellow'];
+                    e.color = classes[(e.two.charCodeAt(0) + e.two.charCodeAt(1)) % classes.length];
+                });
             });
         };
 

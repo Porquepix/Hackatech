@@ -39,3 +39,8 @@ Route::put('password/reset', 'AuthenticateController@reset');
 Route::delete('organizations/{organizations}/members/{members}', 'OrganizationController@removeMember');
 Route::post('organizations/{organizations}/members', 'OrganizationController@addMember');
 Route::resource('organizations', 'OrganizationController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
+
+/*
+ * Hackathons routes
+ */
+Route::resource('hackathons', 'HackathonController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);

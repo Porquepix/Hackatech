@@ -22,7 +22,7 @@ class CreateOrganizationsTable extends Migration
             $table->integer('admin_id')->unsigned();
 
             $table->unique('name');
-            $table->foreign('admin_id')->references('id')->on('users');
+            $table->foreign('admin_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

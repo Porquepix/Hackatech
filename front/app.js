@@ -29,7 +29,7 @@
 
     // Define our application
     app = angular
-            .module('hackatech', ['ui.router', 'ngAnimate', 'satellizer', 'MessageCenterModule', 'angucomplete-alt'])
+            .module('hackatech', ['ui.router', 'ngAnimate', 'satellizer', 'MessageCenterModule', 'angucomplete-alt', 'btford.markdown'])
             .config(config)
             .run(run);
 
@@ -156,7 +156,7 @@
 
             // HACKATHONS
             .state('hackathons', {
-                url: '/hackathons',
+                url: '/hackathons?page',
                 templateUrl: './app-view/hackathons/index.html',
                 controller: 'HackathonController as hackCtrl'
             });
@@ -167,6 +167,9 @@
     }
 
     function run($rootScope, $state, user, $auth) {
+        $rootScope.range = function(n) {
+            return new Array(n);
+        };
 
         var userService = user;
 
