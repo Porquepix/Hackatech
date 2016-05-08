@@ -15,6 +15,7 @@ class CreateHackathonsTable extends Migration
         Schema::create('hackathons', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('abstract', 150);
             $table->longText('description');
             $table->longText('private_section')->nullable();
             $table->integer('max_participant');

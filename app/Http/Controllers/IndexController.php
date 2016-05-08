@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Hackathon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -12,7 +13,7 @@ class IndexController extends Controller
 
     public function index()
     {
-        return response()->json(['nbChallengers' => User::count()]);
+        return response()->json(['nbChallengers' => User::count(), 'nbHackathons' => Hackathon::count()]);
     }
 
 }

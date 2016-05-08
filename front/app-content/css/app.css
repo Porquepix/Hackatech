@@ -174,3 +174,7 @@ main.ng-enter-active {
 .ng-hide.ng-hide-animate{
     display: none !important;
 }
+
+.container {
+  padding-left:0; padding-right:0
+}

@@ -22,6 +22,7 @@
             organizations_remove_user: '/organizations/{0}/members/{1}',
 
             hackathons: '/hackathons',
+            hackathons_view: '/hackathons/{0}',
         };
 
         return "http://api.hackatech.alexis-andrieu.fr" + routes[name];
@@ -29,7 +30,7 @@
 
     // Define our application
     app = angular
-            .module('hackatech', ['ui.router', 'ngAnimate', 'satellizer', 'MessageCenterModule', 'angucomplete-alt', 'btford.markdown'])
+            .module('hackatech', ['ui.router', 'ngAnimate', 'satellizer', 'MessageCenterModule', 'angucomplete-alt', 'btford.markdown', 'masonry'])
             .config(config)
             .run(run);
 
@@ -159,6 +160,11 @@
                 url: '/hackathons?page',
                 templateUrl: './app-view/hackathons/index.html',
                 controller: 'HackathonController as hackCtrl'
+            })            
+            .state('hackathons_view', {
+                url: '/hackathons/view/{hackathonId}',
+                templateUrl: './app-view/hackathons/view.html',
+                controller: 'HackathonController as hackCtrl'
             });
          $urlRouterProvider.otherwise('/e404');
 
@@ -176,22 +182,6 @@
         // $stateChangeStart is fired whenever the state changes. We can use some parameters
         // such as toState to hook into details about the state as it is changing
         $rootScope.$on('$stateChangeStart', function(event, toState) {
-
-            if (localStorage.getItem('satellizer_token')) {
-                userService.getFreshData(function(data) {}, function(data) {
-                    $auth.logout().then(function() {
-                        // Remove the authenticated user from local storage
-                        localStorage.removeItem('user');
-
-                        // Flip authenticated to false so that we no longer
-                        // show UI elements dependant on the user being logged in
-                        $rootScope.authenticated = false;
-
-                        // Remove the current user info from rootscope
-                        $rootScope.currentUser = null;
-                    });
-                });
-            }
 
             // Grab the user from local storage and parse it to an object
             var user = JSON.parse(localStorage.getItem('user'));            

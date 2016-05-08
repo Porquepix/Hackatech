@@ -26,26 +26,30 @@
         </div>
 
 
-        <div class="col-md-4" ng-repeat="hackathon in hackCtrl.hackathons.data">
-            <div class="elegant-card z-depth-1">
+        <div class="col-md-12">
+            <div masonry='{ "transitionDuration" : "0s" , "itemSelector" : ".tile"}' class="row">
+                <div masonry-tile class="col-md-4 tile" ng-repeat="hackathon in hackCtrl.hackathons.data">
+                    <div class="elegant-card z-depth-1">
 
-                <div class="card-header {{ hackathon.color }}">
-                    <h1>{{ hackathon.two }}</h1>
-                </div>
+                        <div class="card-header {{ hackathon.color }}">
+                            <h1>{{ hackathon.two }}</h1>
+                        </div>
 
-                <a class="btn-floating btn-large waves-effect waves-light btn-default"><i class="material-icons">chevron_right</i></a>
+                        <a ui-sref="hackathons_view({ hackathonId : hackathon.id })" class="btn-floating btn-large waves-effect waves-light btn-default"><i class="material-icons">chevron_right</i></a>
 
-                <div class="card-body">
-                    <h5><a href="#">{{ hackathon.name }}</a></h5>
-                    <hr>
-                    <div btf-markdown="(hackathon.description | limitTo:100) + '...'"></div>
-                </div>
+                        <div class="card-body">
+                            <h5><a ui-sref="hackathons_view({ hackathonId : hackathon.id })">{{ hackathon.name }}</a></h5>
+                            <hr>
+                            <p>{{ hackathon.abstract }}...</p>
+                        </div>
 
-                <div class="card-footer {{ hackathon.color }}">
-                    <ul class="list-inline">
-                        <li><i class="fa fa-clock-o"></i> {{ hackathon.beginning | date:'mediumDate' }}</li>
-                        <li><i class="fa fa-map-marker"></i> {{ hackathon.place_adr }}</li>
-                    </ul>
+                        <div class="card-footer {{ hackathon.color }}">
+                            <ul class="list-inline">
+                                <li><i class="fa fa-clock-o"></i> {{ hackathon.beginning | date:'mediumDate' }}</li>
+                                <li><i class="fa fa-map-marker"></i> {{ hackathon.place_adr }}</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

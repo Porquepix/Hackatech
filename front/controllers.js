@@ -39,9 +39,8 @@
         // Get some stats to display on the home page
         $http.get(api('index'), {}).then(function(response) {
             ctrl.nbChallengers = response.data.nbChallengers;
+            ctrl.nbHackathons = response.data.nbHackathons;
         });
-
-        this.nbHackathons = 0;
     });
 
     /**
@@ -371,7 +370,10 @@
      */
     app.controller('HackathonController', function($rootScope, $http, $state, messageCenterService, form, $stateParams) {
         var ctrl = this;
+        // All hackathons
         ctrl.hackathons = [];
+        // Hackathon which is currently loaded
+        ctrl.current = {};
 
         // Initialize the data about the hackathons
         ctrl.init = function() {
@@ -384,10 +386,24 @@
                     e.two = e.name;
                     e.two = e.two.charAt(0).toUpperCase() + e.two.charAt(1).toLowerCase();
 
-                    var classes = ['secondary-color', 'primary-color', 'red', 'blue', 'yellow'];
-                    e.color = classes[(e.two.charCodeAt(0) + e.two.charCodeAt(1)) % classes.length];
+                    var classes = ['rgba-blue-strong', 'rgba-red-strong', 'rgba-pink-strong', 'rgba-purple-strong', 'rgba-indigo-strong', 'rgba-cyan-strong', 'rgba-green-strong', 'rgba-orange-strong'];
+                    var random = (e.name.charCodeAt(0) + e.name.charCodeAt(1) + e.max_participant + e.abstract.charCodeAt(0)) % classes.length;
+                    e.color = classes[random];
                 });
             });
+        };
+
+        // Load data about one hackathon which the id is in the url
+        ctrl.loadData = function() {
+            if ($stateParams.hackathonId != null) {
+                $http.get(api('hackathons_view').format([$stateParams.hackathonId]), {}).then(function(response) {
+                    ctrl.current = response.data;
+                    ctrl.current.beginning = new Date(ctrl.current.beginning);
+                    ctrl.current.ending = new Date(ctrl.current.ending);
+                }, function(response) {
+                    $state.go('hackathons');
+                });
+            }
         };
 
     });

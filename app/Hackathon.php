@@ -13,7 +13,7 @@ class Hackathon extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'private_section', 'max_participant', 'max_participant_per_team',
+        'name', 'abstract', 'description', 'private_section', 'max_participant', 'max_participant_per_team',
         'place_adr',  'beginning', 'ending',
         'facebook', 'twitter', 'github'
     ];
@@ -34,5 +34,10 @@ class Hackathon extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    public function organization()
+    {
+        return $this->belongsTo('App\Organization');
+    }
 
 }

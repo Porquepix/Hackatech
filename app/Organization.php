@@ -44,5 +44,21 @@ class Organization extends Model
         return $this->belongsToMany('App\User', 'involve');
     }
 
+    /**
+     * Return true if the user is the administrator of the organization.
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function isAdmin(User $user)
+    {
+        return $user->id == $this->admin_id;
+    }
+
+    public function hackathons()
+    {
+        return $this->hasMany('App\Hackathon');
+    }
+
 
 }
