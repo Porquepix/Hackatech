@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Hackathon;
 use App\Organization;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Requests\Hackathon\CreateHackathonRequest;
 use App\Http\Requests\Hackathon\UpdateHackathonRequest;
+use App\Http\Requests\Hackathon\ParticipantHackathonRequest;
+use App\Http\Requests\Hackathon\UpdateParticipantHackathonRequest;
+use App\Http\Requests\Hackathon\DeleteParticipantHackathonRequest;
 use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class HackathonController extends Controller
 {
@@ -51,7 +56,26 @@ class HackathonController extends Controller
      */
     public function show($id)
     {
-        return Hackathon::findOrFail($id);
+        $hackathon = Hackathon::findOrFail($id);
+        $data = $hackathon->toArray();
+        try
+        {
+            $user = JWTAuth::parseToken()->toUser();
+        }
+        catch (JWTException $e)
+        {
+            $user = null;
+        }
+
+        // Get more data about the hackathon
+        $organization = $hackathon->organization->name;
+        $nbParticipants = $hackathon->participants()->count();
+        $isRegistered = $user != null && $hackathon->isRegistered($user);
+        $isAttending = $isRegistered && $hackathon->isAttending();
+        $isOrganizator = $user != null && $hackathon->isOrganizator($user);
+        $isAdmin = $user != null && $hackathon->isAdmin($user);
+
+        return response()->json(compact('data', 'organization', 'nbParticipants', 'isRegistered', 'isAttending', 'isOrganizator', 'isAdmin'));
     }
 
     /**
@@ -80,4 +104,85 @@ class HackathonController extends Controller
         Hackathon::destroy($id);
         return response()->json(['message' => 'The hackathon has been successfully deleted !']);
     }
+
+    /**
+     * Get all participants of an hackathon.
+     *
+     * @param ParticipantHackathonRequest $request
+     * @param int $id
+     * @return mixed
+     */
+    public function getParticipant(ParticipantHackathonRequest $request, $id)
+    {
+        return Hackathon::findOrFail($id)->participants;
+    }
+
+    /**
+     * Register a user to an hackathon.
+     *
+     * @param UpdateParticipantHackathonRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function addParticipant(UpdateParticipantHackathonRequest $request, $id)
+    {
+        $hackathon = Hackathon::findOrFail($id);
+        $user = User::findOrFail($request->input('user_id'));
+
+        // Check if the user is a staff memebr
+        if (!$hackathon->isAdmin($user) && !$hackathon->isOrganizator($user)) {
+            $alreadyRegisterer = $hackathon->participants()->where('user_id', $user->id)->first();
+
+            // Check if the user is already registered in the hackathon
+            if (!$alreadyRegisterer)
+            {
+                $hackathon->participants()->attach($request->input('user_id'));
+                return response()->json(['message' => 'The user has been successfully added to the list of participants !']);
+            }
+            else
+            {
+                return response()->json(['error' => 'Can\'t add this user: he is already participating to this hackathon.'], 400);
+            }
+        }
+        else
+        {
+            return response()->json(['error' => 'Can\'t add this user: he is a staff member for this hackathon.'], 400);
+        }
+    }
+
+    /**
+     * Update the participation of a user.
+     *
+     * @param ParticipantHackathonRequest $request
+     * @param int $id
+     * @param int $participant_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateParticipant(ParticipantHackathonRequest $request, $id, $participant_id)
+    {
+        $hackathon = Hackathon::findOrFail($id);
+
+        if ($request->has('attending'))
+        {
+            $hackathon->participants()->updateExistingPivot($participant_id, ['attending' => (bool) $request->input('attending')]);
+        }
+
+        return response()->json(['message' => 'The user has been successfully updated !']);
+    }
+
+    /**
+     * Remove a user participation.
+     *
+     * @param DeleteParticipantHackathonRequest $request
+     * @param int $id
+     * @param int $participant_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function removeParticipant(DeleteParticipantHackathonRequest $request, $id, $participant_id)
+    {
+        $hackathon = Hackathon::findOrFail($id);
+        $hackathon->participants()->detach($participant_id);
+        return response()->json(['message' => 'The user has been successfully removed from the list of participants !']);
+    }
+
 }

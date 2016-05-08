@@ -398,8 +398,8 @@
             if ($stateParams.hackathonId != null) {
                 $http.get(api('hackathons_view').format([$stateParams.hackathonId]), {}).then(function(response) {
                     ctrl.current = response.data;
-                    ctrl.current.beginning = new Date(ctrl.current.beginning);
-                    ctrl.current.ending = new Date(ctrl.current.ending);
+                    ctrl.current.data.beginning = new Date(ctrl.current.data.beginning);
+                    ctrl.current.data.ending = new Date(ctrl.current.data.ending);
                 }, function(response) {
                     $state.go('hackathons');
                 });

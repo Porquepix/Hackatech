@@ -50,6 +50,12 @@ class UserController extends Controller
         return response()->json(['message' => 'Your profile has been successfully updated !']);
     }
 
+    /**
+     * Autocomplete a username.
+     *
+     * @param $username
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function autocomplete($username)
     {
         $results = User::select('name', 'email')->where('name', 'ILIKE', "%$username%")->get();

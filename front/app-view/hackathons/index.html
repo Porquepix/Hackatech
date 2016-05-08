@@ -1,7 +1,7 @@
 <div class="container" ng-init="hackCtrl.init()">
     <div class="row">
 
-        <a href="#" class="btn btn-primary"><i class="material-icons left">add</i>Add an hackathon</a>
+        <a ng-show="authenticated" ui-sref="hackathons_create" class="btn btn-primary"><i class="material-icons left">add</i>Add an hackathon</a>
 
         <div class="col-md-12">
             <div class="panel panel-default">

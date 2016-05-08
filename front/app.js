@@ -42,6 +42,7 @@
                     // Need to use $injector.get to bring in $state or else we get
                     // a circular dependency error
                     var $state = $injector.get('$state');
+                    var $rootScope = $injector.get('$rootScope');
 
                     // Instead of checking for a status code of 400 which might be used
                     // for other reasons in Laravel, we check for the specific rejection
@@ -52,6 +53,9 @@
                     // state if one is encountered
                     angular.forEach(rejectionReasons, function(value, key) {
                         if(rejection.data.error === value) {
+
+                            $rootScope.authenticated = false;
+                            $rootScope.currentUser = null;
 
                             // If we get a rejection corresponding to one of the reasons
                             // in our array, we know we need to authenticate the user so 
@@ -162,8 +166,18 @@
                 controller: 'HackathonController as hackCtrl'
             })            
             .state('hackathons_view', {
-                url: '/hackathons/view/{hackathonId}',
+                url: '/hackathons/{hackathonId}',
                 templateUrl: './app-view/hackathons/view.html',
+                controller: 'HackathonController as hackCtrl'
+            })
+            .state('hackathons_create', {
+                url: '/hackathons/create',
+                templateUrl: './app-view/hackathons/edit.html',
+                controller: 'HackathonController as hackCtrl'
+            })
+            .state('hackathons_edit', {
+                url: '/hackathons/{hackathonId}/edit',
+                templateUrl: './app-view/hackathons/edit.html',
                 controller: 'HackathonController as hackCtrl'
             });
          $urlRouterProvider.otherwise('/e404');
@@ -176,6 +190,8 @@
         $rootScope.range = function(n) {
             return new Array(n);
         };
+
+        $rootScope.now = new Date();
 
         var userService = user;
 

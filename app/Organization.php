@@ -55,10 +55,14 @@ class Organization extends Model
         return $user->id == $this->admin_id;
     }
 
+    /**
+     * Return the list of hackathon organize by the organization.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function hackathons()
     {
         return $this->hasMany('App\Hackathon');
     }
-
 
 }

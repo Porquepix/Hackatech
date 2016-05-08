@@ -103,14 +103,23 @@ class OrganizationController extends Controller
         return response()->json(['message' => 'The organization has been successfully deleted !']);
     }
 
+    /**
+     * Add a user in the organization.
+     *
+     * @param AddMemberRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function addMember(AddMemberRequest $request, $id)
     {
         $organization = Organization::findOrFail($id);
         $user = User::where('name', $request->input('name'))->first();
 
+        // Check if the user is the admin of the organization
         if ($organization->admin_id != $user->id)
         {
             $alreadyMember = $organization->members()->where('user_id', $user->id)->first();
+            // Check if the user is already a member of the organization
             if (!$alreadyMember)
             {
                 $organization->members()->attach($user->id);
@@ -127,6 +136,14 @@ class OrganizationController extends Controller
         }
     }
 
+    /**
+     * Remove a user from the organization.
+     *
+     * @param RemoveMemberRequest $request
+     * @param int $id
+     * @param int $user_id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function removeMember(RemoveMemberRequest $request, $id, $user_id) {
         $organization = Organization::findOrFail($id);
         $organization->members()->detach($user_id);

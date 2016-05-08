@@ -43,4 +43,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Organization', 'involve');
     }
+
+    /**
+     * List of hackathons where the user is registered.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function hackathons()
+    {
+        return $this->belongsToMany('App\Hackathon', 'participate')->withPivot('attending');
+    }
 }

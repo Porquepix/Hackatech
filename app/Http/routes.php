@@ -43,4 +43,8 @@ Route::resource('organizations', 'OrganizationController', ['only' => ['index', 
 /*
  * Hackathons routes
  */
+Route::delete('hackathons/{hackathons}/participants/{participant_id}', 'HackathonController@removeParticipant');
+Route::put('hackathons/{hackathons}/participants/{participant_id}', 'HackathonController@updateParticipant');
+Route::get('hackathons/{hackathons}/participants', 'HackathonController@getParticipant');
+Route::post('hackathons/{hackathons}/participants', 'HackathonController@addParticipant');
 Route::resource('hackathons', 'HackathonController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);

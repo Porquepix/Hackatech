@@ -6,7 +6,7 @@ use App\Http\Requests\Request;
 use JWTAuth;
 use App\Hackathon;
 
-class UpdateHackathonRequest extends Request
+class UpdateParticipantHackathonRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,8 +16,14 @@ class UpdateHackathonRequest extends Request
     public function authorize()
     {
         $user = JWTAuth::parseToken()->authenticate();
+
+        if ($this->route('participant_id') == $user->id)
+        {
+            return true;
+        }
+
         $hackathon = Hackathon::findOrFail($this->route('hackathons'));
-        return $hackathon->isAdmin($user);
+        return $hackathon->isAdmin($user) || $hackathon->isOrganizator($user);
     }
 
     /**
@@ -28,15 +34,7 @@ class UpdateHackathonRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'max:255|min:2',
-            'abstract' => 'max:150',
-            'max_participant' => 'integer',
-            'max_participant_per_team' => 'integer',
-            'beginning' => 'date_format:"Y-m-d H:i:s"',
-            'ending' => 'date_format:"Y-m-d H:i:s"',
-            'facebook' => 'max:255',
-            'twitter' => 'max:255',
-            'github' => 'max:255',
+            'user_id' => 'required|exists:users,id'
         ];
     }
 }
