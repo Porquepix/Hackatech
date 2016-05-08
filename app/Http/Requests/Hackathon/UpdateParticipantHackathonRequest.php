@@ -17,7 +17,7 @@ class UpdateParticipantHackathonRequest extends Request
     {
         $user = JWTAuth::parseToken()->authenticate();
 
-        if ($this->route('participant_id') == $user->id)
+        if ($this->input('user_id') == $user->id)
         {
             return true;
         }

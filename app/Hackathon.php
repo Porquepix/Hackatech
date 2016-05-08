@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Faker\Provider\zh_CN\DateTime;
 use Illuminate\Database\Eloquent\Model;
 
 class Hackathon extends Model
@@ -115,5 +116,28 @@ class Hackathon extends Model
         return false;
     }
 
+    /**
+     * Test if the hackathon is over.
+     *
+     * @return bool
+     */
+    public function isOver()
+    {
+        $today = new \DateTime();
+        $finish = new \DateTime($this->ending);
+        return $finish < $today;
+    }
+
+    /**
+     * Test if the hackathon is started.
+     *
+     * @return bool
+     */
+    public function isStarted()
+    {
+        $today = new \DateTime();
+        $start = new \DateTime($this->beginning);
+        return $start < $today;
+    }
 
 }

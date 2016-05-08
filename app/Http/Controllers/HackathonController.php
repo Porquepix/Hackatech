@@ -74,8 +74,10 @@ class HackathonController extends Controller
         $isAttending = $isRegistered && $hackathon->isAttending();
         $isOrganizator = $user != null && $hackathon->isOrganizator($user);
         $isAdmin = $user != null && $hackathon->isAdmin($user);
+        $isOver = $hackathon->isOver();
+        $isStarted = $hackathon->isStarted();
 
-        return response()->json(compact('data', 'organization', 'nbParticipants', 'isRegistered', 'isAttending', 'isOrganizator', 'isAdmin'));
+        return response()->json(compact('data', 'organization', 'nbParticipants', 'isRegistered', 'isAttending', 'isOrganizator', 'isAdmin', 'isOver', 'isStarted'));
     }
 
     /**
@@ -127,6 +129,14 @@ class HackathonController extends Controller
     public function addParticipant(UpdateParticipantHackathonRequest $request, $id)
     {
         $hackathon = Hackathon::findOrFail($id);
+
+        // If the hackathon is started, disable user registration.
+        $connected_user = JWTAuth::parseToken()->authenticate();
+        if ((!$hackathon->isAdmin($connected_user) || !$hackathon->isOrganizator($connected_user)) && $hackathon->isStarted())
+        {
+            return response()->json(['error' => 'Can\'t add this user: hackathon is already started.'], 400);
+        }
+
         $user = User::findOrFail($request->input('user_id'));
 
         // Check if the user is a staff memebr
@@ -181,6 +191,14 @@ class HackathonController extends Controller
     public function removeParticipant(DeleteParticipantHackathonRequest $request, $id, $participant_id)
     {
         $hackathon = Hackathon::findOrFail($id);
+
+        // If the hackathon is started, disable user cancelation.
+        $connected_user = JWTAuth::parseToken()->authenticate();
+        if ((!$hackathon->isAdmin($connected_user) || !$hackathon->isOrganizator($connected_user)) && $hackathon->isStarted())
+        {
+            return response()->json(['error' => 'Can\'t remove this user: hackathon is already started.'], 400);
+        }
+
         $hackathon->participants()->detach($participant_id);
         return response()->json(['message' => 'The user has been successfully removed from the list of participants !']);
     }
