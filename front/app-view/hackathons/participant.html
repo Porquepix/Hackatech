@@ -1,0 +1,113 @@
+<div class="container" ng-init="hackCtrl.loadParticipants()">
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-primary btn-md btn-raised" ui-sref="hackathons_view({hackathonId: hackCtrl.id})"><i class="material-icons left">arrow_back</i> Back to hackathon home page</a>
+            <h3>Participants' list</h3>
+
+            <a class="btn waves-effect waves-light btn-primary" data-toggle="modal" data-target="#add"><i class="material-icons left">add</i>Add user</a> 
+
+            <!-- Modal -->
+            <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Register a user</h4>
+                  </div>
+                  <div class="modal-body">
+
+                    <div class="row">
+                      <form class="col-md-12" class="form-signin" role="form" name="form">
+                        <div ng-class="{ 'has-error': form.id.$dirty && form.id.$error.required }">
+                            <div class="input-field col-md-12">
+                                <input type="text" class="form-control" id="id" name="id" ng-model="hackCtrl.user_id" autofocus required>
+                                <label for="id">User ID</label>
+
+                                <span ng-show="form.id.$dirty && form.id.$error.required" class="help-block">User ID is required</span>
+                            </div>
+                        </div>  
+                      </form> 
+                    </div>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" data-dismiss="modal" ng-click="$('#add').modal('toggle'); hackCtrl.register(hackCtrl.user_id)">Add</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+<br>
+
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Social</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="participant in hackCtrl.participants">
+                    <td>{{ participant.id }}</td>
+                    <td>{{ participant.name }}</td>
+                    <td>{{ participant.email }}</td>
+                    <td>
+
+                    <social-link of="participant"></social-link>
+
+                    </td>
+                    <td>
+                        <a ng-click="hackCtrl.attending(participant, true)" ng-hide="participant.pivot.attending" class="btn-floating waves-effect waves-light primary-color"><i class="material-icons">done</i></a> 
+
+                        <a ng-show="participant.pivot.attending" class="btn-floating waves-effect waves-light red" data-toggle="modal" data-target="#remove-{{ participant.id }}"><i class="material-icons">clear</i></a> 
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="remove-{{ participant.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Cancel the presence of the user : {{ participant.name }}</h4>
+                              </div>
+                              <div class="modal-body">
+                                Are you sure you want to cancel the presence of this user? 
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="$('#remove-' + participant.id).modal('toggle'); hackCtrl.attending(participant, false)">Cancel</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <a class="btn-floating waves-effect waves-light red" data-toggle="modal" data-target="#delete-{{ participant.id }}"><i class="material-icons">delete</i></a> 
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="delete-{{ participant.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Remove registration : {{ participant.name }}</h4>
+                              </div>
+                              <div class="modal-body">
+                                Are you sure you want to remove the registration of this user? 
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="$('#delete-' + participant.id).modal('toggle'); hackCtrl.cancelRegistration(participant)">Remove</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+                    </td>
+
+                  </tr>                                   
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>

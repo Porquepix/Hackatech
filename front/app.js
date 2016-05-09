@@ -23,6 +23,13 @@
 
             hackathons: '/hackathons',
             hackathons_view: '/hackathons/{0}',
+            hackathons_create: '/hackathons',
+            hackathons_edit: '/hackathons/{0}',
+            hackathons_delete: '/hackathons/{0}',
+            hackathons_get_users: '/hackathons/{0}/participants',
+            hackathons_add_user: '/hackathons/{0}/participants',
+            hackathons_update_user: '/hackathons/{0}/participants/{1}',
+            hackathons_remove_user: '/hackathons/{0}/participants/{1}',
         };
 
         return "http://api.hackatech.alexis-andrieu.fr" + routes[name];
@@ -178,6 +185,26 @@
             .state('hackathons_edit', {
                 url: '/hackathons/{hackathonId}/edit',
                 templateUrl: './app-view/hackathons/edit.html',
+                controller: 'HackathonController as hackCtrl'
+            })
+            .state('hackathons_projects', {
+                url: '/hackathons/{hackathonId}/projects',
+                templateUrl: './app-view/hackathons/edit.html',
+                controller: 'HackathonController as hackCtrl'
+            })
+            .state('hackathons_board', {
+                url: '/hackathons/{hackathonId}/board',
+                templateUrl: './app-view/hackathons/participant.html',
+                controller: 'HackathonController as hackCtrl'
+            })
+            .state('hackathons_news', {
+                url: '/hackathons/{hackathonId}/news',
+                templateUrl: './app-view/hackathons/participant.html',
+                controller: 'HackathonController as hackCtrl'
+            })
+            .state('hackathons_participants', {
+                url: '/hackathons/{hackathonId}/participants',
+                templateUrl: './app-view/hackathons/participant.html',
                 controller: 'HackathonController as hackCtrl'
             });
          $urlRouterProvider.otherwise('/e404');
