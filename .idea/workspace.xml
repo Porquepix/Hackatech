@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5c107c11-1032-4298-be04-b560ca15fca6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/app-view/hackathons/view.html" afterPath="$PROJECT_DIR$/front/app-view/hackathons/view.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/app.js" afterPath="$PROJECT_DIR$/front/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/controllers.js" afterPath="$PROJECT_DIR$/front/controllers.js" />
     </list>
     <ignored path="hackatech.iws" />
@@ -459,8 +457,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1280" y="0" width="1280" height="1040" extended-state="1" />
-    <editor active="true" />
+    <frame x="1280" y="0" width="1280" height="1040" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22705697" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />

@@ -203,7 +203,9 @@
         ctrl.init = function() {
             user.getFreshData(function(data) {
                 ctrl.profile = data;
-                ctrl.profile.created_at = new Date(ctrl.profile.created_at);
+
+                ctrl.profile.created_at = e.beginning.replace(/(.+) (.+)/, "$1T$2Z");
+                ctrl.profile.created_at = new Date(ctrl.profile.created_at).getTime();
             });
         };
         ctrl.init();
@@ -383,7 +385,8 @@
             $http.get(api('hackathons') + '?page=' + page, {}).then(function(response) {
                 ctrl.hackathons = response.data;
                 ctrl.hackathons.data.forEach(function(e) {
-                    e.beginning = new Date(e.beginning);
+                    e.beginning = e.beginning.replace(/(.+) (.+)/, "$1T$2Z");
+                    e.beginning = new Date(e.beginning).getTime();
 
                     e.two = e.name;
                     e.two = e.two.charAt(0).toUpperCase() + e.two.charAt(1).toLowerCase();
@@ -400,17 +403,44 @@
         };
 
         // Load data about one hackathon which the id is in the url
-        ctrl.loadData = function() {
+        ctrl.loadData = function(callback) {
             if ($stateParams.hackathonId != null) {
                 $http.get(api('hackathons_view').format([$stateParams.hackathonId]), {}).then(function(response) {
                     ctrl.current = response.data;
-                    ctrl.current.data.beginning = new Date(ctrl.current.data.beginning);
-                    ctrl.current.data.ending = new Date(ctrl.current.data.ending);
+
+                    ctrl.current.data.beginning = ctrl.current.data.beginning.replace(/(.+) (.+)/, "$1T$2Z");
+                    ctrl.current.data.beginning = new Date(ctrl.current.data.beginning).getTime();
+
+                    ctrl.current.data.ending = ctrl.current.data.ending.replace(/(.+) (.+)/, "$1T$2Z");
+                    ctrl.current.data.ending = new Date(ctrl.current.data.ending).getTime();
+
                     ctrl.getColor(ctrl.current.data);
+
+                    if (callback)
+                        callback();
                 }, function(response) {
                     $state.go('hackathons');
                 });
             }
+        };
+
+        ctrl.loadFormData = function() {
+            if (!$rootScope.currentUser) {
+                $state.go('login');
+            }
+
+            if ($stateParams.hackathonId != null) {
+                ctrl.id = $stateParams.hackathonId;
+                ctrl.loadData(function() {
+                    if (!ctrl.current.isAdmin) {
+                        $state.go('hackathons_view', {hackathonId: $stateParams.hackathonId});
+                    }
+                });
+            }
+
+            $http.get(api('user_organizations').format([$rootScope.currentUser.id]), {}).then(function(response) {
+                ctrl.orgas = response.data.admin;
+            });
         };
 
         ctrl.loadParticipants = function() {

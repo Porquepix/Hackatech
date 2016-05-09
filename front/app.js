@@ -172,14 +172,14 @@
                 templateUrl: './app-view/hackathons/index.html',
                 controller: 'HackathonController as hackCtrl'
             })            
-            .state('hackathons_view', {
-                url: '/hackathons/{hackathonId}',
-                templateUrl: './app-view/hackathons/view.html',
-                controller: 'HackathonController as hackCtrl'
-            })
             .state('hackathons_create', {
                 url: '/hackathons/create',
                 templateUrl: './app-view/hackathons/edit.html',
+                controller: 'HackathonController as hackCtrl'
+            })
+            .state('hackathons_view', {
+                url: '/hackathons/{hackathonId}',
+                templateUrl: './app-view/hackathons/view.html',
                 controller: 'HackathonController as hackCtrl'
             })
             .state('hackathons_edit', {

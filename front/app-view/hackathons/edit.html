@@ -1,0 +1,118 @@
+<div class="container" ng-init="hackCtrl.loadFormData()">
+    <div class="row">
+        <div class="col-md-12">
+
+            <a class="btn btn-primary btn-md btn-raised" ng-show="hackCtrl.id" ui-sref="hackathons_view({hackathonId: hackCtrl.id})"><i class="material-icons left">arrow_back</i> Back to hackathon home page</a>
+            
+            <h3 ng-hide="hackCtrl.id"> Create hackathon </h3>
+            <h3 ng-show="hackCtrl.id"> Edit hackathon : {{ hackCtrl.current.data.name }} </h3>
+
+                <form role="form" name="form" ng-submit="orgaCtrl.save(orgaCtrl.current.id)">
+                    
+                    <div ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
+                        <div class="form-group col-md-12">
+                            <label for="name">Name <span class="required red-text">*</span></label>
+                            <input type="text" class="form-control" id="name" name="name" ng-model="hackCtrl.current.data.name" required>
+
+                            <span ng-show="form.name.$dirty && form.name.$error.required" class="help-block">Name is required</span>
+                        </div>
+                    </div>
+
+                    <div ng-class="{ 'has-error': form.abstract.$dirty && form.abstract.$error.required }">
+                        <div class="form-group col-md-12">
+                            <label for="abstract">Abstract <span class="required red-text">*</span></label>
+                            <input type="text" class="form-control" id="abstract" name="abstract" ng-model="hackCtrl.current.data.abstract" required>
+
+                            <span ng-show="form.abstract.$dirty && form.abstract.$error.required" class="help-block">Abstract is required</span>
+                        </div>
+                    </div>
+
+                    <div ng-class="{ 'has-error': form.description.$dirty && form.description.$error.required }">
+                        <div class="form-group col-md-12">
+                            <label for="description">Description <span class="required red-text">*</span></label>
+                            <textarea class="form-control materialize-textarea" id="description" name="description" ng-model="hackCtrl.current.data.description" required></textarea>
+
+                            <span class="help-block">You can type markdown in this field.</span>
+                            <span ng-show="form.description.$dirty && form.description.$error.required" class="help-block">Description is required</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-group col-md-12">
+                            <label for="private_section">Private section</label>
+                            <textarea class="form-control materialize-textarea" id="private_section" name="private_section" ng-model="hackCtrl.current.data.private_section"></textarea>
+
+                            <span class="help-block">You can type markdown in this field.</span>
+                        </div>
+                    </div>
+
+                    <div ng-class="{ 'has-error': form.max_participant.$dirty && form.max_participant.$error.required }">
+                        <div class="form-group col-md-12">
+                            <label for="max_participant">Maximum number of participant<span class="required red-text">*</span></label>
+                            <input type="number" class="form-control" id="max_participant" name="max_participant" ng-model="hackCtrl.current.data.max_participant" required>
+
+                            <span ng-show="form.max_participant.$dirty && form.max_participant.$error.required" class="help-block">The maximum number of participants is required</span>
+                        </div>
+                    </div>
+
+                    <div ng-class="{ 'has-error': form.max_participant_per_team.$dirty && form.max_participant_per_team.$error.required }">
+                        <div class="form-group col-md-12">
+                            <label for="max_participant_per_team">Maximum number of participant per team<span class="required red-text">*</span></label>
+                            <input type="number" class="form-control" id="max_participant_per_team" name="max_participant_per_team" ng-model="hackCtrl.current.data.max_participant_per_team" required>
+
+                            <span ng-show="form.max_participant_per_team.$dirty && form.max_participant_per_team.$error.required" class="help-block">The maximum number of participants per is required</span>
+                        </div>
+                    </div>
+
+                    <div ng-class="{ 'has-error': form.place_adr.$dirty && form.place_adr.$error.required }">
+                        <div class="form-group col-md-12">
+                            <label for="place_adr">Location <span class="required red-text">*</span></label>
+                            <input type="text" class="form-control" id="place_adr" name="place_adr" ng-model="hackCtrl.current.data.place_adr" required>
+
+                            <span ng-show="form.place_adr.$dirty && form.place_adr.$error.required" class="help-block">Location is required</span>
+                        </div>
+                    </div>
+
+                    <div ng-class="{ 'has-error': form.beginning.$dirty && form.beginning.$error.required }">
+                        <div class="form-group col-md-12">
+                            <label for="beginning">Beginning <span class="required red-text">*</span></label>
+                            <input type="text" class="form-control" id="beginning" name="beginning" ng-model="hackCtrl.current.data.beginning" required>
+
+                            <span ng-show="form.beginning.$dirty && form.beginning.$error.required" class="help-block">Beginning is required</span>
+                        </div>
+                    </div>
+
+                    <div ng-class="{ 'has-error': form.ending.$dirty && form.ending.$error.required }">
+                        <div class="form-group col-md-12">
+                            <label for="ending">Ending <span class="required red-text">*</span></label>
+                            <input type="text" class="form-control" id="ending" name="ending" ng-model="hackCtrl.current.data.ending" required>
+
+                            <span ng-show="form.ending.$dirty && form.ending.$error.required" class="help-block">Ending is required</span>
+                        </div>
+                    </div>
+
+                    <div ng-class="{ 'has-error': form.organization_id.$dirty && form.organization_id.$error.required }">
+                        <div class="form-group col-md-12">
+                            <label for="organization_id">Organization<span class="required red-text">*</span></label>
+                            <select class="browser-default" id="organization_id" name="organization_id" ng-model="hackCtrl.current.data.organization_id" ng-options="orga.id as orga.name for orga in hackCtrl.orgas" required>
+                                <option value="" disabled>Choose your Organization</option>
+                            </select>
+
+                            <span ng-show="form.organization_id.$dirty && form.organization_id.$error.required" class="help-block">Organization is required</span>
+                        </div>
+                    </div>
+
+                    <social-form model="hackCtrl.current.data"></social-form>
+
+                    <button type="submit" ng-disabled="form.$invalid || orgaCtrl.dataLoading" class="btn btn-primary">
+                        <i ng-show="orgaCtrl.dataLoading" class="fa fa-circle-o-notch fa-spin fa-3x fa-fw margin-bottom left"></i> 
+                        <span ng-hide="hackCtrl.id"> Create hackathon </span>
+                        <span ng-show="hackCtrl.id"> Edit hackathon </span>
+                    </button>
+
+                </form><!-- /form -->
+
+
+        </div>
+    </div>
+</div>
