@@ -34,6 +34,12 @@
     color: #FFF;
 }
 
+.small-jumbotron {
+    background-color: #eee;
+    padding-top: 18px;
+    padding-bottom: 18px;
+}
+
 
 /** Card */
 .elegant-card {

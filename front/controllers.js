@@ -388,11 +388,15 @@
                     e.two = e.name;
                     e.two = e.two.charAt(0).toUpperCase() + e.two.charAt(1).toLowerCase();
 
-                    var classes = ['rgba-blue-strong', 'rgba-red-strong', 'rgba-pink-strong', 'rgba-purple-strong', 'rgba-indigo-strong', 'rgba-cyan-strong', 'rgba-green-strong', 'rgba-orange-strong'];
-                    var random = (e.name.charCodeAt(0) + e.name.charCodeAt(1) + e.max_participant + e.abstract.charCodeAt(0)) % classes.length;
-                    e.color = classes[random];
+                    ctrl.getColor(e);
                 });
             });
+        };
+
+        ctrl.getColor = function(hackathon) {
+            var classes = ['rgba-blue-strong', 'rgba-red-strong', 'rgba-pink-strong', 'rgba-purple-strong', 'rgba-indigo-strong', 'rgba-cyan-strong', 'rgba-green-strong', 'rgba-orange-strong'];
+            var random = (hackathon.name.charCodeAt(0) + hackathon.name.charCodeAt(1) + hackathon.max_participant + hackathon.abstract.charCodeAt(0)) % classes.length;
+            hackathon.color = classes[random];
         };
 
         // Load data about one hackathon which the id is in the url
@@ -402,6 +406,7 @@
                     ctrl.current = response.data;
                     ctrl.current.data.beginning = new Date(ctrl.current.data.beginning);
                     ctrl.current.data.ending = new Date(ctrl.current.data.ending);
+                    ctrl.getColor(ctrl.current.data);
                 }, function(response) {
                     $state.go('hackathons');
                 });
@@ -424,7 +429,8 @@
             if (userID) {
                 data.user_id = userID;
             } else {
-                data.user_id = $rootScope.currentUser.id;
+                if ($rootScope.currentUser)
+                    data.user_id = $rootScope.currentUser.id;
             }
 
             $http.post(api('hackathons_add_user').format([$stateParams.hackathonId]), data).then(function(response) {

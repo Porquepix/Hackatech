@@ -1,33 +1,40 @@
-<div class="jumbotron secondary-color" ng-init="hackCtrl.loadData()">
+<div class="jumbotron {{ hackCtrl.current.data.color }}" ng-init="hackCtrl.loadData()">
   <div class="container">
 
     <h1>{{ hackCtrl.current.data.name }}</h1>
     <p>{{ hackCtrl.current.data.beginning | date:"EEEE, MMMM d, yyyy - HH:mm" }} to {{ hackCtrl.current.data.ending | date:"EEEE, MMMM d, yyyy - HH:mm" }} / {{ hackCtrl.current.data.place_adr }}</p>
 
-    <div class="btn-group">
-      <a ng-click="hackCtrl.register()" ng-hide="hackCtrl.current.data.beginning < now || hackCtrl.current.isRegistered || hackCtrl.current.isAttending || hackCtrl.current.isOrganizator || hackCtrl.current.isAdmin" class="btn btn-default"><i class="material-icons left">assignment_ind</i> Sign In</a>
+  </div>
 
-      <a ng-click="hackCtrl.cancelRegistration()" ng-show="hackCtrl.current.data.beginning > now && (hackCtrl.current.isRegistered && !hackCtrl.current.isAttending && !hackCtrl.current.isOrganizator && !hackCtrl.current.isAdmin)" class="btn btn-raised btn-danger"><i class="material-icons left">clear</i> Cancel my registration</a>
+  <div class="small-jumbotron">
+    <div class="container">
 
-      <a ng-show="hackCtrl.current.isRegistered && hackCtrl.current.isAttending && !hackCtrl.current.isOrganizator && !hackCtrl.current.isAdmin" ui-sref="hackathons_projects({ hackathonId : hackCtrl.current.data.id })" class="btn btn-default"><i class="material-icons left">stars</i> Projects</a>
-      <a ng-show="(hackCtrl.current.isRegistered && hackCtrl.current.isAttending) || hackCtrl.current.isOrganizator || hackCtrl.current.isAdmin" ui-sref="hackathons_board({ hackathonId : hackCtrl.current.data.id })" class="btn btn-default"><i class="material-icons left">question_answer</i> Forum</a>
+      <div class="btn-group">
+        <a ng-click="hackCtrl.register()" ng-hide="hackCtrl.current.data.beginning < now || hackCtrl.current.isRegistered || hackCtrl.current.isAttending || hackCtrl.current.isOrganizator || hackCtrl.current.isAdmin" class="btn btn-default"><i class="material-icons left">assignment_ind</i> Sign In</a>
 
-      <a ng-show="hackCtrl.current.isAdmin" ui-sref="hackathons_edit({ hackathonId : hackCtrl.current.data.id })" class="btn btn-primary  btn-raised"><i class="material-icons left">create</i> Edit</a>
-      <div ng-show="hackCtrl.current.isOrganizator || hackCtrl.current.isAdmin" class="btn-group">
-        <a href="bootstrap-elements.html" data-target="#" class="btn btn-primary  btn-raised dropdown-toggle" data-toggle="dropdown"><i class="material-icons left">settings</i> Manage <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a ui-sref="hackathons_participants({ hackathonId : hackCtrl.current.data.id })">Manage participants</a></li>
-          <li><a href="javascript:void(0)">Manage projects</a></li>
-          <li class="divider"></li>
-          <li><a ui-sref="hackathons_news({ hackathonId : hackCtrl.current.data.id })">Manage news</a></li>
-        </ul>
+        <a ng-click="hackCtrl.cancelRegistration()" ng-show="hackCtrl.current.data.beginning > now && (hackCtrl.current.isRegistered && !hackCtrl.current.isAttending && !hackCtrl.current.isOrganizator && !hackCtrl.current.isAdmin)" class="btn btn-raised btn-danger"><i class="material-icons left">clear</i> Cancel my registration</a>
+
+        <a ng-show="hackCtrl.current.isRegistered && hackCtrl.current.isAttending && !hackCtrl.current.isOrganizator && !hackCtrl.current.isAdmin" ui-sref="hackathons_projects({ hackathonId : hackCtrl.current.data.id })" class="btn btn-default"><i class="material-icons left">stars</i> Projects</a>
+        <a ng-show="(hackCtrl.current.isRegistered && hackCtrl.current.isAttending) || hackCtrl.current.isOrganizator || hackCtrl.current.isAdmin" ui-sref="hackathons_board({ hackathonId : hackCtrl.current.data.id })" class="btn btn-default"><i class="material-icons left">question_answer</i> Forum</a>
+
+        <a ng-show="hackCtrl.current.isAdmin" ui-sref="hackathons_edit({ hackathonId : hackCtrl.current.data.id })" class="btn btn-primary  btn-raised"><i class="material-icons left">create</i> Edit</a>
+        <div ng-show="hackCtrl.current.isOrganizator || hackCtrl.current.isAdmin" class="btn-group">
+          <a href="bootstrap-elements.html" data-target="#" class="btn btn-primary  btn-raised dropdown-toggle" data-toggle="dropdown"><i class="material-icons left">settings</i> Manage <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a ui-sref="hackathons_participants({ hackathonId : hackCtrl.current.data.id })">Manage participants</a></li>
+            <li><a href="javascript:void(0)">Manage projects</a></li>
+            <li class="divider"></li>
+            <li><a ui-sref="hackathons_news({ hackathonId : hackCtrl.current.data.id })">Manage news</a></li>
+          </ul>
+        </div>
+
+        <a ng-show="hackCtrl.current.isAdmin" class="btn btn-raised btn-danger" data-toggle="modal" data-target="#delete"><i class="material-icons left">delete</i> Delete</a>
+
       </div>
 
-      <a ng-show="hackCtrl.current.isAdmin" class="btn btn-raised btn-danger" data-toggle="modal" data-target="#delete"><i class="material-icons left">delete</i> Delete</a>
-
     </div>
-
   </div>
+
 </div>
 
     <!-- Modal -->
