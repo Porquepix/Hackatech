@@ -26,10 +26,18 @@
             hackathons_create: '/hackathons',
             hackathons_edit: '/hackathons/{0}',
             hackathons_delete: '/hackathons/{0}',
+
             hackathons_get_users: '/hackathons/{0}/participants',
             hackathons_add_user: '/hackathons/{0}/participants',
             hackathons_update_user: '/hackathons/{0}/participants/{1}',
             hackathons_remove_user: '/hackathons/{0}/participants/{1}',
+
+            hackathons_news: '/hackathons/{0}/news',
+            hackathons_news_latest: '/hackathons/{0}/news/latest',
+            hackathons_news_create: '/hackathons/{0}/news',
+            hackathons_news_edit: '/hackathons/{0}/news/{1}',
+            hackathons_news_delete: '/hackathons/{0}/news/{1}',
+            hackathons_news_view: '/hackathons/{0}/news/{1}',
         };
 
         return "http://api.hackatech.alexis-andrieu.fr" + routes[name];
@@ -197,16 +205,30 @@
                 templateUrl: './app-view/hackathons/participant.html',
                 controller: 'HackathonController as hackCtrl'
             })
-            .state('hackathons_news', {
-                url: '/hackathons/{hackathonId}/news',
-                templateUrl: './app-view/hackathons/participant.html',
-                controller: 'HackathonController as hackCtrl'
-            })
             .state('hackathons_participants', {
                 url: '/hackathons/{hackathonId}/participants',
                 templateUrl: './app-view/hackathons/participant.html',
                 controller: 'HackathonController as hackCtrl'
+            })
+
+            //NEWS
+            .state('hackathons_news', {
+                url: '/hackathons/{hackathonId}/news',
+                templateUrl: './app-view/hackathons-news/index.html',
+                controller: 'NewsController as newsCtrl'
+            })
+            .state('hackathons_news_create', {
+                url: '/hackathons/{hackathonId}/news/create',
+                templateUrl: './app-view/hackathons-news/edit.html',
+                controller: 'NewsController as newsCtrl'
+            })
+            .state('hackathons_news_edit', {
+                url: '/hackathons/{hackathonId}/news/{newsId}/edit',
+                templateUrl: './app-view/hackathons-news/edit.html',
+                controller: 'NewsController as newsCtrl'
             });
+
+            
          $urlRouterProvider.otherwise('/e404');
 
          // Config for laravel

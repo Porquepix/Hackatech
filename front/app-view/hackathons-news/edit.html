@@ -1,0 +1,42 @@
+<div class="container" ng-init="newsCtrl.loadData()">
+    <div class="row">
+        <div class="col-md-12">
+
+            <a class="btn btn-primary btn-md btn-raised" ui-sref="hackathons_news({hackathonId: newsCtrl.hackathon.data.id})"><i class="material-icons left">arrow_back</i> Back to hackathon home page</a>
+            
+            <h3 ng-hide="newsCtrl.current.id"> Create news </h3>
+            <h3 ng-show="newsCtrl.current.id"> Edit news : {{ newsCtrl.current.name }} </h3>
+
+                <form role="form" name="form" ng-submit="newsCtrl.save(newsCtrl.current.id)">
+                    
+                    <div ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
+                        <div class="form-group col-md-12">
+                            <label for="name">Name <span class="required red-text">*</span></label>
+                            <input type="text" class="form-control" id="name" name="name" ng-model="newsCtrl.current.name" required>
+
+                            <span ng-show="form.name.$dirty && form.name.$error.required" class="help-block">Name is required</span>
+                        </div>
+                    </div>
+
+                    <div ng-class="{ 'has-error': form.content.$dirty && form.content.$error.required }">
+                        <div class="form-group col-md-12">
+                            <label for="content">Content <span class="required red-text">*</span></label>
+                            <textarea class="form-control materialize-textarea" id="content" name="content" ng-model="newsCtrl.current.content" required></textarea>
+
+                            <span class="help-block">You can type markdown in this field.</span>
+                            <span ng-show="form.content.$dirty && form.content.$error.required" class="help-block">Content is required</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" ng-disabled="form.$invalid || newsCtrl.dataLoading" class="btn btn-primary">
+                        <i ng-show="newsCtrl.dataLoading" class="fa fa-circle-o-notch fa-spin fa-3x fa-fw margin-bottom left"></i> 
+                        <span ng-hide="newsCtrl.current.id"> Create news </span>
+                        <span ng-show="newsCtrl.current.id"> Edit news </span>
+                    </button>
+
+                </form><!-- /form -->
+
+
+        </div>
+    </div>
+</div>

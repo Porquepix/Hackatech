@@ -81,41 +81,26 @@
         <hr>
       </div>
 
-      <h5>News</h5>
+      <div ng-controller="NewsController as newsCtrl" ng-init="newsCtrl.loadLatestNews()" ng-show="newsCtrl.news">
+        <h5>News</h5>
+        
+        <section class="collection">
+          <article class="collection-item avatar" ng-repeat="news in newsCtrl.news" id="news.id">
+              <i class="material-icons circle info-color">announcement</i>
+              <span class="title">{{ news.name }}</span>
 
+              <div>
+                <a ui-sref="hackathons_news({ hackathonId : hackCtrl.current.data.id, '#': news.id })" class="btn-flat waves-effect">View the article »</a>
+              </div>
 
-      <ul class="collection">
-        <li class="collection-item avatar">
-            <i class="material-icons circle info-color">announcement</i>
-            <span class="title">Title</span>
-            <p>First Line
-                <br> Second Line
-            </p>
-             <span class="secondary-content">15mn</span>
-        </li>
-        <li class="collection-item avatar">
-            <i class="material-icons circle info-color">announcement</i>
-            <span class="title">Title</span>
-            <p>First Line
-                <br> Second Line
-            </p>
-            <span class="secondary-content">1d</span>
-        </li>
-        <li class="collection-item avatar">
-            <i class="material-icons circle info-color">announcement</i>
-            <span class="title">Title</span>
-            <p>First Line
-                <br> Second Line
-            </p>
-             <span class="secondary-content">1mo</span>
-        </li>
-    </ul>
+              <span class="secondary-content">{{ news.created_at | date:"EEEE, MMMM d, yyyy - HH:mm" }}</span>
+          </article>
+        </section>
+        <a ui-sref="hackathons_news({ hackathonId : hackCtrl.current.data.id })" class="btn-flat waves-effect">View more »</a>
+        <hr>
+      </div>
 
-    <a ui-sref="hackathons_news({ hackathonId : hackCtrl.current.data.id })" class="btn-flat waves-effect">View more »</a>
-
-    <hr>
-
-    <h5>About</h5>
+      <h5>About</h5>
 
       <ul>
         <li>Number of participant: {{ hackCtrl.current.nbParticipants }}/{{ hackCtrl.current.data.max_participant }}</li>

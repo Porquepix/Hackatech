@@ -397,6 +397,7 @@
             });
         };
 
+        // Retrieve the class color of an hackathon. This class is used in index and view pages.
         ctrl.getColor = function(hackathon) {
             var classes = ['rgba-blue-strong', 'rgba-red-strong', 'rgba-pink-strong', 'rgba-purple-strong', 'rgba-indigo-strong', 'rgba-cyan-strong', 'rgba-green-strong', 'rgba-orange-strong'];
             var random = (hackathon.name.charCodeAt(0) + hackathon.name.charCodeAt(1) + hackathon.max_participant + hackathon.abstract.charCodeAt(0)) % classes.length;
@@ -427,6 +428,7 @@
             }
         };
 
+        // Load data for the create / edit form.
         ctrl.loadFormData = function() {
             if (!$rootScope.currentUser) {
                 $state.go('login');
@@ -449,6 +451,7 @@
             });
         };
 
+        // Load data for the participant page.
         ctrl.loadParticipants = function() {
             ctrl.id = $stateParams.hackathonId;
             $http.get(api('hackathons_get_users').format([$stateParams.hackathonId]), {}).then(function(response) {
@@ -458,6 +461,7 @@
             });
         };
 
+        // Add a registration of a user in an hackathon.
         ctrl.register = function(userID) {
             messageCenterService.reset();
 
@@ -486,6 +490,7 @@
             });
         };
 
+        // Cancel the registration of a user.
         ctrl.cancelRegistration = function(participant) {
             messageCenterService.reset();
 
@@ -510,6 +515,7 @@
             });
         };
 
+        // Confirm the presence of user in the hackathon.
         ctrl.attending = function(participant, status) {
             messageCenterService.reset();
 
@@ -526,6 +532,7 @@
             });
         };
 
+        // Save an hackathon (create or edit).
         ctrl.save = function(hackathonID) {
             ctrl.dataLoading = true;
             messageCenterService.reset();
@@ -590,9 +597,102 @@
             });
         };
 
+    });
 
+    /**
+     * News Controller. Available in news pages.
+     */
+    app.controller('NewsController', function($scope, $rootScope, $http, $state, messageCenterService, form, $stateParams) {
+        var ctrl = this;
 
+        ctrl.init = function() {
+            ctrl.loadHackathonData();
+
+            $http.get(api('hackathons_news').format([$stateParams.hackathonId]), {}).then(function(response) {
+                ctrl.news = response.data;
+                ctrl.news.forEach(function(e) {
+                    e.created_at = new Date(e.created_at);
+                    e.created_at.setHours(e.created_at.getHours() - 1);
+                });
+            });
+        };
+
+        ctrl.loadData = function() {
+            ctrl.loadHackathonData(function() {
+                if (!ctrl.hackathon.isAdmin && !ctrl.hackathon.isOrganizator) {
+                    $state.go('hackathons_news', {hackathonId: $stateParams.hackathonId});
+                }
+            });
+
+            if ($stateParams.newsId != null) {
+                $http.get(api('hackathons_news_view').format([$stateParams.hackathonId, $stateParams.newsId]), {}).then(function(response) {
+                    ctrl.current = response.data;
+                });
+            }
+        };
+
+        ctrl.loadLatestNews = function() {
+            $http.get(api('hackathons_news_latest').format([$stateParams.hackathonId]), {}).then(function(response) {
+                ctrl.news = response.data;
+                ctrl.news.forEach(function(e) {
+                    e.created_at = new Date(e.created_at);
+                    e.created_at.setHours(e.created_at.getHours() - 1);
+                });
+            });
+        };
+
+        ctrl.loadHackathonData = function(callback) {
+            $http.get(api('hackathons_view').format([$stateParams.hackathonId]), {}).then(function(response) {
+                ctrl.hackathon = response.data;
+
+                if (callback)
+                    callback();
+            }, function(response) {
+                $state.go('hackathons_view', {hackathonId: $stateParams.hackathonId});
+            });
+        };
+
+        ctrl.save = function(newsId) {
+            messageCenterService.reset();
+
+            var data = {};
+            form.populate($scope.form, data);
+
+            var succesCallback = function(response) {
+                messageCenterService.add('success', response.data.message, {});
+                ctrl.dataLoading = false;
+            };
+            var errorCallback = function(response) {
+                if (response.data.name)
+                    messageCenterService.add('danger', response.data.name[0], {});
+
+                if (response.data.content)
+                    messageCenterService.add('danger', response.data.content[0], {});
+
+                if (response.data.error)
+                    messageCenterService.add('danger', response.data.error, {});
+
+                ctrl.dataLoading = false;
+            };
+
+            // If null => create case, else edit case
+            if ($stateParams.newsId != null) {
+                $http.put(api('hackathons_news_edit').format([$stateParams.hackathonId, $stateParams.newsId]), data).then(succesCallback, errorCallback);
+            } else {
+                $http.post(api('hackathons_news_create').format([$stateParams.hackathonId]), data).then(succesCallback, errorCallback);
+            }
+        };
+
+        ctrl.delete = function(news) {
+            messageCenterService.reset();
+            $http.delete(api('hackathons_news_delete').format([$stateParams.hackathonId, news.id]), {}).then(function(response) {
+                messageCenterService.add('success', response.data.message, {});
+                var index = ctrl.news.indexOf(news);
+                ctrl.news.splice(index, 1);
+            });
+        };
 
     });
+
 
 })();

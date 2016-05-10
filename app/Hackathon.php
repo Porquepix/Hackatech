@@ -35,6 +35,7 @@ class Hackathon extends Model
      */
     public $timestamps = false;
 
+    // Used as cache variable
     private $current_participant = null;
 
     /**
@@ -55,6 +56,16 @@ class Hackathon extends Model
     public function participants()
     {
         return $this->belongsToMany('App\User', 'participate')->withPivot('attending');
+    }
+
+    /**
+     * Return the list of news attached to the hackathon.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function news()
+    {
+        return $this->hasMany('App\News');
     }
 
     /**

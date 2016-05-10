@@ -40,6 +40,13 @@ Route::delete('organizations/{organizations}/members/{members}', 'OrganizationCo
 Route::post('organizations/{organizations}/members', 'OrganizationController@addMember');
 Route::resource('organizations', 'OrganizationController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
 
+
+/*
+ *
+ */
+Route::get('hackathons/{hackathons}/news/latest', 'NewsController@latest');
+Route::resource('hackathons/{hackathons}/news', 'NewsController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
+
 /*
  * Hackathons routes
  */
