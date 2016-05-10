@@ -76,8 +76,15 @@ class HackathonController extends Controller
         $isAdmin = $user != null && $hackathon->isAdmin($user);
         $isOver = $hackathon->isOver();
         $isStarted = $hackathon->isStarted();
+        
+        // Hackathon private section
+        $private_section = null;
+        if ($isAttending || $isOrganizator || $isAdmin) 
+        {
+            $private_section = $hackathon->private_section;
+        }
 
-        return response()->json(compact('data', 'organization', 'nbParticipants', 'isRegistered', 'isAttending', 'isOrganizator', 'isAdmin', 'isOver', 'isStarted'));
+        return response()->json(compact('data', 'organization', 'nbParticipants', 'isRegistered', 'isAttending', 'isOrganizator', 'isAdmin', 'isOver', 'isStarted', 'private_section'));
     }
 
     /**

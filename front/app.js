@@ -37,11 +37,11 @@
 
     // Define our application
     app = angular
-            .module('hackatech', ['ui.router', 'ngAnimate', 'satellizer', 'MessageCenterModule', 'angucomplete-alt', 'btford.markdown', 'masonry'])
+            .module('hackatech', ['ui.router', 'ngAnimate', 'satellizer', 'MessageCenterModule', 'angucomplete-alt', 'btford.markdown', 'masonry', 'datetimepicker'])
             .config(config)
             .run(run);
 
-    function config($stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide) {
+    function config($stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide, datetimepickerProvider) {
         function redirectWhenLoggedOut($q, $injector) {
             return {
 
@@ -211,6 +211,11 @@
 
          // Config for laravel
          $httpProvider.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+
+        datetimepickerProvider.setOptions({
+            locale: 'fr',
+            format: 'Y-MM-DD HH:mm'
+        });
     }
 
     function run($rootScope, $state, user, $auth) {

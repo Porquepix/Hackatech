@@ -204,8 +204,8 @@
             user.getFreshData(function(data) {
                 ctrl.profile = data;
 
-                ctrl.profile.created_at = e.beginning.replace(/(.+) (.+)/, "$1T$2Z");
-                ctrl.profile.created_at = new Date(ctrl.profile.created_at).getTime();
+                ctrl.profile.created_at = ctrl.profile.created_at.replace(/(.+) (.+)/, "$1T$2Z");
+                ctrl.profile.created_at = new Date(ctrl.profile.created_at);
             });
         };
         ctrl.init();
@@ -370,7 +370,7 @@
     /**
      * Hackathon Controller. Available in hackathon pages.
      */
-    app.controller('HackathonController', function($rootScope, $http, $state, messageCenterService, form, $stateParams) {
+    app.controller('HackathonController', function($scope, $rootScope, $http, $state, messageCenterService, form, $stateParams) {
         var ctrl = this;
         // All hackathons
         ctrl.hackathons = [];
@@ -385,8 +385,9 @@
             $http.get(api('hackathons') + '?page=' + page, {}).then(function(response) {
                 ctrl.hackathons = response.data;
                 ctrl.hackathons.data.forEach(function(e) {
-                    e.beginning = e.beginning.replace(/(.+) (.+)/, "$1T$2Z");
-                    e.beginning = new Date(e.beginning).getTime();
+                    e.beginning_std = e.beginning.replace(/(.+) (.+)/, "$1T$2Z");
+                    e.beginning_std = new Date(e.beginning_std);
+                    e.beginning_std.setHours(e.beginning_std.getHours() - 1);
 
                     e.two = e.name;
                     e.two = e.two.charAt(0).toUpperCase() + e.two.charAt(1).toLowerCase();
@@ -408,11 +409,13 @@
                 $http.get(api('hackathons_view').format([$stateParams.hackathonId]), {}).then(function(response) {
                     ctrl.current = response.data;
 
-                    ctrl.current.data.beginning = ctrl.current.data.beginning.replace(/(.+) (.+)/, "$1T$2Z");
-                    ctrl.current.data.beginning = new Date(ctrl.current.data.beginning).getTime();
+                    ctrl.current.data.beginning_std = ctrl.current.data.beginning.replace(/(.+) (.+)/, "$1T$2Z");
+                    ctrl.current.data.beginning_std = new Date(ctrl.current.data.beginning_std);
+                    ctrl.current.data.beginning_std.setHours(ctrl.current.data.beginning_std.getHours() - 1);
 
-                    ctrl.current.data.ending = ctrl.current.data.ending.replace(/(.+) (.+)/, "$1T$2Z");
-                    ctrl.current.data.ending = new Date(ctrl.current.data.ending).getTime();
+                    ctrl.current.data.ending_std = ctrl.current.data.ending.replace(/(.+) (.+)/, "$1T$2Z");
+                    ctrl.current.data.ending_std = new Date(ctrl.current.data.ending_std);
+                    ctrl.current.data.ending_std.setHours(ctrl.current.data.ending_std.getHours() - 1);
 
                     ctrl.getColor(ctrl.current.data);
 
@@ -435,8 +438,11 @@
                     if (!ctrl.current.isAdmin) {
                         $state.go('hackathons_view', {hackathonId: $stateParams.hackathonId});
                     }
+
+                    ctrl.current.data.orga = parseInt(ctrl.current.data.organization_id);
                 });
             }
+
 
             $http.get(api('user_organizations').format([$rootScope.currentUser.id]), {}).then(function(response) {
                 ctrl.orgas = response.data.admin;
@@ -520,12 +526,63 @@
             });
         };
 
-        ctrl.save = function() {
+        ctrl.save = function(hackathonID) {
+            ctrl.dataLoading = true;
+            messageCenterService.reset();
 
+            var data = {};
+            form.populate($scope.form, data);
+
+            var succesCallback = function(response) {
+                messageCenterService.add('success', response.data.message, {});
+                ctrl.dataLoading = false;
+                $("body").scrollTop(0);
+            };
+            var errorCallback = function(response) {
+                if (response.data.name)
+                    messageCenterService.add('danger', response.data.name[0], {});
+
+                if (response.data.abstract)
+                    messageCenterService.add('danger', response.data.abstract[0], {});
+
+                if (response.data.description)
+                    messageCenterService.add('danger', response.data.description[0], {});
+
+                if (response.data.max_participant)
+                    messageCenterService.add('danger', response.data.max_participant[0], {});
+
+                if (response.data.max_participant_per_team)
+                    messageCenterService.add('danger', response.data.max_participant_per_team[0], {});
+
+                if (response.data.place_adr)
+                    messageCenterService.add('danger', response.data.place_adr[0], {});
+
+                if (response.data.beginning)
+                    messageCenterService.add('danger', response.data.beginning[0], {});
+
+                if (response.data.ending)
+                    messageCenterService.add('danger', response.data.ending[0], {});
+
+                if (response.data.organization_id)
+                    messageCenterService.add('danger', response.data.organization_id[0], {});
+
+                if (response.data.error)
+                    messageCenterService.add('danger', response.data.error, {});
+
+                ctrl.dataLoading = false;
+                $("body").scrollTop(0);
+            };
+
+            // If null => create case, else edit case
+            if ($stateParams.hackathonId != null) {
+                $http.put(api('hackathons_edit').format([hackathonID]), data).then(succesCallback, errorCallback);
+            } else {
+                $http.post(api('hackathons_create'), data).then(succesCallback, errorCallback);
+            }
         };
 
         // Delete the hackathon
-        ctrl.delete = function(orga) {
+        ctrl.delete = function() {
             messageCenterService.reset();
             $http.delete(api('hackathons_delete').format([$stateParams.hackathonId]), {}).then(function(response) {
                 messageCenterService.add('success', response.data.message, { status: messageCenterService.status.next });

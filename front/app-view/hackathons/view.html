@@ -2,7 +2,7 @@
   <div class="container">
 
     <h1>{{ hackCtrl.current.data.name }}</h1>
-    <p>{{ hackCtrl.current.data.beginning | date:"EEEE, MMMM d, yyyy - HH:mm" }} to {{ hackCtrl.current.data.ending | date:"EEEE, MMMM d, yyyy - HH:mm" }} / {{ hackCtrl.current.data.place_adr }}</p>
+    <p>{{ hackCtrl.current.data.beginning_std | date:"EEEE, MMMM d, yyyy - HH:mm" }} to {{ hackCtrl.current.data.ending_std | date:"EEEE, MMMM d, yyyy - HH:mm" }} / {{ hackCtrl.current.data.place_adr }}</p>
 
   </div>
 
@@ -10,9 +10,9 @@
     <div class="container">
 
       <div class="btn-group">
-        <a ng-click="hackCtrl.register()" ng-hide="hackCtrl.current.data.beginning < now || hackCtrl.current.isRegistered || hackCtrl.current.isAttending || hackCtrl.current.isOrganizator || hackCtrl.current.isAdmin" class="btn btn-default"><i class="material-icons left">assignment_ind</i> Sign In</a>
+        <a ng-click="hackCtrl.register()" ng-hide="hackCtrl.current.data.beginning_std < now || hackCtrl.current.isRegistered || hackCtrl.current.isAttending || hackCtrl.current.isOrganizator || hackCtrl.current.isAdmin" class="btn btn-default"><i class="material-icons left">assignment_ind</i> Sign In</a>
 
-        <a ng-click="hackCtrl.cancelRegistration()" ng-show="hackCtrl.current.data.beginning > now && (hackCtrl.current.isRegistered && !hackCtrl.current.isAttending && !hackCtrl.current.isOrganizator && !hackCtrl.current.isAdmin)" class="btn btn-raised btn-danger"><i class="material-icons left">clear</i> Cancel my registration</a>
+        <a ng-click="hackCtrl.cancelRegistration()" ng-show="hackCtrl.current.data.beginning_std > now && (hackCtrl.current.isRegistered && !hackCtrl.current.isAttending && !hackCtrl.current.isOrganizator && !hackCtrl.current.isAdmin)" class="btn btn-raised btn-danger"><i class="material-icons left">clear</i> Cancel my registration</a>
 
         <a ng-show="hackCtrl.current.isRegistered && hackCtrl.current.isAttending && !hackCtrl.current.isOrganizator && !hackCtrl.current.isAdmin" ui-sref="hackathons_projects({ hackathonId : hackCtrl.current.data.id })" class="btn btn-default"><i class="material-icons left">stars</i> Projects</a>
         <a ng-show="(hackCtrl.current.isRegistered && hackCtrl.current.isAttending) || hackCtrl.current.isOrganizator || hackCtrl.current.isAdmin" ui-sref="hackathons_board({ hackathonId : hackCtrl.current.data.id })" class="btn btn-default"><i class="material-icons left">question_answer</i> Forum</a>
@@ -62,7 +62,7 @@
 
       <div ng-show="hackCtrl.current.private_section">
         <h5>Private informations</h5>
-        <div btf-markdown="hackCtrl.current.data.private_section"></div>
+        <div btf-markdown="hackCtrl.current.private_section"></div>
         <hr>
       </div>
 

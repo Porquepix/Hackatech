@@ -202,3 +202,11 @@ select {
     box-sizing: content-box;
     transition: all .3s;
 }
+
+select[disabled] {
+    cursor: not-allowed;
+    color: rgba(0,0,0,.26);
+    border-bottom: 1px dotted rgba(0,0,0,.26);
+    background-color: #eee;
+    opacity: 1;
+}
