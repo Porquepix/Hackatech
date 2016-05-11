@@ -382,7 +382,12 @@
         // Initialize the data about the hackathons
         ctrl.init = function() {
             page = $stateParams.page;
-            $http.get(api('hackathons') + '?page=' + page, {}).then(function(response) {
+            q = $stateParams.q;
+            if (q) {
+                ctrl.q = q;
+                var search = '&q=' + q;
+            }
+            $http.get(api('hackathons') + '?page=' + page + search, {}).then(function(response) {
                 ctrl.hackathons = response.data;
                 ctrl.hackathons.data.forEach(function(e) {
                     e.beginning_std = e.beginning.replace(/(.+) (.+)/, "$1T$2Z");
@@ -595,6 +600,14 @@
                 messageCenterService.add('success', response.data.message, { status: messageCenterService.status.next });
                 $state.go('hackathons');
             });
+        };
+
+        ctrl.search = function() {
+            var page = $stateParams.page;
+            if (page == null) {
+                page = 1;
+            }
+            $state.go('hackathons', {page:page, q:ctrl.q});
         };
 
     });

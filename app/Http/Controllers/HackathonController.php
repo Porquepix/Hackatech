@@ -14,6 +14,8 @@ use App\Http\Requests\Hackathon\ParticipantHackathonRequest;
 use App\Http\Requests\Hackathon\UpdateParticipantHackathonRequest;
 use App\Http\Requests\Hackathon\DeleteParticipantHackathonRequest;
 use JWTAuth;
+use DB;
+use Illuminate\Pagination\Paginator;;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 class HackathonController extends Controller
@@ -28,9 +30,27 @@ class HackathonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Hackathon::orderBy('beginning', 'desc')->paginate(15);
+        if ($request->has('q'))
+        {
+            // Use postgre search text engine
+            // @see: http://www.postgresql.org/docs/8.3/static/textsearch-controls.html
+            $inputs = str_replace(' ', ' | ', $request->input('q'));
+            $query = "SELECT *
+                      FROM (
+                          SELECT h.id, h.name, h.abstract, h.place_adr, h.beginning, h.max_participant, ts_rank(to_tsvector(name || ' ' || abstract || ' ' || place_adr || ' ' || beginning), to_tsquery(?)) AS score
+                          FROM hackathons h
+                      ) s
+                      WHERE score > 0
+                      ORDER BY score DESC";
+            $hackathons = DB::select($query, [$inputs]);
+            return new Paginator($hackathons, 15);
+        }
+        else
+        {
+            return Hackathon::orderBy('beginning', 'desc')->paginate(15);
+        }
     }
 
     /**

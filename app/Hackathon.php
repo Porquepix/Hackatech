@@ -151,4 +151,6 @@ class Hackathon extends Model
         return $start < $today;
     }
 
+
+
 }

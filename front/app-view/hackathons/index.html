@@ -10,12 +10,12 @@
 
                     <h5 class="widget-title">Hackathon ({{ hackCtrl.hackathons.total }})</h5>
 
-                    <form method="GET">
+                    <form ng-submit="hackCtrl.search()">
                       <div class="row">
                         <div class="input-field col-md-12">
-                          <i class="material-icons prefix">search</i>
-                          <input id="q" name="q" type="text" class="validate">
-                          <label for="q">Search (by title, place, date)</label>
+                            <i class="material-icons prefix">search</i>
+                            <input ng-model="hackCtrl.q" id="q" name="q" type="text" placeholder="Search (by title, place, date)">
+                            <span class="help-block">Date format: yyyy-mm-dd.</span>
                         </div>
                       </div>
                     </form>

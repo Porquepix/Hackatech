@@ -176,7 +176,7 @@
 
             // HACKATHONS
             .state('hackathons', {
-                url: '/hackathons?page',
+                url: '/hackathons?page&q',
                 templateUrl: './app-view/hackathons/index.html',
                 controller: 'HackathonController as hackCtrl'
             })            
