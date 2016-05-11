@@ -69,7 +69,14 @@ class UserController extends Controller
 
     public function hackathonOrganization(ShowProfileRequest $request, $id)
     {
-        return $user = User::with('organizationAdmin.hackathons', 'organizationMember.hackathons')->findOrFail($id);
+        return $user = User::with([
+            'organizationAdmin.hackathons' => function($query) {
+                $query->orderBy('beginning', 'DESC');
+            },
+            'organizationMember.hackathons' => function($query) {
+                $query->orderBy('beginning', 'DESC');
+            }
+        ])->findOrFail($id);
     }
 
 }

@@ -210,3 +210,20 @@ select[disabled] {
     background-color: #eee;
     opacity: 1;
 }
+
+.event-incomming td:first-child, span.event-incomming {
+    background-color: rgba(255, 152, 0, 0.1);
+}
+
+.event-done td:first-child, span.event-done {
+    background-color: rgba(96, 125, 139, 0.1);
+}
+
+.event-inprogress td:first-child, span.event-inprogress {
+    background-color: rgba(255, 235, 59, 0.7);
+}
+
+span.event-inprogress, span.event-done, span.event-incomming {
+    color: #333;
+      
+} 
