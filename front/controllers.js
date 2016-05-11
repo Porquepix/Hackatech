@@ -466,6 +466,17 @@
             });
         };
 
+        ctrl.initMy = function() {
+            $http.get(api('participate_hackathons').format([$rootScope.currentUser.id]), {}).then(function(response) {
+                ctrl.hackathons = response.data;
+                ctrl.hackathons.forEach(function(e) {
+                    e.beginning_std = e.beginning.replace(/(.+) (.+)/, "$1T$2Z");
+                    e.beginning_std = new Date(e.beginning_std);
+                    e.beginning_std.setHours(e.beginning_std.getHours() - 1);
+                });
+            });
+        };
+
         // Add a registration of a user in an hackathon.
         ctrl.register = function(userID) {
             messageCenterService.reset();

@@ -21,6 +21,8 @@
             organizations_add_user: '/organizations/{0}/members',
             organizations_remove_user: '/organizations/{0}/members/{1}',
 
+            participate_hackathons: '/users/{0}/hackathons/participate',
+            organize_hackathons: '/users/{0}/hackathons/organize',
             hackathons: '/hackathons',
             hackathons_view: '/hackathons/{0}',
             hackathons_create: '/hackathons',
@@ -188,6 +190,11 @@
             .state('hackathons_view', {
                 url: '/hackathons/{hackathonId}',
                 templateUrl: './app-view/hackathons/view.html',
+                controller: 'HackathonController as hackCtrl'
+            })
+            .state('my_hackathons', {
+                url: '/profile/hackathons',
+                templateUrl: './app-view/hackathons/my.html',
                 controller: 'HackathonController as hackCtrl'
             })
             .state('hackathons_edit', {

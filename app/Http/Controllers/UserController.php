@@ -62,4 +62,14 @@ class UserController extends Controller
         return response()->json(compact('results'));
     }
 
+    public function hackathonParticipation(ShowProfileRequest $request, $id)
+    {
+        return User::findOrFail($id)->hackathons()->orderBy('beginning', 'DESC')->get();
+    }
+
+    public function hackathonOrganization(ShowProfileRequest $request, $id)
+    {
+        return $user = User::with('organizationAdmin.hackathons', 'organizationMember.hackathons')->findOrFail($id);
+    }
+
 }

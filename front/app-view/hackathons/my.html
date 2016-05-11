@@ -1,0 +1,72 @@
+<div class="container" ng-init="hackCtrl.initMy()">
+    <div class="row">
+        <div class="col-md-12">
+
+          <h3>My hackathons</h3>
+
+          <ul class="nav nav-tabs tabs-2">
+            <li class="active"><a data-toggle="tab" ui-sref="my_hackathons({'#': 'as-participant'})">As Participant</a></li>
+            <li><a data-toggle="tab" ui-sref="my_hackathons({'#': 'as-organizer'})">As Organizer</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div id="as-participant" class="tab-pane fade in active">
+                <br>
+              <h5>As Participant</h5>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Place</th>
+                    <th>Beginning</th>
+                    <th>Ending</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="hackathon in hackCtrl.hackathons">
+                    <td>{{ hackathon.id }}</td>
+                    <td>{{ hackathon.name }}</td>
+                    <td>{{ hackathon.place_adr }}</td>
+                    <td>{{ hackathon.beginning }}</td>
+                    <td>{{ hackathon.ending }}</td>
+                    <td>
+                        <a ui-sref="hackathons_view({hackathonId: hackathon.id})" class="btn-floating waves-effect waves-light default-color"><i class="material-icons">remove_red_eye</i></a>
+
+                        <a ng-hide="hackathon.pivot.attending || hackathon.beginning_std < now" class="btn-floating waves-effect waves-light red" data-toggle="modal" data-target="#remove-{{ hackathon.id }}"><i class="material-icons">clear</i></a> 
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="remove-{{ hackathon.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Cancel your registration : {{ hackathon.name }}</h4>
+                              </div>
+                              <div class="modal-body">
+                                Are you sure you want to cancel your registration for this hackathon ? 
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="$('#remove-' + hackathon.id).modal('toggle'); hackCtrl.cancelRegistration(); hackCtrl.initMy()">Cancel</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      
+                    </td>
+
+                  </tr>                                   
+                </tbody>
+              </table>
+            </div>
+            <div id="as-organizer" class="tab-pane fade">
+                <br>
+              <h5>As Organizer</h5>
+              <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+          </div>
+
+    </div>
+  </div>
+</div>

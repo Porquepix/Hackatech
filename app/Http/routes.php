@@ -20,6 +20,8 @@ Route::get('/', 'IndexController@index');
  * User routes
  */
 Route::get('users/autocomplete/{username}', 'UserController@autocomplete');
+Route::get('users/{id}/hackathons/participate', 'UserController@hackathonParticipation');
+Route::get('users/{id}/hackathons/organize', 'UserController@hackathonOrganization');
 Route::get('users/{id}/organizations', 'OrganizationController@showForUser');
 Route::get('users/{id}', 'UserController@show');
 Route::put('users/{id}', 'UserController@update');
