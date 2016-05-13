@@ -1,7 +1,7 @@
     /**
      * Organization Controller. Available in organization pages.
      */
-    app.controller('OrganizationUpdateCtrl', function($scope, $rootScope, $http, $state, $stateParams, messageCenterService, form) {
+    app.controller('OrganizationUpdateCtrl', function($scope, $rootScope, $http, $state, $stateParams, messageCenterService, form, Organization, OrganizationMember) {
         var ctrl = this;
 
         // Organization which is currently updated
@@ -11,31 +11,33 @@
         // Load the data for a form (edit / members edit)
         ctrl.loadData = function() {
             if ($stateParams.organizationId != null) {
-                $http.get(api('organizations_view').format([$stateParams.organizationId]), {}).then(function(response) {
-                    if (response.data.admin_id == $rootScope.currentUser.id)
-                        ctrl.current = response.data;
-                    else
+
+                var success = function(response) {
+                    if (response.admin_id != $rootScope.currentUser.id)
                         $state.go('my_organizations');
-                }, function(response) {
+                };
+                var error = function (response) {
                     $state.go('my_organizations');
-                });
+                };
+
+                ctrl.current = Organization.get({oid: $stateParams.organizationId}, success, error);
             }
         };
         ctrl.loadData();
 
         // Save data when the organization is created or edited
-        ctrl.save = function(orgaId) {
+        ctrl.save = function(orga) {
             ctrl.dataLoading = true;
             messageCenterService.reset();
 
             var data = {};
             form.populate($scope.form, data);
 
-            var succesCallback = function(response) {
-                messageCenterService.add('success', response.data.message, {});
-                ctrl.dataLoading = false;
+            var success = function(response) {
+                messageCenterService.add('success', response.message, { status: messageCenterService.status.next });
+                $state.go('my_organizations');
             };
-            var errorCallback = function(response) {
+            var error = function(response) {
                 if (response.data.name)
                     messageCenterService.add('danger', response.data.name[0], {});
 
@@ -50,27 +52,30 @@
 
             // If null => create case, else edit case
             if ($stateParams.organizationId != null) {
-                $http.put(api('organizations_edit').format([orgaId]), data).then(succesCallback, errorCallback);
+                data._oid = $stateParams.organizationId;
+                Organization.update(data, success, error);
             } else {
-                $http.post(api('organizations_create'), data).then(succesCallback, errorCallback);
+                Organization.save(data, success, error);
             }
         };
 
         // Add a user to an organization
-        ctrl.add = function(orgaId) {
+        ctrl.add = function(orga) {
             ctrl.dataLoading = true;
             messageCenterService.reset();
 
             var data = {
+                _oid: orga.id,
                 name: ctrl.member.title
             };
 
-            $http.post(api('organizations_add_user').format([orgaId]), data).then(function(response) {
-                messageCenterService.add('success', response.data.message, {});
-                ctrl.dataLoading = false;
+            var success = function(response) {
+                messageCenterService.add('success', response.message, {});
                 $scope.$broadcast('angucomplete-alt:clearInput');
                 ctrl.loadData();
-            }, function(response) {
+                ctrl.dataLoading = false;
+            };
+            var error = function(response) {
                 if (response.data.name)
                     messageCenterService.add('danger', response.data.name[0], {});
 
@@ -78,17 +83,21 @@
                     messageCenterService.add('danger', response.data.error, {});
 
                 ctrl.dataLoading = false;
-            });
+            };
+
+            OrganizationMember.save(data, success, error);
         };
 
         // Remove a user from an organization
-        ctrl.remove = function(orgaId, member) {
+        ctrl.remove = function(orga, member) {
             messageCenterService.reset();
-            $http.delete(api('organizations_remove_user').format([orgaId, member.id]), {}).then(function(response) {
-                messageCenterService.add('success', response.data.message, {});
-                var index = ctrl.current.members.indexOf(member);
-                ctrl.current.members.splice(index, 1);
-            });
+
+            var success = function(response) {
+                messageCenterService.add('success', response.message, {});
+                $rootScope.arrayRemove(ctrl.current.members, member);
+            };
+
+            OrganizationMember.delete({oid: orga.id, uid: member.id}, success);
         };
 
     });

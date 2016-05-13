@@ -1,7 +1,7 @@
     /**
      * Organization Controller. Available in organization pages.
      */
-    app.controller('OrganizationCtrl', function($scope, $rootScope, $http, messageCenterService) {
+    app.controller('OrganizationCtrl', function($scope, $rootScope, $http, messageCenterService, Organization, OrganizationMember) {
         var ctrl = this;
         // All organisations of the user
         ctrl.orga = {};
@@ -21,21 +21,25 @@
         // Delete the organization
         ctrl.delete = function(orga) {
             messageCenterService.reset();
-            $http.delete(api('organizations_delete').format([orga.id]), {}).then(function(response) {
-                messageCenterService.add('success', response.data.message, {});
-                var index = ctrl.orga.indexOf(orga);
-                ctrl.orga.splice(index, 1);
-            });
+
+            var success = function(response) {
+                messageCenterService.add('success', response.message, {});
+                $rootScope.arrayRemove(ctrl.orga, orga);
+            };
+
+            Organization.delete({oid: orga.id}, success);
         };
 
         // Quit an organization
         ctrl.quit = function(orga) {
             messageCenterService.reset();
-            $http.delete(api('organizations_remove_user').format([orga.id, $rootScope.currentUser.id]), {}).then(function(response) {
-                messageCenterService.add('success', response.data.message, {});
-                var index = ctrl.orga.indexOf(orga);
-                ctrl.orga.splice(index, 1);
-            });
+
+            var success = function(response) {
+                messageCenterService.add('success', response.message, {});
+                $rootScope.arrayRemove(ctrl.orga, orga);
+            };
+
+            OrganizationMember.delete({oid: orga.id, uid: $rootScope.currentUser.id}, success);
         };
 
     });

@@ -11,13 +11,10 @@
             profil_edit: '/users/{0}',
             user_autocomplete: '/users/autocomplete/',
 
+            organizations: '/organizations/:oid',
+            organizations_members: '/organizations/:oid/members/:uid',
             user_organizations: '/users/{0}/organizations',
-            organizations_view: '/organizations/{0}',
-            organizations_create: '/organizations',
-            organizations_edit: '/organizations/{0}',
-            organizations_delete: '/organizations/{0}',
-            organizations_add_user: '/organizations/{0}/members',
-            organizations_remove_user: '/organizations/{0}/members/{1}',
+           
             organizations_hackathons: '/organizations/{0}/hackathons',
 
             participate_hackathons: '/users/{0}/hackathons/participate',
@@ -257,6 +254,11 @@
         };
 
         $rootScope.now = new Date();
+
+        $rootScope.arrayRemove = function(array, element) {
+            var index = array.indexOf(element);
+            array.splice(index, 1);
+        };
 
         // $stateChangeStart is fired whenever the state changes. We can use some parameters
         // such as toState to hook into details about the state as it is changing
