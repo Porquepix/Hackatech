@@ -5,7 +5,7 @@
 
             <h3>My profile: {{ userCtrl.profile.name }} <small>#{{ userCtrl.profile.id }}</small></h3>
 
-                <form class="form-signup" role="form" name="form" ng-submit="userCtrl.update()">
+                <form class="form-signup" role="form" name="form" ng-submit="userCtrl.update(userCtrl.profile)">
                     
                     <div>
                         <div class="form-group col-md-12">

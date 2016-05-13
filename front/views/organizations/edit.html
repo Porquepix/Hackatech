@@ -1,4 +1,4 @@
-<div class="container" ng-init="orgaCtrl.loadData()">
+<div class="container">
     <div class="row">
         <div class="col-md-12">
 
@@ -7,7 +7,7 @@
             <h3 ng-hide="orgaCtrl.current.id"> Create organization </h3>
             <h3 ng-show="orgaCtrl.current.id"> Edit organization : {{ orgaCtrl.current.name }} </h3>
 
-                <form role="form" name="form" ng-submit="orgaCtrl.save(orgaCtrl.current.id)">
+                <form role="form" name="form" ng-submit="orgaCtrl.save(orgaCtrl.current)">
                     
                     <div ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
                         <div class="form-group col-md-12">

@@ -1,9 +1,7 @@
-(function() {
-
     // Handle the logout phase
-    app.controller('LogoutCtrl', function($state, Auth, $rootScope, messageCenterService) {
+    app.controller('LogoutCtrl', function($state, authtification, $rootScope, messageCenterService) {
         this.logout = function() {
-            Auth.logout(function() {
+            authtification.logout(function() {
                 // Remove the authenticated user from local storage
                 localStorage.removeItem('user');
 
@@ -20,5 +18,3 @@
             });
         }
     });
-
-});

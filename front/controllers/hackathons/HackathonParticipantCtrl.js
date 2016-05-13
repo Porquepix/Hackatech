@@ -1,6 +1,3 @@
-(function() {
-
-
     /**
      * Hackathon Controller. Available in hackathon pages.
      */
@@ -9,8 +6,6 @@
 
         // Participants which are currently loaded
         ctrl.participants = {};
-
-        ctrl.loadParticipants();
 
         // Load data for the participant page.
         ctrl.loadParticipants = function() {
@@ -21,6 +16,7 @@
                 $state.go('hackathons_view', {hackathonId: $stateParams.hackathonId});
             });
         };
+        ctrl.loadParticipants();
 
         // Add a registration of a user in an hackathon.
         ctrl.register = function(userID) {
@@ -94,5 +90,3 @@
         };
 
     });
-
-});

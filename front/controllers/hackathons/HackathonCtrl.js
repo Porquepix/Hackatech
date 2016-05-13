@@ -1,6 +1,3 @@
-(function() {
-
-
     /**
      * Hackathon Controller. Available in hackathon pages.
      */
@@ -9,8 +6,6 @@
 
         // All hackathons
         ctrl.hackathons = [];
-
-        ctrl.init();
 
         // Initialize the data about the hackathons
         ctrl.init = function() {
@@ -34,6 +29,7 @@
                 });
             });
         };
+        ctrl.init();
 
         // Retrieve the class color of an hackathon. This class is used in index and view pages.
         ctrl.getColor = function(hackathon) {
@@ -51,5 +47,3 @@
         };
 
     });
-
-});

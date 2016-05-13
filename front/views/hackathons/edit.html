@@ -1,4 +1,4 @@
-<div class="container" ng-init="hackCtrl.loadFormData()">
+<div class="container">
     <div class="row">
         <div class="col-md-12">
 
@@ -7,7 +7,7 @@
             <h3 ng-hide="hackCtrl.id"> Create hackathon </h3>
             <h3 ng-show="hackCtrl.id"> Edit hackathon : {{ hackCtrl.current.data.name }} </h3>
 
-                <form role="form" name="form" ng-submit="hackCtrl.save(hackCtrl.id)">
+                <form role="form" name="form" ng-submit="hackCtrl.save(hackCtrl.current)">
                     
                     <div ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
                         <div class="form-group col-md-12">

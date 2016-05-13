@@ -1,14 +1,10 @@
-(function() {
-
     /**
      * Organization Controller. Available in organization pages.
      */
-    app.controller('OrganizationController', function($http, $state, $stateParams) {
+    app.controller('OrganizationHackathonCtrl', function($http, $state, $stateParams) {
         var ctrl = this;
         // All Hackathons of the organization
         ctrl.hackathons = {};
-
-        ctrl.loadHackathons();
 
         // Load the data for organization hackthons page
         ctrl.loadHackathons = function() {
@@ -27,7 +23,6 @@
                     $state.go('my_organizations');
                 });
         };
+        ctrl.loadHackathons();
 
     });
-
-});

@@ -1,4 +1,4 @@
-<div class="jumbotron {{ hackCtrl.current.data.color }}" ng-init="hackCtrl.loadData()">
+<div class="jumbotron {{ hackCtrl.current.data.color }}">
   <div class="container">
 
     <h1>{{ hackCtrl.current.data.name }}</h1>
@@ -49,7 +49,7 @@
             Are you sure you want to delete this hackathon? 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="$('#delete').modal('toggle'); hackCtrl.delete()">Delete</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="$('#delete').modal('toggle'); hackCtrl.delete(hackCtrl.current)">Delete</button>
           </div>
         </div>
       </div>
@@ -81,7 +81,7 @@
         <hr>
       </div>
 
-      <div ng-controller="NewsController as newsCtrl" ng-init="newsCtrl.loadLatestNews()" ng-show="newsCtrl.news.length">
+      <div ng-controller="NewsLatestCtrl as newsCtrl" ng-show="newsCtrl.news.length">
         <h5>News</h5>
         
         <section class="collection">

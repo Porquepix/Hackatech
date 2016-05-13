@@ -1,9 +1,6 @@
 /**
 * Services
 */
-(function() {
-
-
     /**
      * Form helper.
      */
@@ -23,5 +20,3 @@
         };
 
     });
-
-})();

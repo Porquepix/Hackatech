@@ -1,5 +1,3 @@
-(function() {
-
     // URL of each API functions
     api = function(name) {
         var routes = {
@@ -48,7 +46,7 @@
 
     // Define our application
     app = angular
-            .module('hackatech', ['ui.router', 'ngRessource', 'ngAnimate', 'satellizer', 'MessageCenterModule', 'angucomplete-alt', 'btford.markdown', 'masonry', 'datetimepicker'])
+            .module('hackatech', ['ui.router', 'ngResource', 'ngAnimate', 'satellizer', 'MessageCenterModule', 'angucomplete-alt', 'btford.markdown', 'masonry', 'datetimepicker'])
             .config(config)
             .run(run);
 
@@ -102,142 +100,142 @@
         $stateProvider
             .state('error_404', {
                 url: '/e404',
-                templateUrl: './app-view/404.html',
+                templateUrl: './views/404.html',
             })
 
             .state('index', {
                 url: '',
-                templateUrl: './app-view/home.html',
+                templateUrl: './views/home/home.html',
                 controller: 'HomeCtrl as homeCtrl'
             })
             .state('indexAg', {
                 url: '/',
-                templateUrl: './app-view/home.html',
+                templateUrl: './views/home/home.html',
                 controller: 'HomeCtrl as homeCtrl'
             })
             .state('indexAuth', {
                 url: '/home',
-                templateUrl: './app-view/hackathons/my.html',
+                templateUrl: './views/hackathons/my.html',
                 controller: 'HackathonMyCtrl as hackCtrl'
             })
 
             // AUTH
             .state('login', {
                 url: '/login',
-                templateUrl: './app-view/login.html',
+                templateUrl: './views/login/login.html',
                 controller: 'LoginCtrl as loginCtrl'
             })
             .state('register', {
                 url: '/register',
-                templateUrl: './app-view/register.html',
+                templateUrl: './views/register/register.html',
                 controller: 'RegisterCtrl as registerCtrl'
             })            
             .state('passwd_email', {
                 url: '/password/email',
-                templateUrl: './app-view/passwd_reset_email.html',
+                templateUrl: './views/password/passwd_reset_email.html',
                 controller: 'PasswordCtrl as passwordCtrl'
             }) 
             .state('passwd_reset', {
                 url: '/password/reset',
-                templateUrl: './app-view/passwd_reset.html',
+                templateUrl: './views/password/passwd_reset.html',
                 controller: 'PasswordCtrl as passwordCtrl'
             })  
 
             // USER          
             .state('profile', {
                 url: '/profile',
-                templateUrl: './app-view/profile.html',
+                templateUrl: './views/users/profile.html',
                 controller: 'UserCtrl as userCtrl'
             })
             .state('profile_edit', {
                 url: '/profile/edit',
-                templateUrl: './app-view/profile_edit.html',
+                templateUrl: './views/users/profile_edit.html',
                 controller: 'UserCtrl as userCtrl'
             })
 
             // ORGANIZATIONS
             .state('my_organizations', {
                 url: '/profile/organizations',
-                templateUrl: './app-view/organizations/my.html',
+                templateUrl: './views/organizations/my.html',
                 controller: 'OrganizationCtrl as orgaCtrl'
             })
             .state('organization_create', {
                 url: '/organizations/create',
-                templateUrl: './app-view/organizations/edit.html',
+                templateUrl: './views/organizations/edit.html',
                 controller: 'OrganizationUpdateCtrl as orgaCtrl'
             })
             .state('organization_edit', {
                 url: '/organizations/{organizationId}/edit',
-                templateUrl: './app-view/organizations/edit.html',
+                templateUrl: './views/organizations/edit.html',
                 controller: 'OrganizationUpdateCtrl as orgaCtrl'
             })            
             .state('organization_members', {
                 url: '/organizations/{organizationId}/members',
-                templateUrl: './app-view/organizations/member.html',
-                controller: 'OrganizationCtrl as orgaCtrl'
+                templateUrl: './views/organizations/member.html',
+                controller: 'OrganizationUpdateCtrl as orgaCtrl'
             })
             .state('organization_hackathons', {
                 url: '/organizations/{organizationId}/hackathons',
-                templateUrl: './app-view/organizations/hackathons.html',
+                templateUrl: './views/organizations/hackathons.html',
                 controller: 'OrganizationHackathonCtrl as orgaCtrl'
             })
 
             // HACKATHONS
             .state('hackathons', {
                 url: '/hackathons?page&q',
-                templateUrl: './app-view/hackathons/index.html',
+                templateUrl: './views/hackathons/index.html',
                 controller: 'HackathonCtrl as hackCtrl'
             })            
             .state('hackathons_create', {
                 url: '/hackathons/create',
-                templateUrl: './app-view/hackathons/edit.html',
+                templateUrl: './views/hackathons/edit.html',
                 controller: 'HackathonUpdateCtrl as hackCtrl'
             })
             .state('hackathons_view', {
                 url: '/hackathons/{hackathonId}',
-                templateUrl: './app-view/hackathons/view.html',
+                templateUrl: './views/hackathons/view.html',
                 controller: 'HackathonShowCtrl as hackCtrl'
             })
             .state('my_hackathons', {
                 url: '/profile/hackathons',
-                templateUrl: './app-view/hackathons/my.html',
+                templateUrl: './views/hackathons/my.html',
                 controller: 'HackathonMyCtrl as hackCtrl'
             })
             .state('hackathons_edit', {
                 url: '/hackathons/{hackathonId}/edit',
-                templateUrl: './app-view/hackathons/edit.html',
+                templateUrl: './views/hackathons/edit.html',
                 controller: 'HackathonUpdateCtrl as hackCtrl'
             })
             .state('hackathons_projects', {
                 url: '/hackathons/{hackathonId}/projects',
-                templateUrl: './app-view/hackathons/edit.html',
+                templateUrl: './views/hackathons/edit.html',
                 controller: 'HackathonCtrl as hackCtrl'
             })
             .state('hackathons_board', {
                 url: '/hackathons/{hackathonId}/board',
-                templateUrl: './app-view/hackathons/participant.html',
+                templateUrl: './views/hackathons/participant.html',
                 controller: 'HackathonCtrl as hackCtrl'
             })
             .state('hackathons_participants', {
                 url: '/hackathons/{hackathonId}/participants',
-                templateUrl: './app-view/hackathons/participant.html',
+                templateUrl: './views/hackathons/participant.html',
                 controller: 'HackathonParticipantCtrl as hackCtrl'
             })
 
             //NEWS
             .state('hackathons_news', {
                 url: '/hackathons/{hackathonId}/news',
-                templateUrl: './app-view/hackathons-news/index.html',
+                templateUrl: './views/news/index.html',
                 controller: 'NewsCtrl as newsCtrl'
             })
             .state('hackathons_news_create', {
                 url: '/hackathons/{hackathonId}/news/create',
-                templateUrl: './app-view/hackathons-news/edit.html',
+                templateUrl: './views/news/edit.html',
                 controller: 'NewsUpdateCtrl as newsCtrl'
             })
             .state('hackathons_news_edit', {
                 url: '/hackathons/{hackathonId}/news/{newsId}/edit',
-                templateUrl: './app-view/hackathons-news/edit.html',
+                templateUrl: './views/news/edit.html',
                 controller: 'NewsUpdateCtrl as newsCtrl'
             });
 
@@ -253,14 +251,12 @@
         });
     }
 
-    function run($rootScope, $state, user, $auth) {
+    function run($rootScope, $state) {
         $rootScope.range = function(n) {
             return new Array(n);
         };
 
         $rootScope.now = new Date();
-
-        var userService = user;
 
         // $stateChangeStart is fired whenever the state changes. We can use some parameters
         // such as toState to hook into details about the state as it is changing
@@ -302,5 +298,3 @@
             $rootScope.currentState = toState.name;
         });
     } 
-
-})();

@@ -1,14 +1,12 @@
-(function() {
-
     /**
      * User Controller. Available in user pages.
      */
-    app.controller('UserController', function($scope, $rootScope, $http, messageCenterService, user, form) {
+    app.controller('UserCtrl', function($scope, $rootScope, $http, messageCenterService, authtification, form) {
         var ctrl = this;
 
         // Initialize the data about the user in profile pages
         ctrl.init = function() {
-            user.getFreshData(function(data) {
+            authtification.getFreshData(function(data) {
                 ctrl.profile = data;
 
                 ctrl.profile.created_at = ctrl.profile.created_at.replace(/(.+) (.+)/, "$1T$2Z");
@@ -27,7 +25,7 @@
 
             $http.put(api('profil_edit').format([$rootScope.currentUser.id]), data).then(function(response) {
                 messageCenterService.add('success', response.data.message, {});
-                user.saveLocalFresh();
+                authtification.saveLocalFresh();
                 
                 ctrl.password = '';
                 ctrl.password2 = '';
@@ -46,5 +44,3 @@
             });
         };
     });
-
-});

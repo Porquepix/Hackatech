@@ -1,15 +1,11 @@
-(function() {
-
     /**
      * News Controller. Available in news pages.
      */
-    app.controller('NewsLatestCtrl', function($scope, $rootScope, $http, $state, messageCenterService, form, $stateParams) {
+    app.controller('NewsLatestCtrl', function($http, $stateParams) {
         var ctrl = this;
 
         // All news
         ctrl.news = {};
-
-        ctrl.loadLatestNews();
 
         ctrl.loadLatestNews = function() {
             $http.get(api('hackathons_news_latest').format([$stateParams.hackathonId]), {}).then(function(response) {
@@ -20,7 +16,6 @@
                 });
             });
         };
+        ctrl.loadLatestNews();
 
     });
-
-});

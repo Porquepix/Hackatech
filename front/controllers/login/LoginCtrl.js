@@ -1,9 +1,7 @@
-(function() {
-
     /**
      * Login Controller. Available in login page.
      */
-    app.controller('LoginCtrl', function($auth, $state, messageCenterService, Auth) {
+    app.controller('LoginCtrl', function($auth, $state, messageCenterService, authtification) {
         var ctrl = this;
 
         // Submit of the login form
@@ -16,7 +14,7 @@
             };
 
             var success = function(response) {
-                Auth.saveLocalFresh();
+                authtification.saveLocalFresh();
                 $state.go('indexAuth');
             };
             var error = function(response) {
@@ -38,8 +36,6 @@
                 ctrl.password = '';
             };
 
-            Auth.login(credentials, success, error);
+            authtification.login(credentials, success, error);
         }
     });
-
-});

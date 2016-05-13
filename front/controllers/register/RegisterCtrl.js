@@ -1,9 +1,7 @@
-(function() {
-
     /**
      * Register Controller. Available in register page.
      */
-    app.controller('RegisterController', function($http, $state, messageCenterService) {
+    app.controller('RegisterCtrl', function($http, $state, messageCenterService) {
         var ctrl = this;
 
         // Submit of the register form
@@ -38,5 +36,3 @@
             });
         };
     });
-
-});

@@ -1,9 +1,7 @@
-(function() {
-
     /**
      * Service to get data about the logged user.
      */
-    app.service('Auth', function($http, $rootScope, $auth) {
+    app.service('authtification', function($http, $rootScope, $auth) {
         var service = this;
 
         service.data = null;
@@ -76,7 +74,7 @@
         /**
          * Logout a user.
          */
-        service.login = function(success, error) {
+        service.logout = function(success, error) {
             $auth.logout().then(success, error);
         };
 
@@ -94,5 +92,3 @@
             $http.put(api('password_reset'), data).then(success, error);
         };
     });
-
-})();

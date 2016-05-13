@@ -1,9 +1,7 @@
-(function() {
-
     /**
      * Password Controller. Available in password reset pages.
      */
-    app.controller('PasswordCtrl', function($location, $http, messageCenterService, Auth) {
+    app.controller('PasswordCtrl', function($location, $http, messageCenterService, authtification) {
         var ctrl = this;
 
         // If we are in step of 2 (reset password)
@@ -21,7 +19,7 @@
                 link: 'http://hackatech.alexis-andrieu.fr/#/password/reset'
             };
 
-            Auth.sendResetPasswd(data, function(response) {
+            authtification.sendResetPasswd(data, function(response) {
                 messageCenterService.add('success', response.data.message, {});
 
                 ctrl.dataLoading = false;
@@ -45,7 +43,7 @@
                 token: ctrl.token
             };
 
-            Auth.resetPasswd(data, function(response) {
+            authtification.resetPasswd(data, function(response) {
                 messageCenterService.add('success', response.data.message, {});
 
                 ctrl.dataLoading = false;
@@ -70,5 +68,3 @@
         };
 
     });
-
-});

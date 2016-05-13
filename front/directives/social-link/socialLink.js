@@ -1,4 +1,3 @@
-(function() {
 
     app.directive('socialLink', function() {
         return {
@@ -6,8 +5,6 @@
             scope: {
                 variable: '=of'
             },
-            templateUrl: './social-link.html'
+            templateUrl: './directives/social-link/social-link.html'
         };
     });  
-
-})();

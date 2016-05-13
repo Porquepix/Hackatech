@@ -1,4 +1,3 @@
-(function() {
 
     app.directive('socialForm', function() {
         return {
@@ -6,8 +5,6 @@
             scope: {
                 model: '=model',
             },
-            templateUrl: './social-form.html'
+            templateUrl: './directives/social-form/social-form.html'
         };
     }); 
-
-})();

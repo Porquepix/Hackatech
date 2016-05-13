@@ -1,4 +1,4 @@
-<div class="container" ng-init="orgaCtrl.loadData()">
+<div class="container">
     <div class="row">
         <div class="col-md-12">
             <a class="btn btn-primary btn-md btn-raised" ui-sref="my_organizations"><i class="material-icons left">arrow_back</i> My organizations</a>
@@ -8,7 +8,7 @@
             <div class="panel panel-default">
               <div class="panel-body">
               <h5 class="widget-title">Add a member</h5>
-                <form role="form" name="form" ng-submit="orgaCtrl.add(orgaCtrl.current.id)">
+                <form role="form" name="form" ng-submit="orgaCtrl.add(orgaCtrl.current)">
 
                   <angucomplete-alt id="name" placeholder="Username" pause="400" selected-object="orgaCtrl.member" remote-url="http://api.hackatech.alexis-andrieu.fr/users/autocomplete/" remote-url-data-field="results" title-field="name" description-field="email" minlength="1" input-class="form-control" match-class="highlight"></angucomplete-alt>
 
@@ -54,7 +54,7 @@
                                 Are you sure you want to remove this user? 
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="$('#remove-' + member.id).modal('toggle'); orgaCtrl.remove(orgaCtrl.current.id, member)">Remove</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="$('#remove-' + member.id).modal('toggle'); orgaCtrl.remove(orgaCtrl.current, member)">Remove</button>
                               </div>
                             </div>
                           </div>

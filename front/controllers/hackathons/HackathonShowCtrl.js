@@ -1,6 +1,3 @@
-(function() {
-
-
     /**
      * Hackathon Controller. Available in hackathon pages.
      */
@@ -9,8 +6,6 @@
 
         // Hackathon which is currently loaded
         ctrl.current = {};
-
-        ctrl.loadData();
 
         // Retrieve the class color of an hackathon. This class is used in index and view pages.
         ctrl.getColor = function(hackathon) {
@@ -42,6 +37,7 @@
                 });
             }
         };
+        ctrl.loadData();
 
         // Add a registration of a user in an hackathon.
         ctrl.register = function(userID) {
@@ -107,5 +103,3 @@
         };
 
     });
-
-});

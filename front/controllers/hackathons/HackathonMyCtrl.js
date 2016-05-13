@@ -1,6 +1,3 @@
-(function() {
-
-
     /**
      * Hackathon Controller. Available in hackathon pages.
      */
@@ -44,7 +41,6 @@
                 });
             });
         };
+        ctrl.initMy();
 
     });
-
-});

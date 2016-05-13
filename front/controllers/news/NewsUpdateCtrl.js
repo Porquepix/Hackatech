@@ -1,5 +1,3 @@
-(function() {
-
     /**
      * News Controller. Available in news pages.
      */
@@ -9,7 +7,16 @@
         // Current news
         ctrl.current = {};
 
-        ctrl.loadData();
+        ctrl.loadHackathonData = function(callback) {
+            $http.get(api('hackathons_view').format([$stateParams.hackathonId]), {}).then(function(response) {
+                ctrl.hackathon = response.data;
+
+                if (callback)
+                    callback();
+            }, function(response) {
+                $state.go('hackathons_view', {hackathonId: $stateParams.hackathonId});
+            });
+        };
 
         ctrl.loadData = function() {
             ctrl.loadHackathonData(function() {
@@ -24,17 +31,7 @@
                 });
             }
         };
-
-        ctrl.loadHackathonData = function(callback) {
-            $http.get(api('hackathons_view').format([$stateParams.hackathonId]), {}).then(function(response) {
-                ctrl.hackathon = response.data;
-
-                if (callback)
-                    callback();
-            }, function(response) {
-                $state.go('hackathons_view', {hackathonId: $stateParams.hackathonId});
-            });
-        };
+        ctrl.loadData();
 
         ctrl.save = function(newsId) {
             messageCenterService.reset();
@@ -77,5 +74,3 @@
         };
 
     });
-
-});

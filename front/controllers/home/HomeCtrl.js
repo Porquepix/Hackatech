@@ -1,5 +1,3 @@
-(function() {
-
     /**
      * Home Controller. Available in home page.
      */
@@ -12,5 +10,3 @@
             ctrl.nbHackathons = response.data.nbHackathons;
         });
     });
-
-});
