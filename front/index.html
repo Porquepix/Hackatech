@@ -14,12 +14,12 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="app-content/css/bootstrap.min.css" rel="stylesheet">
-    <link href="app-content/css/mdb.min.css" rel="stylesheet">
-    <link href="app-content/css/app.css" rel="stylesheet">
-    <link href="app-content/css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <link href="contents/css/bootstrap.min.css" rel="stylesheet">
+    <link href="contents/css/mdb.min.css" rel="stylesheet">
+    <link href="contents/css/app.css" rel="stylesheet">
+    <link href="contents/css/bootstrap-datetimepicker.css" rel="stylesheet">
 </head>
-<body id="app-layout" ng-controller="AppController as appCtrl">
+<body id="app-layout">
     <nav class="navbar navbar-inverse">
         <div class="container">
             <div class="navbar-header">
@@ -43,17 +43,17 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li ng-hide="authenticated" ng-class="{active: currentState.match('^index')}"><a ui-sref="indexAg" class="waves-effect waves-light">Home</a></li>
-                    <li ng-show="authenticated" ng-class="{active: currentState.match('^index')}"><a ui-sref="indexAuth" class="waves-effect waves-light">Home</a></li>
-                    <li ng-class="{active: currentState.match('^hackathons')}"><a ui-sref="hackathons" class="waves-effect waves-light">Hackathon</a></li>
+                    <li ng-hide="authenticated" ng-class="{active: currentState.match('^index')}"><a class="waves-effect waves-light" ui-sref="indexAg">Home</a></li>
+                    <li ng-show="authenticated" ng-class="{active: currentState.match('^index')}"><a class="waves-effect waves-light" ui-sref="indexAuth">Home</a></li>
+                    <li ng-class="{active: currentState.match('^hackathons')}"><a class="waves-effect waves-light" ui-sref="hackathons">Hackathon</a></li>
                     <li><a href="#/help" class="waves-effect waves-light">Help</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right" ng-hide="authenticated">
                     <!-- Authentication Links -->
-                    <li ng-class="{active: currentState.match('^login')}"><a ui-sref="login" class="waves-effect waves-light">Login</a></li>
-                    <li ng-class="{active: currentState.match('^register')}"><a ui-sref="register" class="waves-effect waves-light">Register</a></li>
+                    <li ng-class="{active: currentState.match('^login')}"><a class="waves-effect waves-light" ui-sref="login">Login</a></li>
+                    <li ng-class="{active: currentState.match('^register')}"><a class="waves-effect waves-light" ui-sref="register">Register</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right ng-hide" ng-show="authenticated">
                     <li class="dropdown">
@@ -67,7 +67,7 @@
                         <li><a ui-sref="profile_edit">Edit my profile</a></li>
                       </ul>
                     </li>
-                    <li><a ng-click="appCtrl.logout()" class="waves-effect waves-light">Logout</a></li>
+                    <li><a class="waves-effect waves-light" ng-controller="LogoutCtrl as logoutCtrl" ng-click="logoutCtrl.logout()">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -79,13 +79,13 @@
 
     <div class="container">
 
-        <div ng-show='stateIsLoading' class="col-md-12">
+        <div class="col-md-12" ng-show='stateIsLoading'>
             Loading...
         </div>
 
         <footer class="col-md-12">
             <hr>
-            <p>© 2016 Hackatech - <a href="#">alexis-andrieu.fr</a></p>
+            <p>© 2016 Hackatech - <a href="http://alexis-andrieu.fr">alexis-andrieu.fr</a></p>
         </footer>
 
     </div>
@@ -93,32 +93,55 @@
     <!-- Angular -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-resource.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
     <script src="https://code.angularjs.org/1.5.0/angular-sanitize.min.js"></script>
 
-    <script type="text/javascript" src="app-content/js/jquery.min.js"></script>
-    <script type="text/javascript" src="app-content/js/moment.js"></script>
-    <script type="text/javascript" src="app-content/js/bootstrap-datetimepicker.js"></script>
+    <script src="contents/js/jquery.min.js"></script>
+    <script src="contents/js/moment.js"></script>
+    <script src="contents/js/bootstrap-datetimepicker.js"></script>
 
-    <script src="app-module/satellizer.min.js"></script>
-    <script src="app-module/message-center.js"></script>
-    <script src="app-module/angucomplete-alt.js"></script>
+    <script src="modules/satellizer.min.js"></script>
+    <script src="modules/message-center.js"></script>
+    <script src="modules/angucomplete-alt.js"></script>
     <script src="https://cdn.rawgit.com/showdownjs/showdown/1.3.0/dist/showdown.min.js"></script>
-    <script src="app-module/markdown.js"></script>
-    <script src="app-module/angular-masonry-directive.js"></script>
-    <script type="text/javascript" src="app-module/datetimepicker.js"></script>
+    <script src="modules/markdown.js"></script>
+    <script src="modules/angular-masonry-directive.js"></script>
+    <script src="modules/datetimepicker.js"></script>
 
+    <!-- APP -->
     <script src="app.js"></script>
-    <script src="services.js"></script>
-    <script src="controllers.js"></script>
+    <!-- Directives -->
+    <script src="directives/social-form/socialForm.js"></script>
+    <script src="directives/social-link/socialLink.js"></script>
+    <!-- Services -->
+    <script src="services/Auth.js"></script>
+    <!-- Controllers -->
+    <script src="controllers/home/HomeCtrl.js"></script>
+    <script src="controllers/login/LoginCtrl.js"></script>
+    <script src="controllers/logout/LogoutCtrl.js"></script>
+    <script src="controllers/register/RegisterCtrl.js"></script>
+    <script src="controllers/password/PasswordCtrl.js"></script>
+    <script src="controllers/users/UserCtrl.js"></script>
+    <script src="controllers/organizations/OrganizationCtrl.js"></script>
+    <script src="controllers/organizations/OrganizationUpdateCtrl.js"></script>
+    <script src="controllers/organizations/OrganizationHackathonCtrl.js"></script>
+    <script src="controllers/hackathons/HackathonCtrl.js"></script>
+    <script src="controllers/hackathons/HackathonMyCtrl.js"></script>
+    <script src="controllers/hackathons/HackathonParticipantCtrl.js"></script>
+    <script src="controllers/hackathons/HackathonShowCtrl.js"></script>
+    <script src="controllers/hackathons/HackathonUpdateCtrl.js"></script>
+    <script src="controllers/news/NewsCtrl.js"></script>
+    <script src="controllers/news/NewsLatestCtrl.js"></script>
+    <script src="controllers/news/NewsUpdateCtrl.js"></script>
 
     <!-- JavaScripts -->
-    <script type="text/javascript" src="app-content/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="app-content/js/mdb.min.js"></script>
-    <script type="text/javascript" src="app-content/js/string-format.js"></script>
-    <script type="text/javascript" src="app-content/js/masonry.min.js"></script>
-    <script type="text/javascript" src="app-content/js/imagesLoaded.min.js"></script>
-    <script type="text/javascript" src="app-content/js/app.js"></script>
+    <script src="contents/js/bootstrap.min.js"></script>
+    <script src="contents/js/mdb.min.js"></script>
+    <script src="contents/js/string-format.js"></script>
+    <script src="contents/js/masonry.min.js"></script>
+    <script src="contents/js/imagesLoaded.min.js"></script>
+    <script src="contents/js/app.js"></script>
     
     
 </body>

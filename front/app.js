@@ -48,7 +48,7 @@
 
     // Define our application
     app = angular
-            .module('hackatech', ['ui.router', 'ngAnimate', 'satellizer', 'MessageCenterModule', 'angucomplete-alt', 'btford.markdown', 'masonry', 'datetimepicker'])
+            .module('hackatech', ['ui.router', 'ngRessource', 'ngAnimate', 'satellizer', 'MessageCenterModule', 'angucomplete-alt', 'btford.markdown', 'masonry', 'datetimepicker'])
             .config(config)
             .run(run);
 
@@ -108,137 +108,137 @@
             .state('index', {
                 url: '',
                 templateUrl: './app-view/home.html',
-                controller: 'HomeController as homeCtrl'
+                controller: 'HomeCtrl as homeCtrl'
             })
             .state('indexAg', {
                 url: '/',
                 templateUrl: './app-view/home.html',
-                controller: 'HomeController as homeCtrl'
+                controller: 'HomeCtrl as homeCtrl'
             })
             .state('indexAuth', {
                 url: '/home',
                 templateUrl: './app-view/hackathons/my.html',
-                controller: 'HackathonController as hackCtrl'
+                controller: 'HackathonMyCtrl as hackCtrl'
             })
 
             // AUTH
             .state('login', {
                 url: '/login',
                 templateUrl: './app-view/login.html',
-                controller: 'LoginController as loginCtrl'
+                controller: 'LoginCtrl as loginCtrl'
             })
             .state('register', {
                 url: '/register',
                 templateUrl: './app-view/register.html',
-                controller: 'RegisterController as registerCtrl'
+                controller: 'RegisterCtrl as registerCtrl'
             })            
             .state('passwd_email', {
                 url: '/password/email',
                 templateUrl: './app-view/passwd_reset_email.html',
-                controller: 'PasswordController as passwordCtrl'
+                controller: 'PasswordCtrl as passwordCtrl'
             }) 
             .state('passwd_reset', {
                 url: '/password/reset',
                 templateUrl: './app-view/passwd_reset.html',
-                controller: 'PasswordController as passwordCtrl'
+                controller: 'PasswordCtrl as passwordCtrl'
             })  
 
             // USER          
             .state('profile', {
                 url: '/profile',
                 templateUrl: './app-view/profile.html',
-                controller: 'UserController as userCtrl'
+                controller: 'UserCtrl as userCtrl'
             })
             .state('profile_edit', {
                 url: '/profile/edit',
                 templateUrl: './app-view/profile_edit.html',
-                controller: 'UserController as userCtrl'
+                controller: 'UserCtrl as userCtrl'
             })
 
             // ORGANIZATIONS
             .state('my_organizations', {
                 url: '/profile/organizations',
                 templateUrl: './app-view/organizations/my.html',
-                controller: 'OrganizationController as orgaCtrl'
+                controller: 'OrganizationCtrl as orgaCtrl'
             })
             .state('organization_create', {
                 url: '/organizations/create',
                 templateUrl: './app-view/organizations/edit.html',
-                controller: 'OrganizationController as orgaCtrl'
+                controller: 'OrganizationUpdateCtrl as orgaCtrl'
             })
             .state('organization_edit', {
                 url: '/organizations/{organizationId}/edit',
                 templateUrl: './app-view/organizations/edit.html',
-                controller: 'OrganizationController as orgaCtrl'
+                controller: 'OrganizationUpdateCtrl as orgaCtrl'
             })            
             .state('organization_members', {
                 url: '/organizations/{organizationId}/members',
                 templateUrl: './app-view/organizations/member.html',
-                controller: 'OrganizationController as orgaCtrl'
+                controller: 'OrganizationCtrl as orgaCtrl'
             })
             .state('organization_hackathons', {
                 url: '/organizations/{organizationId}/hackathons',
                 templateUrl: './app-view/organizations/hackathons.html',
-                controller: 'OrganizationController as orgaCtrl'
+                controller: 'OrganizationHackathonCtrl as orgaCtrl'
             })
 
             // HACKATHONS
             .state('hackathons', {
                 url: '/hackathons?page&q',
                 templateUrl: './app-view/hackathons/index.html',
-                controller: 'HackathonController as hackCtrl'
+                controller: 'HackathonCtrl as hackCtrl'
             })            
             .state('hackathons_create', {
                 url: '/hackathons/create',
                 templateUrl: './app-view/hackathons/edit.html',
-                controller: 'HackathonController as hackCtrl'
+                controller: 'HackathonUpdateCtrl as hackCtrl'
             })
             .state('hackathons_view', {
                 url: '/hackathons/{hackathonId}',
                 templateUrl: './app-view/hackathons/view.html',
-                controller: 'HackathonController as hackCtrl'
+                controller: 'HackathonShowCtrl as hackCtrl'
             })
             .state('my_hackathons', {
                 url: '/profile/hackathons',
                 templateUrl: './app-view/hackathons/my.html',
-                controller: 'HackathonController as hackCtrl'
+                controller: 'HackathonMyCtrl as hackCtrl'
             })
             .state('hackathons_edit', {
                 url: '/hackathons/{hackathonId}/edit',
                 templateUrl: './app-view/hackathons/edit.html',
-                controller: 'HackathonController as hackCtrl'
+                controller: 'HackathonUpdateCtrl as hackCtrl'
             })
             .state('hackathons_projects', {
                 url: '/hackathons/{hackathonId}/projects',
                 templateUrl: './app-view/hackathons/edit.html',
-                controller: 'HackathonController as hackCtrl'
+                controller: 'HackathonCtrl as hackCtrl'
             })
             .state('hackathons_board', {
                 url: '/hackathons/{hackathonId}/board',
                 templateUrl: './app-view/hackathons/participant.html',
-                controller: 'HackathonController as hackCtrl'
+                controller: 'HackathonCtrl as hackCtrl'
             })
             .state('hackathons_participants', {
                 url: '/hackathons/{hackathonId}/participants',
                 templateUrl: './app-view/hackathons/participant.html',
-                controller: 'HackathonController as hackCtrl'
+                controller: 'HackathonParticipantCtrl as hackCtrl'
             })
 
             //NEWS
             .state('hackathons_news', {
                 url: '/hackathons/{hackathonId}/news',
                 templateUrl: './app-view/hackathons-news/index.html',
-                controller: 'NewsController as newsCtrl'
+                controller: 'NewsCtrl as newsCtrl'
             })
             .state('hackathons_news_create', {
                 url: '/hackathons/{hackathonId}/news/create',
                 templateUrl: './app-view/hackathons-news/edit.html',
-                controller: 'NewsController as newsCtrl'
+                controller: 'NewsUpdateCtrl as newsCtrl'
             })
             .state('hackathons_news_edit', {
                 url: '/hackathons/{hackathonId}/news/{newsId}/edit',
                 templateUrl: './app-view/hackathons-news/edit.html',
-                controller: 'NewsController as newsCtrl'
+                controller: 'NewsUpdateCtrl as newsCtrl'
             });
 
             
@@ -248,7 +248,7 @@
          $httpProvider.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
         datetimepickerProvider.setOptions({
-            locale: 'fr',
+            locale: 'en',
             format: 'Y-MM-DD HH:mm'
         });
     }
@@ -301,31 +301,6 @@
 
             $rootScope.currentState = toState.name;
         });
-    }
-
-
-    /**
-     * DIRECTIVES
-     */
-
-    app.directive('socialLink', function() {
-        return {
-            restrict: 'E',
-            scope: {
-                variable: '=of'
-            },
-            templateUrl: './app-view/directive/social-link.html'
-        };
-    });         
-
-    app.directive('socialForm', function() {
-        return {
-            restrict: 'E',
-            scope: {
-                model: '=model',
-            },
-            templateUrl: './app-view/directive/social-form.html'
-        };
-    });  
+    } 
 
 })();
