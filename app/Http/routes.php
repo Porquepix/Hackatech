@@ -38,13 +38,14 @@ Route::put('password/reset', 'AuthenticateController@reset');
 /*
  * Organization routes
  */
+Route::get('organizations/{organizations}/hackathons', 'OrganizationController@showHackathons');
 Route::delete('organizations/{organizations}/members/{members}', 'OrganizationController@removeMember');
 Route::post('organizations/{organizations}/members', 'OrganizationController@addMember');
 Route::resource('organizations', 'OrganizationController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
 
 
 /*
- *
+ * News routes
  */
 Route::get('hackathons/{hackathons}/news/latest', 'NewsController@latest');
 Route::resource('hackathons/{hackathons}/news', 'NewsController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);

@@ -150,4 +150,17 @@ class OrganizationController extends Controller
         return response()->json(['message' => 'The user has been successfully removed !']);
     }
 
+
+    /**
+     * Display the specified resource.
+     *
+     * @param ShowOrganizationRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function showHackathons(ShowOrganizationRequest $request, $id)
+    {
+        return Organization::findOrFail($id)->hackathons()->orderBy('beginning', 'DESC')->get();
+    }
+
 }

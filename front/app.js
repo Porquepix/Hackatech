@@ -20,6 +20,7 @@
             organizations_delete: '/organizations/{0}',
             organizations_add_user: '/organizations/{0}/members',
             organizations_remove_user: '/organizations/{0}/members/{1}',
+            organizations_hackathons: '/organizations/{0}/hackathons',
 
             participate_hackathons: '/users/{0}/hackathons/participate',
             organize_hackathons: '/users/{0}/hackathons/organize',
@@ -116,8 +117,8 @@
             })
             .state('indexAuth', {
                 url: '/home',
-                templateUrl: './app-view/home.html',
-                controller: 'HomeController as homeCtrl'
+                templateUrl: './app-view/hackathons/my.html',
+                controller: 'HackathonController as hackCtrl'
             })
 
             // AUTH
@@ -173,6 +174,11 @@
             .state('organization_members', {
                 url: '/organizations/{organizationId}/members',
                 templateUrl: './app-view/organizations/member.html',
+                controller: 'OrganizationController as orgaCtrl'
+            })
+            .state('organization_hackathons', {
+                url: '/organizations/{organizationId}/hackathons',
+                templateUrl: './app-view/organizations/hackathons.html',
                 controller: 'OrganizationController as orgaCtrl'
             })
 
