@@ -1,6 +1,3 @@
-/**
-* Services
-*/
     /**
      * Form helper.
      */
