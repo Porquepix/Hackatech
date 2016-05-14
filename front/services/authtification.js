@@ -44,7 +44,7 @@
         /**
          * Save the buffered data about the user in local storage.
          */
-        service.saveLocal = function() {
+        service.saveLocal = function(callback, errorCallback) {
             service.getData(function(data) {
 
                 var user = JSON.stringify(data);
@@ -53,15 +53,18 @@
                 $rootScope.authenticated = true;
                 $rootScope.currentUser = data;
                 
-            });
+                if (callback)
+                    callback();
+
+            }, errorCallback);
         };
 
         /**
          * Save the fresh data about the user in local storage.
          */
-        service.saveLocalFresh = function() {
+        service.saveLocalFresh = function(callback, errorCallback) {
             service.clearData();
-            service.saveLocal();
+            service.saveLocal(callback, errorCallback);
         };
 
         /**

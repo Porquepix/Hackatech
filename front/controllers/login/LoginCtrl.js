@@ -14,8 +14,9 @@
             };
 
             var success = function(response) {
-                authtification.saveLocalFresh();
-                $state.go('indexAuth');
+                authtification.saveLocalFresh(function() {
+                    $state.go('indexAuth');
+                });
             };
             var error = function(response) {
                 messageCenterService.reset();
