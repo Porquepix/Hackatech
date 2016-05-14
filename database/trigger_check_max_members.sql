@@ -9,7 +9,7 @@ BEGIN
     c_MaxMemberCount := 9;
 
     SELECT COUNT(1) INTO v_MemberCount
-    FROM invole 
+    FROM involve 
     WHERE organization_id = NEW.organization_id;
 
     IF v_MemberCount >= c_MaxMemberCount THEN
@@ -21,6 +21,6 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER tg_check_max_members_orga 
-BEFORE INSERT ON invole
+BEFORE INSERT ON involve
 FOR EACH ROW
 EXECUTE PROCEDURE pc_check_max_participants();

@@ -40,7 +40,7 @@ class NewsController extends Controller
         $news->fill($request->all());
         $news->hackathon_id = $hackathon_id;
         $news->save();
-        return response()->json(['message' => 'The news has been successfully created !']);
+        return response()->json(['message' => 'The news has been successfully created !'], 201);
     }
 
     /**

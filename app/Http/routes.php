@@ -43,6 +43,10 @@ Route::delete('organizations/{organizations}/members/{members}', 'OrganizationCo
 Route::post('organizations/{organizations}/members', 'OrganizationController@addMember');
 Route::resource('organizations', 'OrganizationController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
 
+/*
+ * Projects routes
+ */
+Route::resource('hackathons/{hackathons}/projects', 'ProjectController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
 
 /*
  * News routes

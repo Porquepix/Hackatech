@@ -65,7 +65,7 @@ class HackathonController extends Controller
         $hackathon->fill($request->all());
         $hackathon->organization_id = $request->input('organization_id');
         $hackathon->save();
-        return response()->json(['message' => 'The hackathon has been successfully created !']);
+        return response()->json(['message' => 'The hackathon has been successfully created !'], 201);
     }
 
     /**

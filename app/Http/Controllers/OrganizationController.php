@@ -45,7 +45,7 @@ class OrganizationController extends Controller
         $organization->fill($request->all());
         $organization->admin_id = JWTAuth::parseToken()->authenticate()->id;
         $organization->save();
-        return response()->json(['message' => 'The organization has been successfully created !']);
+        return response()->json(['message' => 'The organization has been successfully created !'], 201);
     }
 
     /**
