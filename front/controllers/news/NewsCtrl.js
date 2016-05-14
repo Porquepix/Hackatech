@@ -1,34 +1,45 @@
     /**
      * News Controller. Available in news pages.
      */
-    app.controller('NewsCtrl', function($http, $state, $stateParams) {
+    app.controller('NewsCtrl', function($rootScope, $http, $state, $stateParams, Hackathon, News, dateStdFormater, messageCenterService) {
         var ctrl = this;
 
         // All news
         ctrl.news = {};
 
         ctrl.loadHackathonData = function(callback) {
-            $http.get(api('hackathons_view').format([$stateParams.hackathonId]), {}).then(function(response) {
-                ctrl.hackathon = response.data;
-
-                if (callback)
-                    callback();
-            }, function(response) {
+            var success = function(response) {
+                ctrl.hackathon = response;
+            };
+            var error = function(response) {
                 $state.go('hackathons_view', {hackathonId: $stateParams.hackathonId});
-            });
+            };
+
+            Hackathon.get({hid: $stateParams.hackathonId}, success, error);
         };
 
         ctrl.init = function() {
             ctrl.loadHackathonData();
 
-            $http.get(api('hackathons_news').format([$stateParams.hackathonId]), {}).then(function(response) {
-                ctrl.news = response.data;
-                ctrl.news.forEach(function(e) {
-                    e.created_at = new Date(e.created_at);
-                    e.created_at.setHours(e.created_at.getHours() - 1);
-                });
-            });
+            var success = function(response) {
+                ctrl.news = response;
+                dateStdFormater.format(ctrl.news, ['created_at']);
+            };
+
+            News.search({hid: $stateParams.hackathonId}, success);
         };
         ctrl.init();
+
+
+        ctrl.delete = function(news) {
+            messageCenterService.reset();
+
+            var success = function(response) {
+                messageCenterService.add('success', response.message, {});
+                $rootScope.arrayRemove(ctrl.news, news);
+            };
+
+            News.delete({hid: $stateParams.hackathonId, nid: news.id}, success);
+        };
 
     });

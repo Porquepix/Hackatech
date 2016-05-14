@@ -4,6 +4,7 @@
             // Angular ressources
             hackathons: '/hackathons/:hid',
             hackathons_participants: '/hackathons/:hid/participants/:uid',
+            hackathons_news: '/hackathons/:hid/news/:nid',
             organizations: '/organizations/:oid',
             organizations_members: '/organizations/:oid/members/:uid',
             
@@ -23,13 +24,6 @@
 
             participate_hackathons: '/users/{0}/hackathons/participate',
             organize_hackathons: '/users/{0}/hackathons/organize',
-
-            hackathons_news: '/hackathons/{0}/news',
-            hackathons_news_latest: '/hackathons/{0}/news/latest',
-            hackathons_news_create: '/hackathons/{0}/news',
-            hackathons_news_edit: '/hackathons/{0}/news/{1}',
-            hackathons_news_delete: '/hackathons/{0}/news/{1}',
-            hackathons_news_view: '/hackathons/{0}/news/{1}',
         };
 
         return "http://api.hackatech.alexis-andrieu.fr" + routes[name];

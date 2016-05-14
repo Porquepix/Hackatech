@@ -93,7 +93,7 @@
                 <a ui-sref="hackathons_news({ hackathonId : hackCtrl.current.data.id, '#': news.id })" class="btn-flat waves-effect">View the article »</a>
               </div>
 
-              <span class="secondary-content">{{ news.created_at | date:"EEEE, MMMM d, yyyy - HH:mm" }}</span>
+              <span class="secondary-content">{{ news.created_at_std | date:"EEEE, MMMM d, yyyy - HH:mm" }}</span>
           </article>
         </section>
         <a ui-sref="hackathons_news({ hackathonId : hackCtrl.current.data.id })" class="btn-flat waves-effect">View more »</a>

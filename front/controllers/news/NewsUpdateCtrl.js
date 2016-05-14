@@ -1,21 +1,22 @@
     /**
      * News Controller. Available in news pages.
      */
-    app.controller('NewsUpdateCtrl', function($scope, $http, $state, messageCenterService, form, $stateParams) {
+    app.controller('NewsUpdateCtrl', function($scope, $http, $state, messageCenterService, form, $stateParams, Hackathon, News) {
         var ctrl = this;
 
         // Current news
         ctrl.current = {};
 
         ctrl.loadHackathonData = function(callback) {
-            $http.get(api('hackathons_view').format([$stateParams.hackathonId]), {}).then(function(response) {
-                ctrl.hackathon = response.data;
-
-                if (callback)
-                    callback();
-            }, function(response) {
+            var success = function(response) {
+                ctrl.hackathon = response;
+                callback();
+            };
+            var error = function(response) {
                 $state.go('hackathons_view', {hackathonId: $stateParams.hackathonId});
-            });
+            };
+
+            Hackathon.get({hid: $stateParams.hackathonId}, success, error);
         };
 
         ctrl.loadData = function() {
@@ -26,24 +27,26 @@
             });
 
             if ($stateParams.newsId != null) {
-                $http.get(api('hackathons_news_view').format([$stateParams.hackathonId, $stateParams.newsId]), {}).then(function(response) {
-                    ctrl.current = response.data;
-                });
+                var success = function(response) {
+                    ctrl.current = response;
+                };
+                News.get({hid: $stateParams.hackathonId, nid: $stateParams.newsId}, success);
             }
         };
         ctrl.loadData();
 
-        ctrl.save = function(newsId) {
+        ctrl.save = function(news) {
             messageCenterService.reset();
 
             var data = {};
+            data._hid = $stateParams.hackathonId;
             form.populate($scope.form, data);
 
-            var succesCallback = function(response) {
-                messageCenterService.add('success', response.data.message, {});
-                ctrl.dataLoading = false;
+            var success = function(response) {
+                messageCenterService.add('success', response.message, { status: messageCenterService.status.next });
+                $state.go('hackathons_news', {hackathonId: $stateParams.hackathonId});
             };
-            var errorCallback = function(response) {
+            var error = function(response) {
                 if (response.data.name)
                     messageCenterService.add('danger', response.data.name[0], {});
 
@@ -58,19 +61,11 @@
 
             // If null => create case, else edit case
             if ($stateParams.newsId != null) {
-                $http.put(api('hackathons_news_edit').format([$stateParams.hackathonId, $stateParams.newsId]), data).then(succesCallback, errorCallback);
+                data._nid = $stateParams.newsId;
+                News.update(data, success, error);
             } else {
-                $http.post(api('hackathons_news_create').format([$stateParams.hackathonId]), data).then(succesCallback, errorCallback);
+                News.save(data, success, error);
             }
-        };
-
-        ctrl.delete = function(news) {
-            messageCenterService.reset();
-            $http.delete(api('hackathons_news_delete').format([$stateParams.hackathonId, news.id]), {}).then(function(response) {
-                messageCenterService.add('success', response.data.message, {});
-                var index = ctrl.news.indexOf(news);
-                ctrl.news.splice(index, 1);
-            });
         };
 
     });
