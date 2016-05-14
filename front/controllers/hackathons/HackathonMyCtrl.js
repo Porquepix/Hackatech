@@ -1,45 +1,32 @@
     /**
      * Hackathon Controller. Available in hackathon pages.
      */
-    app.controller('HackathonMyCtrl', function($rootScope, $http) {
+    app.controller('HackathonMyCtrl', function($rootScope, $http, MyHackathon, dateStdFormater) {
         var ctrl = this;
 
         // All hackathons
         ctrl.hackathons = [];
 
-
         ctrl.initMy = function() {
-            $http.get(api('participate_hackathons').format([$rootScope.currentUser.id]), {}).then(function(response) {
-                ctrl.hackathons.participate = response.data;
-                ctrl.hackathons.participate.forEach(function(e) {
-                    e.beginning_std = e.beginning.replace(/(.+) (.+)/, "$1T$2Z");
-                    e.beginning_std = new Date(e.beginning_std);
-                    e.beginning_std.setHours(e.beginning_std.getHours() - 1);
+            var successP = function(response) {
+                ctrl.hackathons.participate = response;
+                dateStdFormater.format(ctrl.hackathons.participate, ['beginning', 'ending']);
+            };
 
-                    e.ending_std = e.ending.replace(/(.+) (.+)/, "$1T$2Z");
-                    e.ending_std = new Date(e.ending_std);
-                    e.ending_std.setHours(e.ending_std.getHours() - 1);
-                });
-            });
+            MyHackathon.getParticipation({uid: $rootScope.currentUser.id}, successP);
 
-            $http.get(api('organize_hackathons').format([$rootScope.currentUser.id]), {}).then(function(response) {
-                ctrl.hackathons.organizer = response.data.organization_admin;
+            var successO = function(response) {
+                ctrl.hackathons.organizer = response.organization_admin;
                 ctrl.hackathons.organizer.forEach(function(e) {
                     e.isAdmin = true;
                 });
-                ctrl.hackathons.organizer = ctrl.hackathons.organizer.concat(response.data.organization_member);
+                ctrl.hackathons.organizer = ctrl.hackathons.organizer.concat(response.organization_member);
                 ctrl.hackathons.organizer.forEach(function(organization) {
-                    organization.hackathons.forEach(function(e) {
-                        e.beginning_std = e.beginning.replace(/(.+) (.+)/, "$1T$2Z");
-                        e.beginning_std = new Date(e.beginning_std);
-                        e.beginning_std.setHours(e.beginning_std.getHours() - 1);
-
-                        e.ending_std = e.ending.replace(/(.+) (.+)/, "$1T$2Z");
-                        e.ending_std = new Date(e.ending_std);
-                        e.ending_std.setHours(e.ending_std.getHours() - 1);
-                    });
+                    dateStdFormater.format(organization.hackathons, ['beginning', 'ending']);
                 });
-            });
+            };
+
+            MyHackathon.getOrganizer({uid: $rootScope.currentUser.id}, successO);
         };
         ctrl.initMy();
 

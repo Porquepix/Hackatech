@@ -1,7 +1,7 @@
     /**
      * Hackathon Controller. Available in hackathon pages.
      */
-    app.controller('HackathonCtrl', function($http, $state, $stateParams) {
+    app.controller('HackathonCtrl', function($http, $state, $stateParams, Hackathon, dateStdFormater) {
         var ctrl = this;
 
         // All hackathons
@@ -9,25 +9,26 @@
 
         // Initialize the data about the hackathons
         ctrl.init = function() {
-            page = $stateParams.page;
+            var filter = {};
+            filter.page = $stateParams.page;
             q = $stateParams.q;
             if (q) {
                 ctrl.q = q;
-                var search = '&q=' + q;
+                filter.q = q;
             }
-            $http.get(api('hackathons') + '?page=' + page + search, {}).then(function(response) {
-                ctrl.hackathons = response.data;
-                ctrl.hackathons.data.forEach(function(e) {
-                    e.beginning_std = e.beginning.replace(/(.+) (.+)/, "$1T$2Z");
-                    e.beginning_std = new Date(e.beginning_std);
-                    e.beginning_std.setHours(e.beginning_std.getHours() - 1);
 
+            var success = function(response) {
+                ctrl.hackathons = response;
+                dateStdFormater.format(ctrl.hackathons.data, ['beginning']);
+                ctrl.hackathons.data.forEach(function(e) {
                     e.two = e.name;
                     e.two = e.two.charAt(0).toUpperCase() + e.two.charAt(1).toLowerCase();
 
                     ctrl.getColor(e);
                 });
-            });
+            };
+
+            Hackathon.search(filter, success);
         };
         ctrl.init();
 

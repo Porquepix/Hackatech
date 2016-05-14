@@ -1,20 +1,22 @@
     /**
      * Organization Controller. Available in organization pages.
      */
-    app.controller('OrganizationCtrl', function($scope, $rootScope, $http, messageCenterService, Organization, OrganizationMember) {
+    app.controller('OrganizationCtrl', function($scope, $rootScope, $http, messageCenterService, Organization, OrganizationMember, MyOrganization) {
         var ctrl = this;
         // All organisations of the user
         ctrl.orga = {};
 
         // Get the organizations of the user
         ctrl.init = function() {
-            $http.get(api('user_organizations').format([$rootScope.currentUser.id]), {}).then(function(response) {
-                ctrl.orga = response.data.admin;
+            var success = function(response) {
+                ctrl.orga = response.admin;
                 ctrl.orga.forEach(function(e) {
                     e.isAdmin = true;
                 });
-                ctrl.orga = ctrl.orga.concat(response.data.member);
-            });
+                ctrl.orga = ctrl.orga.concat(response.member);
+            };
+
+            MyOrganization.get({uid: $rootScope.currentUser.id}, success);
         };
         ctrl.init();
 

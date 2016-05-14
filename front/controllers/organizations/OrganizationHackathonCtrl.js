@@ -1,27 +1,22 @@
     /**
      * Organization Controller. Available in organization pages.
      */
-    app.controller('OrganizationHackathonCtrl', function($http, $state, $stateParams) {
+    app.controller('OrganizationHackathonCtrl', function($http, $state, $stateParams, OrganizationHackathon, dateStdFormater) {
         var ctrl = this;
         // All Hackathons of the organization
         ctrl.hackathons = {};
 
         // Load the data for organization hackthons page
         ctrl.loadHackathons = function() {
-            $http.get(api('organizations_hackathons').format([$stateParams.organizationId]), {}).then(function(response) {
-                    ctrl.hackathons = response.data;
-                    ctrl.hackathons.forEach(function(e) {
-                        e.beginning_std = e.beginning.replace(/(.+) (.+)/, "$1T$2Z");
-                        e.beginning_std = new Date(e.beginning_std);
-                        e.beginning_std.setHours(e.beginning_std.getHours() - 1);
+            var success = function(response) {
+                ctrl.hackathons = response;
+                dateStdFormater.format(ctrl.hackathons, ['beginning', 'ending']);
+            };
+            var error = function(response) {
+                $state.go('my_organizations');
+            };
 
-                        e.ending_std = e.ending.replace(/(.+) (.+)/, "$1T$2Z");
-                        e.ending_std = new Date(e.ending_std);
-                        e.ending_std.setHours(e.ending_std.getHours() - 1);
-                    });
-                }, function(response) {
-                    $state.go('my_organizations');
-                });
+            OrganizationHackathon.get({oid: $stateParams.organizationId}, success, error);
         };
         ctrl.loadHackathons();
 

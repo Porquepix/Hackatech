@@ -1,7 +1,7 @@
     /**
      * Hackathon Controller. Available in hackathon pages.
      */
-    app.controller('HackathonUpdateCtrl', function($scope, $rootScope, $http, $state, messageCenterService, form, $stateParams) {
+    app.controller('HackathonUpdateCtrl', function($scope, $rootScope, $http, $state, messageCenterService, form, $stateParams, Hackathon, MyOrganization, dateStdFormater) {
         var ctrl = this;
 
         // Hackathon which is currently loaded
@@ -17,25 +17,29 @@
         // Load data about one hackathon which the id is in the url
         ctrl.loadData = function(callback) {
             if ($stateParams.hackathonId != null) {
-                $http.get(api('hackathons_view').format([$stateParams.hackathonId]), {}).then(function(response) {
-                    ctrl.current = response.data;
+                var success = function(response) {
+                    ctrl.current = response;
 
-                    ctrl.current.data.beginning_std = ctrl.current.data.beginning.replace(/(.+) (.+)/, "$1T$2Z");
-                    ctrl.current.data.beginning_std = new Date(ctrl.current.data.beginning_std);
-                    ctrl.current.data.beginning_std.setHours(ctrl.current.data.beginning_std.getHours() - 1);
+                    callback();
 
-                    ctrl.current.data.ending_std = ctrl.current.data.ending.replace(/(.+) (.+)/, "$1T$2Z");
-                    ctrl.current.data.ending_std = new Date(ctrl.current.data.ending_std);
-                    ctrl.current.data.ending_std.setHours(ctrl.current.data.ending_std.getHours() - 1);
-
+                    ctrl.current.data.beginning_std = dateStdFormater.format(ctrl.current.data.beginning);
+                    ctrl.current.data.ending_std = dateStdFormater.format(ctrl.current.data.ending);
                     ctrl.getColor(ctrl.current.data);
-
-                    if (callback)
-                        callback();
-                }, function(response) {
+                    
+                };
+                var error = function(response) {
                     $state.go('hackathons');
-                });
+                };
+
+                Hackathon.get({hid: $stateParams.hackathonId}, success, error);
             }
+        };
+
+        ctrl.loadOrgas = function() {
+            var success = function(response) {
+                ctrl.orgas = response.admin;
+            };
+            MyOrganization.get({uid: $rootScope.currentUser.id}, success);
         };
 
         // Load data for the create / edit form.
@@ -55,27 +59,23 @@
                 });
             }
 
-
-            $http.get(api('user_organizations').format([$rootScope.currentUser.id]), {}).then(function(response) {
-                ctrl.orgas = response.data.admin;
-            });
+            ctrl.loadOrgas();
         };
         ctrl.loadFormData();
 
         // Save an hackathon (create or edit).
-        ctrl.save = function(hackathonID) {
+        ctrl.save = function(hackathon) {
             ctrl.dataLoading = true;
             messageCenterService.reset();
 
             var data = {};
             form.populate($scope.form, data);
 
-            var succesCallback = function(response) {
-                messageCenterService.add('success', response.data.message, {});
-                ctrl.dataLoading = false;
-                $("body").scrollTop(0);
+            var success = function(response) {
+                messageCenterService.add('success', response.message, { status: messageCenterService.status.next });
+                $state.go('my_hackathons', {'#': 'as-organizer'});
             };
-            var errorCallback = function(response) {
+            var error = function(response) {
                 if (response.data.name)
                     messageCenterService.add('danger', response.data.name[0], {});
 
@@ -112,9 +112,10 @@
 
             // If null => create case, else edit case
             if ($stateParams.hackathonId != null) {
-                $http.put(api('hackathons_edit').format([hackathonID]), data).then(succesCallback, errorCallback);
+                data._hid = $stateParams.hackathonId;
+                Hackathon.update(data, success, error);
             } else {
-                $http.post(api('hackathons_create'), data).then(succesCallback, errorCallback);
+                Hackathon.save(data, success, error);
             }
         };
 

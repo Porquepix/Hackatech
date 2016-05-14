@@ -1,6 +1,13 @@
     // URL of each API functions
     api = function(name) {
         var routes = {
+            // Angular ressources
+            hackathons: '/hackathons/:hid',
+            hackathons_participants: '/hackathons/:hid/participants/:uid',
+            organizations: '/organizations/:oid',
+            organizations_members: '/organizations/:oid/members/:uid',
+            
+            // Other url
             index: '/',
             
             auth: '/authenticate',
@@ -11,24 +18,11 @@
             profil_edit: '/users/{0}',
             user_autocomplete: '/users/autocomplete/',
 
-            organizations: '/organizations/:oid',
-            organizations_members: '/organizations/:oid/members/:uid',
             user_organizations: '/users/{0}/organizations',
-           
             organizations_hackathons: '/organizations/{0}/hackathons',
 
             participate_hackathons: '/users/{0}/hackathons/participate',
             organize_hackathons: '/users/{0}/hackathons/organize',
-            hackathons: '/hackathons',
-            hackathons_view: '/hackathons/{0}',
-            hackathons_create: '/hackathons',
-            hackathons_edit: '/hackathons/{0}',
-            hackathons_delete: '/hackathons/{0}',
-
-            hackathons_get_users: '/hackathons/{0}/participants',
-            hackathons_add_user: '/hackathons/{0}/participants',
-            hackathons_update_user: '/hackathons/{0}/participants/{1}',
-            hackathons_remove_user: '/hackathons/{0}/participants/{1}',
 
             hackathons_news: '/hackathons/{0}/news',
             hackathons_news_latest: '/hackathons/{0}/news/latest',

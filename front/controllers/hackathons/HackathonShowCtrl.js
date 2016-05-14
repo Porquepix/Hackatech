@@ -1,11 +1,29 @@
     /**
      * Hackathon Controller. Available in hackathon pages.
      */
-    app.controller('HackathonShowCtrl', function($rootScope, $http, $state, messageCenterService, $stateParams) {
+    app.controller('HackathonShowCtrl', function($rootScope, $http, $state, messageCenterService, $stateParams, Hackathon, HackathonParticipants, dateStdFormater) {
         var ctrl = this;
 
         // Hackathon which is currently loaded
         ctrl.current = {};
+
+        // Load data about one hackathon which the id is in the url
+        ctrl.loadData = function() {
+            if ($stateParams.hackathonId != null) {
+                var success = function(response) {
+                    ctrl.current = response;
+                    ctrl.current.data.beginning_std = dateStdFormater.format(ctrl.current.data.beginning);
+                    ctrl.current.data.ending_std = dateStdFormater.format(ctrl.current.data.ending);
+                    ctrl.getColor(ctrl.current.data);
+                };
+                var error = function(response) {
+                    $state.go('hackathons');
+                };
+
+                Hackathon.get({hid: $stateParams.hackathonId}, success, error);
+            }
+        };
+        ctrl.loadData();
 
         // Retrieve the class color of an hackathon. This class is used in index and view pages.
         ctrl.getColor = function(hackathon) {
@@ -14,92 +32,63 @@
             hackathon.color = classes[random];
         };
 
-        // Load data about one hackathon which the id is in the url
-        ctrl.loadData = function(callback) {
-            if ($stateParams.hackathonId != null) {
-                $http.get(api('hackathons_view').format([$stateParams.hackathonId]), {}).then(function(response) {
-                    ctrl.current = response.data;
-
-                    ctrl.current.data.beginning_std = ctrl.current.data.beginning.replace(/(.+) (.+)/, "$1T$2Z");
-                    ctrl.current.data.beginning_std = new Date(ctrl.current.data.beginning_std);
-                    ctrl.current.data.beginning_std.setHours(ctrl.current.data.beginning_std.getHours() - 1);
-
-                    ctrl.current.data.ending_std = ctrl.current.data.ending.replace(/(.+) (.+)/, "$1T$2Z");
-                    ctrl.current.data.ending_std = new Date(ctrl.current.data.ending_std);
-                    ctrl.current.data.ending_std.setHours(ctrl.current.data.ending_std.getHours() - 1);
-
-                    ctrl.getColor(ctrl.current.data);
-
-                    if (callback)
-                        callback();
-                }, function(response) {
-                    $state.go('hackathons');
-                });
-            }
-        };
-        ctrl.loadData();
-
         // Add a registration of a user in an hackathon.
-        ctrl.register = function(userID) {
+        ctrl.register = function() {
             messageCenterService.reset();
 
             var data = {};
-            if (userID) {
-                data.user_id = userID;
-            } else {
-                if ($rootScope.currentUser)
-                    data.user_id = $rootScope.currentUser.id;
-            }
+            data._hid = $stateParams.hackathonId;
+            if ($rootScope.currentUser)
+                data.user_id = $rootScope.currentUser.id;
 
-            $http.post(api('hackathons_add_user').format([$stateParams.hackathonId]), data).then(function(response) {
-                messageCenterService.add('success', response.data.message, {});
+            var success = function(response) {
+                messageCenterService.add('success', response.message, {});
                 ctrl.current.nbParticipants += 1;
                 ctrl.current.isRegistered = true;
-
-                if (userID) {
-                    ctrl.loadParticipants();
-                }
-            }, function(response) {
+            };
+            var error = function(response) {
                 if (response.data.user_id)
                     messageCenterService.add('danger', response.data.user_id[0], {});
 
                 if (response.data.error)
                     messageCenterService.add('danger', response.data.error, {});
-            });
+            };
+
+            HackathonParticipants.save(data, success, error);
         };
 
         // Cancel the registration of a user.
-        ctrl.cancelRegistration = function(participant) {
+        ctrl.cancelRegistration = function() {
             messageCenterService.reset();
 
-            if (participant) {
-                user_id = participant.id;
-            } else {
-                user_id = $rootScope.currentUser.id;
-            }
+            var data = {
+                hid: $stateParams.hackathonId,
+                uid: $rootScope.currentUser.id
+            };
 
-            $http.delete(api('hackathons_remove_user').format([$stateParams.hackathonId, user_id]), {}).then(function(response) {
-                messageCenterService.add('success', response.data.message, {});
+            var success = function(response) {
+                messageCenterService.add('success', response.message, {});
                 ctrl.current.nbParticipants -= 1;
                 ctrl.current.isRegistered = false;
-
-                if (participant) {
-                    var index = ctrl.participants.indexOf(participant);
-                    ctrl.participants.splice(index, 1);
-                }
-            }, function(response) {
+            };
+            var error = function(response) {
                 if (response.data.error)
                     messageCenterService.add('danger', response.data.error, {});
-            });
+            };
+
+            HackathonParticipants.delete(data, success, error);
         };
 
         // Delete the hackathon
         ctrl.delete = function() {
             messageCenterService.reset();
-            $http.delete(api('hackathons_delete').format([$stateParams.hackathonId]), {}).then(function(response) {
-                messageCenterService.add('success', response.data.message, { status: messageCenterService.status.next });
+
+            var success = function(response) {
+                messageCenterService.add('success', response.message, { status: messageCenterService.status.next });
                 $state.go('hackathons');
-            });
+            };
+
+            Hackathon.delete({hid: $stateParams.hackathonId}, success);
         };
 
     });
