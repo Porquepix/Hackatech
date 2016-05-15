@@ -235,11 +235,11 @@ class HackathonController extends Controller
     public function ranking(ParticipantHackathonRequest $request, $hackathon_id)
     {
         $query = "SELECT p.id, p.name, AVG(mark) as finalMark, COUNT(mark) as voting
-                    FROM projects p, vote v
-                    WHERE p.id = v.project_id
-                    AND p.hackathon_id = ?
+                    FROM projects p
+                    LEFT JOIN vote v ON v.project_id = p.id
+                    WHERE p.hackathon_id = ?
                     GROUP BY p.id, p.name
-                    ORDER BY finalMark DESC;";
+                    ORDER BY finalMark DESC NULLS LAST;";
         return DB::select($query, [$hackathon_id]);
     }
 
