@@ -141,7 +141,7 @@ class HackathonController extends Controller
      * @param int $id
      * @return mixed
      */
-    public function getParticipant(ParticipantHackathonRequest $request, $id)
+    public function getParticipants(ParticipantHackathonRequest $request, $id)
     {
         return Hackathon::findOrFail($id)->participants;
     }
@@ -229,5 +229,19 @@ class HackathonController extends Controller
         $hackathon->participants()->detach($participant_id);
         return response()->json(['message' => 'The user has been successfully removed from the list of participants !']);
     }
+
+
+
+    public function ranking(ParticipantHackathonRequest $request, $hackathon_id)
+    {
+        $query = "SELECT p.id, p.name, AVG(mark) as finalMark, COUNT(mark) as voting
+                    FROM projects p, vote v
+                    WHERE p.id = v.project_id
+                    AND p.hackathon_id = ?
+                    GROUP BY p.id, p.name
+                    ORDER BY finalMark DESC;";
+        return DB::select($query, [$hackathon_id]);
+    }
+
 
 }

@@ -15,7 +15,7 @@ class CreateVoteTable extends Migration
         Schema::create('vote', function (Blueprint $table) {
             $table->integer('project_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->integer('note')->nullable();
+            $table->integer('mark')->nullable();
 
             $table->primary(['project_id', 'user_id']);
             $table->foreign('project_id')->references('id')->on('projects')->onUpdate('cascade')->onDelete('cascade');

@@ -3,24 +3,23 @@
   <component name="ChangeListManager">
     <list default="true" id="5c107c11-1032-4298-be04-b560ca15fca6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Hackathon.php" afterPath="$PROJECT_DIR$/app/Hackathon.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/HackathonController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/HackathonController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/ProjectController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProjectController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Requests/Project/CreateProjectRequest.php" afterPath="$PROJECT_DIR$/app/Http/Requests/Project/CreateProjectRequest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Requests/Project/UpdateProjectRequest.php" afterPath="$PROJECT_DIR$/app/Http/Requests/Project/UpdateProjectRequest.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/routes.php" afterPath="$PROJECT_DIR$/app/Http/routes.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Project.php" afterPath="$PROJECT_DIR$/app/Project.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/User.php" afterPath="$PROJECT_DIR$/app/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/migrations/2016_05_14_112312_create_join_table.php" afterPath="$PROJECT_DIR$/database/migrations/2016_05_14_112312_create_join_table.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/trigger_check_max_members.sql" afterPath="$PROJECT_DIR$/database/trigger_check_max_members.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/trigger_check_max_participants.sql" afterPath="$PROJECT_DIR$/database/trigger_check_max_participants.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/migrations/2016_05_14_154054_create_vote_table.php" afterPath="$PROJECT_DIR$/database/migrations/2016_05_14_154054_create_vote_table.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/app.js" afterPath="$PROJECT_DIR$/front/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/controllers/hackathons/HackathonUpdateCtrl.js" afterPath="$PROJECT_DIR$/front/controllers/hackathons/HackathonUpdateCtrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/controllers/login/LoginCtrl.js" afterPath="$PROJECT_DIR$/front/controllers/login/LoginCtrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/controllers/news/NewsUpdateCtrl.js" afterPath="$PROJECT_DIR$/front/controllers/news/NewsUpdateCtrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/controllers/organizations/OrganizationUpdateCtrl.js" afterPath="$PROJECT_DIR$/front/controllers/organizations/OrganizationUpdateCtrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/controllers/users/UserCtrl.js" afterPath="$PROJECT_DIR$/front/controllers/users/UserCtrl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/contents/css/app.css" afterPath="$PROJECT_DIR$/front/contents/css/app.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/controllers/projects/ProjectCtrl.js" afterPath="$PROJECT_DIR$/front/controllers/projects/ProjectCtrl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/controllers/projects/ProjectShowCtrl.js" afterPath="$PROJECT_DIR$/front/controllers/projects/ProjectShowCtrl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/controllers/projects/ProjectUpdateCtrl.js" afterPath="$PROJECT_DIR$/front/controllers/projects/ProjectUpdateCtrl.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/index.html" afterPath="$PROJECT_DIR$/front/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/services/dateStdFormater.js" afterPath="$PROJECT_DIR$/front/services/dateStdFormater.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/services/models/Project.js" afterPath="$PROJECT_DIR$/front/services/models/Project.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/views/hackathons/index.html" afterPath="$PROJECT_DIR$/front/views/hackathons/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/views/hackathons/view.html" afterPath="$PROJECT_DIR$/front/views/hackathons/view.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/views/projects/index.html" afterPath="$PROJECT_DIR$/front/views/projects/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/views/projects/view.html" afterPath="$PROJECT_DIR$/front/views/projects/view.html" />
     </list>
     <ignored path="hackatech.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -42,11 +41,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="routes.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="routes.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-19.307692">
-              <caret line="50" column="95" selection-start-line="50" selection-start-column="85" selection-end-line="50" selection-end-column="95" />
+            <state vertical-scroll-proportion="0.7905935">
+              <caret line="69" column="74" selection-start-line="69" selection-start-column="74" selection-end-line="69" selection-end-column="74" />
               <folding />
             </state>
           </provider>
@@ -55,8 +54,8 @@
       <file leaf-file-name="ProjectController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ProjectController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.9230769">
-              <caret line="104" column="32" selection-start-line="104" selection-start-column="32" selection-end-line="104" selection-end-column="32" />
+            <state vertical-scroll-proportion="-28.461538">
+              <caret line="175" column="5" selection-start-line="175" selection-start-column="5" selection-end-line="175" selection-end-column="5" />
               <folding>
                 <element signature="e#40#56#0#PHP" expanded="true" />
               </folding>
@@ -64,27 +63,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HackathonController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HackathonController.php">
+      <file leaf-file-name="VoteProjectRequest.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Requests/Project/VoteProjectRequest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-30.076923">
-              <caret line="162" column="9" selection-start-line="162" selection-start-column="9" selection-end-line="162" selection-end-column="9" />
-              <folding>
-                <element signature="e#40#58#0#PHP" expanded="true" />
-                <marker date="1463231667644" expanded="true" signature="1147:1548" placeholder="SELECT * FRO... id" />
-                <marker date="1463231667644" expanded="true" signature="1153:1548" placeholder="select * fro... name" />
-                <marker date="1463231667644" expanded="true" signature="1211:1440" placeholder="SELECT name,... hackathons" />
-                <marker date="1463231667644" expanded="true" signature="1211:1442" placeholder="SELECT h.id,... hackathons" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ShowProjectRequest.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Requests/Project/ShowProjectRequest.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.230769">
-              <caret line="8" column="24" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="24" />
+            <state vertical-scroll-proportion="-25.5">
+              <caret line="39" column="40" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
               <folding>
                 <element signature="e#45#75#0#PHP" expanded="true" />
               </folding>
@@ -95,10 +78,25 @@
       <file leaf-file-name="DeleteProjectRequest.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Requests/Project/DeleteProjectRequest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.730769">
-              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="24" selection-end-column="9" />
+            <state vertical-scroll-proportion="-3.2692308">
+              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="7" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HackathonController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HackathonController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-25.192308">
+              <caret line="239" column="42" selection-start-line="239" selection-start-column="42" selection-end-line="239" selection-end-column="42" />
               <folding>
-                <element signature="e#45#75#0#PHP" expanded="true" />
+                <element signature="e#40#58#0#PHP" expanded="true" />
+                <marker date="1463322505469" expanded="true" signature="1147:1548" placeholder="SELECT * FRO... id" />
+                <marker date="1463322505469" expanded="true" signature="1153:1548" placeholder="select * fro... name" />
+                <marker date="1463322505469" expanded="true" signature="1211:1440" placeholder="SELECT name,... hackathons" />
+                <marker date="1463322505469" expanded="true" signature="1211:1442" placeholder="SELECT h.id,... hackathons" />
+                <marker date="1463322505469" expanded="true" signature="8227:8512" placeholder="SELECT p.id,... projects" />
               </folding>
             </state>
           </provider>
@@ -107,28 +105,8 @@
       <file leaf-file-name="Project.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Project.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-27.807692">
-              <caret line="76" column="79" selection-start-line="76" selection-start-column="79" selection-end-line="76" selection-end-column="79" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Organization.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Organization.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.9615386">
-              <caret line="14" column="27" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="User.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/User.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6192609">
-              <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+            <state vertical-scroll-proportion="-16.692308">
+              <caret line="84" column="26" selection-start-line="84" selection-start-column="20" selection-end-line="84" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -182,16 +160,17 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/VoteController.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/Project/ShowProjectRequest.php" />
         <option value="$PROJECT_DIR$/app/User.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/HackathonController.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/Project/DeletProjectRequest.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/Project/DeleteProjectRequest.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/Project/AddMemberRequest.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/Project/CreateProjectRequest.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/Project/UpdateProjectRequest.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/Project/RemoveMemberRequest.php" />
-        <option value="$PROJECT_DIR$/app/Http/routes.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/ProjectController.php" />
         <option value="$PROJECT_DIR$/app/Project.php" />
+        <option value="$PROJECT_DIR$/app/Http/Requests/Project/VoteProjectRequest.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/ProjectController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/HackathonController.php" />
+        <option value="$PROJECT_DIR$/app/Http/routes.php" />
       </list>
     </option>
   </component>
@@ -370,7 +349,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Project" />
+              <option name="myItemId" value="Hackathon" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -456,7 +435,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11210938" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -497,14 +476,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="21" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Requests/RegisterRequest.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -673,13 +644,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/News.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="7" selection-start-line="13" selection-start-column="7" selection-end-line="13" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/UserController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.21948488">
@@ -724,14 +688,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Requests/Hackathon/CreateHackathonRequest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31014824">
-          <caret line="18" column="52" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Requests/News/UpdateNewsRequest.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4458381">
@@ -754,14 +710,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Requests/Hackathon/ParticipantHackathonRequest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="19" selection-end-column="78" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/OrganizationController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.17581187">
@@ -775,16 +723,6 @@
         <state vertical-scroll-proportion="0.13325869">
           <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Requests/Project/UpdateProjectRequest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3807391">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="24" selection-end-column="9" />
-          <folding>
-            <element signature="e#45#75#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -808,21 +746,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
+    <entry file="file://$PROJECT_DIR$/app/User.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-19.307692">
-          <caret line="50" column="95" selection-start-line="50" selection-start-column="85" selection-end-line="50" selection-end-column="95" />
+        <state vertical-scroll-proportion="-21.26923">
+          <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Requests/Project/DeleteProjectRequest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.730769">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="24" selection-end-column="9" />
-          <folding>
-            <element signature="e#45#75#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -836,60 +764,113 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HackathonController.php">
+    <entry file="file://$PROJECT_DIR$/app/Organization.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-30.076923">
-          <caret line="162" column="9" selection-start-line="162" selection-start-column="9" selection-end-line="162" selection-end-column="9" />
-          <folding>
-            <element signature="e#40#58#0#PHP" expanded="true" />
-            <marker date="1463231667644" expanded="true" signature="1147:1548" placeholder="SELECT * FRO... id" />
-            <marker date="1463231667644" expanded="true" signature="1153:1548" placeholder="select * fro... name" />
-            <marker date="1463231667644" expanded="true" signature="1211:1440" placeholder="SELECT name,... hackathons" />
-            <marker date="1463231667644" expanded="true" signature="1211:1442" placeholder="SELECT h.id,... hackathons" />
-          </folding>
+        <state vertical-scroll-proportion="0.019036954">
+          <caret line="14" column="27" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ProjectController.php">
+    <entry file="file://$PROJECT_DIR$/app/News.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.9230769">
-          <caret line="104" column="32" selection-start-line="104" selection-start-column="32" selection-end-line="104" selection-end-column="32" />
-          <folding>
-            <element signature="e#40#56#0#PHP" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.2474804">
+          <caret line="13" column="7" selection-start-line="13" selection-start-column="7" selection-end-line="13" selection-end-column="7" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Hackathon.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6192609">
-          <caret line="57" column="87" selection-start-line="57" selection-start-column="62" selection-end-line="57" selection-end-column="87" />
+        <state vertical-scroll-proportion="0.20044793">
+          <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="84" selection-end-column="5" />
           <folding>
             <element signature="e#23#57#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Requests/Project/UpdateProjectRequest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3807391">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="24" selection-end-column="9" />
+          <folding>
+            <element signature="e#45#75#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Project.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-27.807692">
-          <caret line="76" column="79" selection-start-line="76" selection-start-column="79" selection-end-line="76" selection-end-column="79" />
+        <state vertical-scroll-proportion="-16.692308">
+          <caret line="84" column="26" selection-start-line="84" selection-start-column="20" selection-end-line="84" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Organization.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Requests/Project/DeleteProjectRequest.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.9615386">
-          <caret line="14" column="27" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
+        <state vertical-scroll-proportion="-3.2692308">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="7" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/User.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Requests/Hackathon/CreateHackathonRequest.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6192609">
-          <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.30459127">
+          <caret line="18" column="52" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Requests/Hackathon/ParticipantHackathonRequest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.11422172">
+          <caret line="8" column="33" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Requests/Project/VoteProjectRequest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-25.5">
+          <caret line="39" column="40" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
+          <folding>
+            <element signature="e#45#75#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ProjectController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-28.461538">
+          <caret line="175" column="5" selection-start-line="175" selection-start-column="5" selection-end-line="175" selection-end-column="5" />
+          <folding>
+            <element signature="e#40#56#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HackathonController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-25.192308">
+          <caret line="239" column="42" selection-start-line="239" selection-start-column="42" selection-end-line="239" selection-end-column="42" />
+          <folding>
+            <element signature="e#40#58#0#PHP" expanded="true" />
+            <marker date="1463322505469" expanded="true" signature="1147:1548" placeholder="SELECT * FRO... id" />
+            <marker date="1463322505469" expanded="true" signature="1153:1548" placeholder="select * fro... name" />
+            <marker date="1463322505469" expanded="true" signature="1211:1440" placeholder="SELECT name,... hackathons" />
+            <marker date="1463322505469" expanded="true" signature="1211:1442" placeholder="SELECT h.id,... hackathons" />
+            <marker date="1463322505469" expanded="true" signature="8227:8512" placeholder="SELECT p.id,... projects" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7905935">
+          <caret line="69" column="74" selection-start-line="69" selection-start-column="74" selection-end-line="69" selection-end-column="74" />
           <folding />
         </state>
       </provider>

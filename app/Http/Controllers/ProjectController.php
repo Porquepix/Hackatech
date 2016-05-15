@@ -12,6 +12,7 @@ use App\Http\Requests\Project\UpdateProjectRequest;
 use App\Http\Requests\Project\DeleteProjectRequest;
 use App\Http\Requests\Project\AddMemberRequest;
 use App\Http\Requests\Project\RemoveMemberRequest;
+use App\Http\Requests\Project\VoteProjectRequest;
 
 use JWTAuth;
 
@@ -30,11 +31,13 @@ class ProjectController extends Controller
      */
     public function index(ShowProjectRequest $request, $hackathon_id)
     {
-        $data = Project::where('hackathon_id', $hackathon_id)->get();
-
         // Get the project of the user
         $user = JWTAuth::parseToken()->authenticate();
         $user_project = $user->getProject($hackathon_id);
+
+        $data = Project::where('hackathon_id', $hackathon_id)->with(['voting' => function($query) use ($user) {
+            $query->where('user_id', $user->id);
+        }])->get();
 
         return response()->json(compact('data', 'user_project'));
     }
@@ -69,7 +72,13 @@ class ProjectController extends Controller
         $user = JWTAuth::parseToken()->authenticate();
         $user_project = $user->getProject($hackathon_id);
 
-        return response()->json(compact('data', 'user_project'));
+        $private_section = null;
+        if ($user_project != null && $user_project->id == $data->id)
+        {
+            $private_section = $data->private_section;
+        }
+
+        return response()->json(compact('data', 'user_project', 'private_section'));
     }
 
     /**
@@ -102,7 +111,7 @@ class ProjectController extends Controller
     public function getMembers(ShowProjectRequest $request, $hackathon_id, $project_id)
     {
         $project = Project::where('hackathon_id', $hackathon_id)->findOrFail($project_id);
-        return $project->members;
+        return $project->members()->where('validate', true)->get();
     }
 
     /**
@@ -150,6 +159,20 @@ class ProjectController extends Controller
         $project = Project::findOrFail($project_id);
         $project->members()->updateExistingPivot($user_id, ['validate' => (bool) $request->input('validate')]);
         return response()->json(['message' => 'The user has been successfully updated !']);
+    }
+
+    public function addVote(VoteProjectRequest $request, $hackathon_id, $project_id)
+    {
+        $project = Project::where('hackathon_id', $hackathon_id)->findOrFail($project_id);
+        $project->voting()->attach(JWTAuth::parseToken()->authenticate()->id, ['mark' => $request->input('mark')]);
+        return response()->json(['message' => 'The mark has been successfully created !'], 201);
+    }
+
+    public function updateVote(VoteProjectRequest $request, $hackathon_id, $project_id)
+    {
+        $project = Project::where('hackathon_id', $hackathon_id)->findOrFail($project_id);
+        $project->voting()->updateExistingPivot(JWTAuth::parseToken()->authenticate()->id, ['mark' => $request->input('mark')]);
+        return response()->json(['message' => 'The mark has been successfully updated !']);
     }
 
 }

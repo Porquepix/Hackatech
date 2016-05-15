@@ -52,6 +52,11 @@
 }
 
 .elegant-card .btn-floating {
+    margin: -2.1em 1em;
+}
+
+
+.elegant-card .btn-right {
     margin: -2.1em 2em;
     float: right;
 }

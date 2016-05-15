@@ -11,6 +11,7 @@
             } else {
                 result = data.replace(/(.+) (.+)/, "$1T$2Z");
                 result = new Date(result);
+                result = result.setHours(result.getHours() - 1);
                 return result;
             }
         };

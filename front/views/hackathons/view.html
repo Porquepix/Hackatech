@@ -17,9 +17,10 @@
         <a ng-show="hackCtrl.current.isRegistered && hackCtrl.current.isAttending && !hackCtrl.current.isOrganizator && !hackCtrl.current.isAdmin" ui-sref="hackathons_projects({ hackathonId : hackCtrl.current.data.id })" class="btn btn-default"><i class="material-icons left">stars</i> Projects</a>
         <a ng-show="(hackCtrl.current.isRegistered && hackCtrl.current.isAttending) || hackCtrl.current.isOrganizator || hackCtrl.current.isAdmin" ui-sref="hackathons_board({ hackathonId : hackCtrl.current.data.id })" class="btn btn-default"><i class="material-icons left">question_answer</i> Forum</a>
 
-        <a ng-show="hackCtrl.current.isAdmin" ui-sref="hackathons_edit({ hackathonId : hackCtrl.current.data.id })" class="btn btn-primary  btn-raised"><i class="material-icons left">create</i> Edit</a>
+        <a ng-show="hackCtrl.current.isAdmin" ui-sref="hackathons_edit({ hackathonId : hackCtrl.current.data.id })" class="btn btn-primary btn-raised"><i class="material-icons left">create</i> Edit</a>
         <div ng-show="hackCtrl.current.isOrganizator || hackCtrl.current.isAdmin" class="btn-group">
           <a href="bootstrap-elements.html" data-target="#" class="btn btn-primary  btn-raised dropdown-toggle" data-toggle="dropdown"><i class="material-icons left">settings</i> Manage <span class="caret"></span></a>
+          <a class="btn btn-warning btn-md btn-raised" ui-sref="hackathons_projects_ranking({hackathonId: hackCtrl.current.data.id})"><i class="material-icons left">assessment</i> Ranking</a>
           <ul class="dropdown-menu">
             <li><a ui-sref="hackathons_participants({ hackathonId : hackCtrl.current.data.id })">Manage participants</a></li>
             <li><a ui-sref="hackathons_projects({ hackathonId : hackCtrl.current.data.id })">Manage projects</a></li>

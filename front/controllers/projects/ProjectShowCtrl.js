@@ -24,6 +24,7 @@
 
             var success = function(response) {
                 ctrl.current.data = response.data;
+                ctrl.current.private_section = response.private_section;
                 ctrl.userProject = response.user_project;
                 ctrl.current.isAdmin = (response.data.admin_id == $rootScope.currentUser.id);
             };
@@ -51,7 +52,9 @@
                 messageCenterService.add('success', response.message, {});
                 ctrl.userProject = {
                     id: $stateParams.projectId,
-                    pivot: {}
+                    pivot: {
+                        project_id: $stateParams.projectId
+                    }
                 };
             };
             var error = function(response) {
@@ -118,7 +121,7 @@
                 $state.go('hackathons_projects', {hackathonId: $stateParams.hackathonId});
             };
 
-            Project.delete({hid: project.hackathon_id, pid: $stateParams.projectId}, success);
+            Project.delete({hid: $stateParams.hackathonId, pid: $stateParams.projectId}, success);
         };
 
     });

@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-primary btn-md btn-raised" ui-sref="hackathons_view({hackathonId: projectCtrl.hackathon.id})"><i class="material-icons left">arrow_back</i> Back to hackathon home page</a>
+            <h3>Ranking of {{ projectCtrl.hackathon.name }}</h3>
+
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Final Mark</th>
+                    <th>Voting</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="project in projectCtrl.projects">
+                    <td>{{ project.id }}</td>
+                    <td>{{ project.name }}</td>
+                    <td>{{ project.finalmark | number:2 }}</td>
+                    <td>{{ project.voting }}</td>
+                    <td>
+                        <a ui-sref="hackathons_projects_view({hackathonId: projectCtrl.hackathon.id, projectId: project.id})" class="btn-floating waves-effect waves-light default-color"><i class="material-icons">remove_red_eye</i></a>
+                    </td>
+
+                  </tr>                                   
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>

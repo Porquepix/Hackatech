@@ -77,4 +77,29 @@ class Project extends Model
         return $this->belongsToMany('App\User', 'join')->withPivot('validate');
     }
 
+    /**
+     * Return the list of members (users) who have vote for the project.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function voting()
+    {
+        return $this->belongsToMany('App\User', 'vote')->withPivot('mark');
+    }
+
+    /**
+     * Test if the user is registered in the project.
+     *
+     * @param User|null $user
+     * @return bool
+     */
+    public function isMember(User $user = null)
+    {
+        if (isset($user))
+        {
+            return  $this->members()->where('user_id', $user->id)->first() != null;
+        }
+        return false;
+    }
+
 }

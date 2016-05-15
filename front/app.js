@@ -26,6 +26,9 @@
 
             participate_hackathons: '/users/{0}/hackathons/participate',
             organize_hackathons: '/users/{0}/hackathons/organize',
+
+            hackathons_vote: '/hackathons/{0}/projects/{1}/votes',
+            hackathons_ranking: '/hackathons/{0}/ranking',
         };
 
         return "http://api.hackatech.alexis-andrieu.fr" + routes[name];
@@ -244,6 +247,11 @@
                 url: '/hackathons/{hackathonId}/projects/{projectId}/edit',
                 templateUrl: './views/projects/edit.html',
                 controller: 'ProjectUpdateCtrl as projectCtrl'
+            })            
+            .state('hackathons_projects_ranking', {
+                url: '/hackathons/{hackathonId}/ranking',
+                templateUrl: './views/projects/ranking.html',
+                controller: 'ProjectRankCtrl as projectCtrl'
             });
 
             

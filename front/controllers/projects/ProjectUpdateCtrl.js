@@ -13,14 +13,16 @@
             if ($stateParams.projectId != null) {
 
                 var success = function(response) {
-                    if (response.admin_id != $rootScope.currentUser.id)
+                    ctrl.current = response.data;
+                    ctrl.current.private_section = response.private_section;
+                    if (response.data.admin_id != $rootScope.currentUser.id)
                         $state.go('hackathons_projects', {hackathonId: $stateParams.hackathonId});
                 };
                 var error = function (response) {
                     $state.go('hackathons_projects', {hackathonId: $stateParams.hackathonId});
                 };
 
-                ctrl.current = Project.get({hid: $stateParams.hackathonId, pid: $stateParams.projectId}, success, error);
+                Project.get({hid: $stateParams.hackathonId, pid: $stateParams.projectId}, success, error);
             }
             ctrl.hackathon_id = $stateParams.hackathonId;
         };

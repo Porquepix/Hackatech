@@ -1,12 +1,12 @@
     /**
      * ProjectCtrl
      */
-    app.controller('ProjectCtrl', function(Project, $stateParams, $rootScope, Hackathon, messageCenterService, ProjectMembers, $state) {
+    app.controller('ProjectCtrl', function(Project, $stateParams, $rootScope, Hackathon, messageCenterService, ProjectMembers, $state, Vote, $scope, form) {
         var ctrl = this;
 
         ctrl.projects = {}
 
-        ctrl.loadHackathonData = function(callback) {
+        ctrl.loadHackathonData = function() {
             var success = function(response) {
                 ctrl.hackathon = response;
             };
@@ -24,6 +24,7 @@
                 ctrl.projects = response.data;
                 ctrl.projects.forEach(function(e) {
                     e.isAdmin = (e.admin_id == $rootScope.currentUser.id);
+                    e.alreadyVoted = (e.voting.length > 0);
                 });
                 ctrl.userProject = response.user_project;
             };
@@ -48,7 +49,9 @@
                 messageCenterService.add('success', response.message, {});
                 ctrl.userProject = {
                     id: project.id,
-                    pivot: {}
+                    pivot: {
+                       project_id: $stateParams.projectId
+                    }
                 };
             };
             var error = function(response) {
@@ -84,6 +87,34 @@
             };
 
             Project.delete({hid: project.hackathon_id, pid: project.id}, success);
+        };
+
+        ctrl.vote = function(project) {
+            messageCenterService.reset();
+
+            var data = {
+                pid: project.id,
+                hid: $stateParams.hackathonId,
+                mark: project.voting[0].pivot.mark
+            };
+
+            var success = function(response) {
+                messageCenterService.add('success', response.message, {});
+                project.alreadyVoted = true;
+            };
+            var error = function(response) {
+                if (response.data.mark)
+                    messageCenterService.add('danger', response.data.mark[0], {});
+
+                if (typeof response.data === 'string' || response.data instanceof String)
+                    messageCenterService.add('danger', response.data, {});
+            };
+
+            if (project.alreadyVoted) {
+                Vote.update(data, success, error);
+            } else {
+                Vote.save(data, success, error);
+            }
         };
 
     });

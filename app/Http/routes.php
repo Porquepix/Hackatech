@@ -44,6 +44,12 @@ Route::post('organizations/{organizations}/members', 'OrganizationController@add
 Route::resource('organizations', 'OrganizationController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
 
 /*
+ * Vote routes
+ */
+Route::put('hackathons/{hackathons}/projects/{projects}/votes', 'ProjectController@updateVote');
+Route::post('hackathons/{hackathons}/projects/{projects}/votes', 'ProjectController@addVote');
+
+/*
  * Projects routes
  */
 Route::delete('hackathons/{hackathons}/projects/{projects}/members/{members_id}', 'ProjectController@removeMember');
@@ -61,8 +67,9 @@ Route::resource('hackathons/{hackathons}/news', 'NewsController', ['only' => ['i
 /*
  * Hackathons routes
  */
+Route::get('hackathons/{hackathons}/ranking', 'HackathonController@ranking');
 Route::delete('hackathons/{hackathons}/participants/{participant_id}', 'HackathonController@removeParticipant');
 Route::put('hackathons/{hackathons}/participants/{participant_id}', 'HackathonController@updateParticipant');
-Route::get('hackathons/{hackathons}/participants', 'HackathonController@getParticipant');
+Route::get('hackathons/{hackathons}/participants', 'HackathonController@getParticipants');
 Route::post('hackathons/{hackathons}/participants', 'HackathonController@addParticipant');
 Route::resource('hackathons', 'HackathonController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);

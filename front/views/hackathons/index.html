@@ -25,7 +25,6 @@
             </div>
         </div>
 
-
         <div class="col-md-12">
             <div masonry='{ "transitionDuration" : "0s" , "itemSelector" : ".tile"}' class="row">
                 <div masonry-tile class="col-md-4 tile" ng-repeat="hackathon in hackCtrl.hackathons.data">
@@ -35,7 +34,7 @@
                             <h1>{{ hackathon.two }}</h1>
                         </div>
 
-                        <a ui-sref="hackathons_view({ hackathonId : hackathon.id })" class="btn-floating btn-large waves-effect waves-light btn-default"><i class="material-icons">chevron_right</i></a>
+                        <a ui-sref="hackathons_view({ hackathonId : hackathon.id })" class="btn-floating btn-large waves-effect waves-light btn-default btn-right"><i class="material-icons">chevron_right</i></a>
 
                         <div class="card-body">
                             <h5><a ui-sref="hackathons_view({ hackathonId : hackathon.id })">{{ hackathon.name }}</a></h5>

@@ -6,57 +6,90 @@
 
             <a ng-show="!projectCtrl.hackathon.isAdmin && !projectCtrl.hackathon.isOrganizator && projectCtrl.userProject" class="btn btn-default btn-md btn-raised" ui-sref="hackathons_projects_view({hackathonId: projectCtrl.hackathon.data.id, projectId: projectCtrl.userProject.id})"><i class="material-icons left">remove_red_eye</i> Go to my project <span ng-hide="!projectCtrl.userProject.pivot || projectCtrl.userProject.pivot.validate">(Not yet validated)<span></a>
             <a ng-hide="projectCtrl.userProject || projectCtrl.hackathon.isAdmin || projectCtrl.hackathon.isOrganizator" class="btn btn-primary btn-md btn-raised" ui-sref="hackathons_projects_create({hackathonId: projectCtrl.hackathon.data.id})"><i class="material-icons left">add</i> Create a project</a>
+            <a ng-show="projectCtrl.hackathon.isAdmin || projectCtrl.hackathon.isOrganizator" class="btn btn-warning btn-md btn-raised" ui-sref="hackathons_projects_ranking({hackathonId: projectCtrl.hackathon.data.id})"><i class="material-icons left">assessment</i> Ranking</a>
 
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Social</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr ng-repeat="project in projectCtrl.projects">
-                    <td>{{ project.id }}</td>
-                    <td>{{ project.name }}</td>
-                    <td>
-                      <social-link of="project"></social-link>
-                    </td>
-                    <td>
-                        <a ui-sref="hackathons_projects_view({hackathonId: projectCtrl.hackathon.data.id, projectId: project.id})" class="btn-floating waves-effect waves-light default-color"><i class="material-icons">remove_red_eye</i></a>
+  <div class="row">
+    <div class="col-md-6" ng-repeat="project in projectCtrl.projects">
 
-                        <a class="btn-floating waves-effect waves-light default-color"  ng-hide="projectCtrl.userProject || projectCtrl.hackathon.isAdmin || projectCtrl.hackathon.isOrganizator" ng-click="projectCtrl.add(project)"><i class="material-icons">assignment_ind</i></a>
+      <div class="elegant-card z-depth-1">
+        <div class="card-header secondary-color"></div>
 
-                        <a class="btn-floating waves-effect waves-light red"  ng-hide="!projectCtrl.userProject.pivot || projectCtrl.userProject.pivot.validate || projectCtrl.hackathon.isAdmin || projectCtrl.hackathon.isOrganizator" ng-click="projectCtrl.remove(project)"><i class="material-icons">clear</i></a>
+        <div class="card-body">
 
-                        <a ng-show="project.isAdmin" ui-sref="hackathons_projects_edit({hackathonId: projectCtrl.hackathon.data.id, projectId: project.id})" class="btn-floating waves-effect waves-light primary-color"><i class="material-icons">edit</i></a>
-                        <a ng-show="project.isAdmin || projectCtrl.hackathon.isAdmin || projectCtrl.hackathon.isOrganizator" class="btn-floating waves-effect waves-light red" data-toggle="modal" data-target="#delete-{{ project.id }}"><i class="material-icons">delete</i></a> 
+        <h3>{{ project.name }} <small>#{{ project.id }}</small> <small ng-show="project.voting.length > 0" class="pull-right">{{ project.voting[0].pivot.mark }}/20</small></h3>
+        <div ng-show="project.facebook || project.twitter || project.github">
+          <social-link of="project"></social-link>
+          <hr>
+        </div>
+        <hr>
+        <a ui-sref="hackathons_projects_view({hackathonId: projectCtrl.hackathon.data.id, projectId: project.id})" class="btn-floating waves-effect waves-light default-color"><i class="material-icons">remove_red_eye</i></a>
 
-                        <!-- Delete Modal -->
-                        <div class="modal fade" id="delete-{{ project.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                          <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title">Delete project : {{ project.name }}</h4>
-                              </div>
-                              <div class="modal-body">
-                                Are you sure you want to delete this project? 
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="$('#delete-' + project.id).modal('toggle'); projectCtrl.delete(project)">Delete</button>
-                              </div>
-                            </div>
-                          </div>
+        <a class="btn-floating waves-effect waves-light default-color"  ng-hide="projectCtrl.userProject || projectCtrl.hackathon.isAdmin || projectCtrl.hackathon.isOrganizator" ng-click="projectCtrl.add(project)"><i class="material-icons">assignment_ind</i></a>
+
+        <a class="btn-floating waves-effect waves-light red"  ng-hide="!projectCtrl.userProject.pivot || projectCtrl.userProject.pivot.project_id != project.id || projectCtrl.userProject.pivot.validate || projectCtrl.hackathon.isAdmin || projectCtrl.hackathon.isOrganizator" ng-click="projectCtrl.remove(project)"><i class="material-icons">clear</i></a>
+
+        <a ng-show="projectCtrl.hackathon.isAdmin || projectCtrl.hackathon.isOrganizator" class="btn-floating waves-effect waves-light primary-color" data-toggle="modal" data-target="#vote-{{ project.id }}"><i class="material-icons">thumb_up</i></a>
+
+        <!-- Vote Modal -->
+        <div class="modal fade" id="vote-{{ project.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Vote for project : {{ project.name }}</h4>
+              </div>
+              <div class="modal-body">
+
+                <div class="row">
+                  <form class="col-md-12" role="form" name="form">
+                    <div ng-class="{ 'has-error': form.mark.$dirty && form.id.$error.required }">
+                        <div class="input-field col-md-12">
+                            <input type="number" class="form-control" id="mark" name="mark" ng-model="project.voting[0].pivot.mark" autofocus required>
+                            <label for="mark">Mark</label>
+
+                            <span ng-show="form.mark.$dirty && form.mark.$error.required" class="help-block">Mark is required</span>
                         </div>
-                    
+                    </div>  
+                  </form> 
+                </div>
 
-                    </td>
-                            
-                  </tr>                                   
-                </tbody>
-              </table>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" data-dismiss="modal" ng-click="$('#vote-' + project.id).modal('toggle'); projectCtrl.vote(project)">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <a ng-show="project.isAdmin" ui-sref="hackathons_projects_edit({hackathonId: projectCtrl.hackathon.data.id, projectId: project.id})" class="btn-floating waves-effect waves-light primary-color"><i class="material-icons">edit</i></a>
+        <a ng-show="project.isAdmin || projectCtrl.hackathon.isAdmin || projectCtrl.hackathon.isOrganizator" class="btn-floating waves-effect waves-light red" data-toggle="modal" data-target="#delete-{{ project.id }}"><i class="material-icons">delete</i></a> 
+
+        <!-- Delete Modal -->
+        <div class="modal fade" id="delete-{{ project.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Delete project : {{ project.name }}</h4>
+              </div>
+              <div class="modal-body">
+                Are you sure you want to delete this project? 
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="$('#delete-' + project.id).modal('toggle'); projectCtrl.delete(project)">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+        <div class="card-footer secondary-color"></div>
+      </div> <!-- end card -->
+
+    </div>
+  </div>
+
         </div>
     </div>
 </div>
