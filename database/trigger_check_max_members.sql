@@ -20,7 +20,9 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+DROP TRIGGER IF EXISTS tg_check_max_members_orga  ON involve;
+
 CREATE TRIGGER tg_check_max_members_orga 
 BEFORE INSERT ON involve
 FOR EACH ROW
-EXECUTE PROCEDURE pc_check_max_participants();
+EXECUTE PROCEDURE pc_check_max_members_orga();

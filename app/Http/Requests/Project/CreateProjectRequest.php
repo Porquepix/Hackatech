@@ -16,14 +16,17 @@ class CreateProjectRequest extends Request
     public function authorize()
     {
         $user = JWTAuth::parseToken()->authenticate();
+
         $hackathon = Hackathon::findOrFail($this->route('hackathons'));
+        if ($hackathon->isOver())
+        {
+            return false;
+        }
 
         $isRegistered = $hackathon->isRegistered($user);
         $isAttending = $isRegistered && $hackathon->isAttending();
-        $isOrganizator = $hackathon->isOrganizator($user);
-        $isAdmin = $hackathon->isAdmin($user);
 
-        return $isAttending || $isOrganizator || $isAdmin;
+        return $isAttending;
     }
 
     /**

@@ -53,4 +53,39 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Hackathon', 'participate')->withPivot('attending');
     }
+
+    /**
+     * List of project where the user is admin.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function projectAdmin()
+    {
+        return $this->hasMany('App\Project', 'admin_id', 'id');
+    }
+
+    /**
+     * List of projects where the user is member.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function projectMember()
+    {
+        return $this->belongsToMany('App\Project', 'join')->withPivot('validate');
+    }
+
+    /**
+     * Get the project of a user for an hackathon.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function getProject($hackathon_id)
+    {
+        $project = $this->projectMember()->where('hackathon_id', $hackathon_id)->first();
+        if ($project == null) {
+            $project = $this->projectAdmin()->where('hackathon_id', $hackathon_id)->first();
+        }
+        return $project;
+    }
+
 }

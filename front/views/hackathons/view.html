@@ -22,7 +22,7 @@
           <a href="bootstrap-elements.html" data-target="#" class="btn btn-primary  btn-raised dropdown-toggle" data-toggle="dropdown"><i class="material-icons left">settings</i> Manage <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a ui-sref="hackathons_participants({ hackathonId : hackCtrl.current.data.id })">Manage participants</a></li>
-            <li><a href="javascript:void(0)">Manage projects</a></li>
+            <li><a ui-sref="hackathons_projects({ hackathonId : hackCtrl.current.data.id })">Manage projects</a></li>
             <li class="divider"></li>
             <li><a ui-sref="hackathons_news({ hackathonId : hackCtrl.current.data.id })">Manage news</a></li>
           </ul>

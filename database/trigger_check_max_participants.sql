@@ -22,6 +22,8 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+DROP TRIGGER IF EXISTS tg_check_max_participants  ON participate;
+
 CREATE TRIGGER tg_check_max_participants 
 BEFORE INSERT ON participate
 FOR EACH ROW

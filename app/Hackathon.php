@@ -151,6 +151,16 @@ class Hackathon extends Model
         return $start < $today;
     }
 
+    /**
+     * Return the list of projects attached to the hackathon.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function projects()
+    {
+        return $this->hasMany('App\Project');
+    }
+
 
 
 }

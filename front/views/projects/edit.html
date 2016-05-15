@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+            <a class="btn btn-primary btn-md btn-raised" ui-sref="hackathons_projects({hackathonId: projectCtrl.hackathon_id})"><i class="material-icons left">arrow_back</i> Projects</a>
+            
+            <h3 ng-hide="projectCtrl.current.id"> Create project </h3>
+            <h3 ng-show="projectCtrl.current.id"> Edit project : {{ projectCtrl.current.name }} </h3>
+
+                <form role="form" name="form" ng-submit="projectCtrl.save(projectCtrl.current)">
+                    
+                    <div ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
+                        <div class="form-group col-md-12">
+                            <label for="name">Name <span class="required red-text">*</span></label>
+                            <input type="text" class="form-control" id="name" name="name" ng-model="projectCtrl.current.name" required>
+
+                            <span ng-show="form.name.$dirty && form.name.$error.required" class="help-block">Name is required</span>
+                        </div>
+                    </div>
+
+                    <div ng-class="{ 'has-error': form.description.$dirty && form.description.$error.required }">
+                        <div class="form-group col-md-12">
+                            <label for="description">Description <span class="required red-text">*</span></label>
+                            <textarea class="form-control materialize-textarea" id="description" name="description" ng-model="projectCtrl.current.description" required></textarea>
+
+                            <span class="help-block">You can type markdown in this field.</span>
+                            <span ng-show="form.description.$dirty && form.description.$error.required" class="help-block">Description is required</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-group col-md-12">
+                            <label for="private_section">Private section</label>
+                            <textarea class="form-control materialize-textarea" id="private_section" name="private_section" ng-model="projectCtrl.current.private_section"></textarea>
+
+                            <span class="help-block">You can type markdown in this field.</span>
+                        </div>
+                    </div>
+
+                    <social-form model="projectCtrl.current"></social-form>
+
+                    <button type="submit" ng-disabled="form.$invalid || projectCtrl.dataLoading" class="btn btn-primary">
+                        <i ng-show="projectCtrl.dataLoading" class="fa fa-circle-o-notch fa-spin fa-3x fa-fw margin-bottom left"></i> 
+                        <span ng-hide="projectCtrl.current.id"> Create project </span>
+                        <span ng-show="projectCtrl.current.id"> Edit project </span>
+                    </button>
+
+                </form><!-- /form -->
+
+
+        </div>
+    </div>
+</div>

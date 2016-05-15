@@ -7,7 +7,7 @@ use JWTAuth;
 use App\Project;
 use App\Hackathon;
 
-class UpdateProjectRequest extends Request
+class DeleteProjectRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,12 @@ class UpdateProjectRequest extends Request
             return false;
         }
 
-        $project = Project::where('hackathon_id', $hackathon->id)->findOrFail($this->route('projects'));
-        return $project->isAdmin($user);
+        $project = Project::where('hackathon_id', $this->route('hackathons'))->findOrFail($this->route('projects'));
+
+        $isOrganizator = $hackathon->isOrganizator($user);
+        $isAdmin = $hackathon->isAdmin($user);
+
+        return $project->isAdmin($user) || $isOrganizator || $isAdmin;
     }
 
     /**
@@ -36,11 +40,7 @@ class UpdateProjectRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'max:255',
-            'github' => 'mex:255',
-            'facebook' => 'max:255',
-            'twitter' => 'max:255',
-            'validate' => 'boolean'
+            //
         ];
     }
 }

@@ -1,0 +1,141 @@
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-12">
+            <a class="btn btn-primary btn-md btn-raised" ui-sref="hackathons_projects({hackathonId: projectCtrl.hackathon_id})"><i class="material-icons left">arrow_back</i> Projects</a>
+                
+            <h3> Project : {{ projectCtrl.current.data.name }} </h3>
+        </div>
+
+        <div class="col-md-7">
+
+            <div ng-show="projectCtrl.current.private_section">
+                <h5>Private informations</h5>
+                <div btf-markdown="projectCtrl.current.private_section"></div>
+                <hr>
+            </div>
+
+            <h5>Description</h5>
+
+            <div btf-markdown="projectCtrl.current.data.description"></div>
+
+        </div>
+
+
+    <div class="col-md-4 col-md-offset-1">
+
+    <div>
+        <h5>Action(s)</h5>
+
+        <a class="btn-floating waves-effect waves-light default-color"  ng-hide="projectCtrl.userProject || projectCtrl.hackathon.isAdmin || projectCtrl.hackathon.isOrganizator" ng-click="projectCtrl.add()"><i class="material-icons">assignment_ind</i></a>
+
+        <a class="btn-floating waves-effect waves-light red"  ng-hide="!projectCtrl.userProject.pivot || projectCtrl.userProject.pivot.validate || projectCtrl.hackathon.isAdmin || projectCtrl.hackathon.isOrganizator" ng-click="projectCtrl.remove()"><i class="material-icons">clear</i></a>
+
+        <a ng-show="projectCtrl.current.isAdmin" ui-sref="hackathons_projects_edit({hackathonId: projectCtrl.hackathon.data.id, projectId: project.id})" class="btn-floating waves-effect waves-light primary-color"><i class="material-icons">edit</i></a>
+        <a ng-show="projectCtrl.current.isAdmin || projectCtrl.hackathon.isAdmin || projectCtrl.hackathon.isOrganizator" class="btn-floating waves-effect waves-light red" data-toggle="modal" data-target="#delete-{{ project.id }}"><i class="material-icons">delete</i></a> 
+
+        <!-- Delete Modal -->
+        <div class="modal fade" id="delete-{{ project.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Delete project : {{ projectCtrl.current.data.name }}</h4>
+              </div>
+              <div class="modal-body">
+                Are you sure you want to delete this project? 
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="$('#delete-' + project.id).modal('toggle'); projectCtrl.delete()">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+      <div ng-show="projectCtrl.current.data.facebook || projectCtrl.current.data.twitter || projectCtrl.current.data.github">
+        <h5>Social</h5>
+        <social-link of="projectCtrl.current.data"></social-link>
+        <hr>
+      </div>
+
+    </div>
+
+    <div class="col-md-12">
+        <h5>Members</h5>
+
+        <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Social</th>
+                    <th ng-show="projectCtrl.current.isAdmin">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="member in projectCtrl.current.members">
+                    <td>{{ member.id }}</td>
+                    <td>{{ member.name }}</td>
+                    <td>{{ member.email }}</td>
+                    <td>
+
+                    <social-link of="member"></social-link>
+
+                    </td>
+                    <td ng-show="projectCtrl.current.isAdmin">
+                        <a ng-click="projectCtrl.validate(member, true)" ng-hide="member.pivot.validate" class="btn-floating waves-effect waves-light primary-color"><i class="material-icons">done</i></a> 
+
+                        <a ng-show="member.pivot.validate" class="btn-floating waves-effect waves-light red" data-toggle="modal" data-target="#remove-{{ member.id }}"><i class="material-icons">clear</i></a> 
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="remove-{{ member.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Cancel the presence of the user : {{ member.name }}</h4>
+                              </div>
+                              <div class="modal-body">
+                                Are you sure you want to cancel the presence of this user? 
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="$('#remove-' + member.id).modal('toggle'); projectCtrl.validate(member, false)">Cancel</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <a class="btn-floating waves-effect waves-light red" data-toggle="modal" data-target="#delete-{{ member.id }}"><i class="material-icons">delete</i></a> 
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="delete-{{ member.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Remove registration : {{ member.name }}</h4>
+                              </div>
+                              <div class="modal-body">
+                                Are you sure you want to remove the registration of this user? 
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="$('#delete-' + member.id).modal('toggle'); projectCtrl.removeUser(member)">Remove</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                    </td>
+
+                  </tr>                                   
+                </tbody>
+              </table>
+
+    </div>
+
+            
+
+    </div>
+</div>

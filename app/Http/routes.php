@@ -46,6 +46,10 @@ Route::resource('organizations', 'OrganizationController', ['only' => ['index', 
 /*
  * Projects routes
  */
+Route::delete('hackathons/{hackathons}/projects/{projects}/members/{members_id}', 'ProjectController@removeMember');
+Route::put('hackathons/{hackathons}/projects/{projects}/members/{members_id}', 'ProjectController@updateMember');
+Route::get('hackathons/{hackathons}/projects/{projects}/members', 'ProjectController@getMembers');
+Route::post('hackathons/{hackathons}/projects/{projects}/members', 'ProjectController@addMember');
 Route::resource('hackathons/{hackathons}/projects', 'ProjectController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
 
 /*

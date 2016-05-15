@@ -5,6 +5,8 @@
             hackathons: '/hackathons/:hid',
             hackathons_participants: '/hackathons/:hid/participants/:uid',
             hackathons_news: '/hackathons/:hid/news/:nid',
+            hackathons_projects: '/hackathons/:hid/projects/:pid',
+            hackathons_projects_members: '/hackathons/:hid/projects/:pid/members/:uid',
             organizations: '/organizations/:oid',
             organizations_members: '/organizations/:oid/members/:uid',
             
@@ -103,6 +105,10 @@
                 templateUrl: './views/hackathons/my.html',
                 controller: 'HackathonMyCtrl as hackCtrl'
             })
+            .state('help', {
+                url: '/help',
+                templateUrl: './views/soon.html',
+            })
 
             // AUTH
             .state('login', {
@@ -191,15 +197,9 @@
                 templateUrl: './views/hackathons/edit.html',
                 controller: 'HackathonUpdateCtrl as hackCtrl'
             })
-            .state('hackathons_projects', {
-                url: '/hackathons/{hackathonId}/projects',
-                templateUrl: './views/hackathons/edit.html',
-                controller: 'HackathonCtrl as hackCtrl'
-            })
             .state('hackathons_board', {
                 url: '/hackathons/{hackathonId}/board',
-                templateUrl: './views/hackathons/participant.html',
-                controller: 'HackathonCtrl as hackCtrl'
+                templateUrl: './views/soon.html',
             })
             .state('hackathons_participants', {
                 url: '/hackathons/{hackathonId}/participants',
@@ -222,6 +222,28 @@
                 url: '/hackathons/{hackathonId}/news/{newsId}/edit',
                 templateUrl: './views/news/edit.html',
                 controller: 'NewsUpdateCtrl as newsCtrl'
+            })
+
+            // PROJECTS
+            .state('hackathons_projects', {
+                url: '/hackathons/{hackathonId}/projects',
+                templateUrl: './views/projects/index.html',
+                controller: 'ProjectCtrl as projectCtrl'
+            })
+            .state('hackathons_projects_create', {
+                url: '/hackathons/{hackathonId}/projects/create',
+                templateUrl: './views/projects/edit.html',
+                controller: 'ProjectUpdateCtrl as projectCtrl'
+            })
+            .state('hackathons_projects_view', {
+                url: '/hackathons/{hackathonId}/projects/{projectId}',
+                templateUrl: './views/projects/view.html',
+                controller: 'ProjectShowCtrl as projectCtrl'
+            })
+            .state('hackathons_projects_edit', {
+                url: '/hackathons/{hackathonId}/projects/{projectId}/edit',
+                templateUrl: './views/projects/edit.html',
+                controller: 'ProjectUpdateCtrl as projectCtrl'
             });
 
             

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateJoinTable extends Migration
+class CreateVoteTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,10 @@ class CreateJoinTable extends Migration
      */
     public function up()
     {
-        Schema::create('join', function (Blueprint $table) {
+        Schema::create('vote', function (Blueprint $table) {
             $table->integer('project_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->boolean('validate')->default(false);
+            $table->integer('note')->nullable();
 
             $table->primary(['project_id', 'user_id']);
             $table->foreign('project_id')->references('id')->on('projects')->onUpdate('cascade')->onDelete('cascade');
@@ -30,6 +30,6 @@ class CreateJoinTable extends Migration
      */
     public function down()
     {
-        Schema::drop('join');
+        Schema::drop('vote');
     }
 }

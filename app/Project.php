@@ -47,4 +47,34 @@ class Project extends Model
         return false;
     }
 
+    /**
+     * Return the admin (user) of the project.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function admin()
+    {
+        return $this->belongsTo('App\User', 'admin_id', 'id');
+    }
+
+    /**
+     * Return the hackathon of the project.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function hackathon()
+    {
+        return $this->belongsTo('App\Hackathon');
+    }
+
+    /**
+     * Return the list of members (users) of the projecy.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function members()
+    {
+        return $this->belongsToMany('App\User', 'join')->withPivot('validate');
+    }
+
 }
