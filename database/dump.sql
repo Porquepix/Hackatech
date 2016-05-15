@@ -89,13 +89,16 @@ DECLARE
     v_ParticipantPTCount INTEGER;
     v_MaxParticipantPTCount INTEGER;
 BEGIN
-    SELECT max_participant_per_team INTO v_MaxParticipantPTCount
-    FROM hackathons
-    WHERE id = NEW.hackathon_id;
+    SELECT h.max_participant_per_team INTO v_MaxParticipantPTCount
+    FROM hackathons h, projects p
+    WHERE p.id = NEW.project_id
+        AND h.id = p.hackathon_id;
 
     SELECT COUNT(1) INTO v_ParticipantPTCount
     FROM public.join 
     WHERE project_id = NEW.project_id;
+    -- Add one to count the admin
+    v_ParticipantPTCount := v_ParticipantPTCount + 1;
 
     IF v_ParticipantPTCount >= v_MaxParticipantPTCount THEN
         RAISE EXCEPTION 'This team is already full !';
@@ -382,8 +385,8 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 CREATE TABLE vote (
     user_id bigint NOT NULL,
     project_id bigint NOT NULL,
-    note integer,
-    CONSTRAINT note_check CHECK (((0 <= note) AND (note <= 20)))
+    mark integer,
+    CONSTRAINT note_check CHECK (((0 <= mark) AND (mark <= 20)))
 );
 
 
@@ -635,7 +638,7 @@ ALTER TABLE ONLY hackathons
 --
 
 ALTER TABLE ONLY "join"
-    ADD CONSTRAINT join_project_id_fkey FOREIGN KEY (project_id) REFERENCES projects(id);
+    ADD CONSTRAINT join_project_id_fkey FOREIGN KEY (project_id) REFERENCES projects(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -723,3 +726,4 @@ GRANT ALL ON SCHEMA public TO alexisanomdb WITH GRANT OPTION;
 --
 -- PostgreSQL database dump complete
 --
+
