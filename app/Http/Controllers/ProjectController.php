@@ -161,6 +161,14 @@ class ProjectController extends Controller
         return response()->json(['message' => 'The user has been successfully updated !']);
     }
 
+    /**
+     * Add a mark on a project.
+     *
+     * @param VoteProjectRequest $request
+     * @param int $hackathon_id
+     * @param int $project_id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function addVote(VoteProjectRequest $request, $hackathon_id, $project_id)
     {
         $project = Project::where('hackathon_id', $hackathon_id)->findOrFail($project_id);
@@ -168,6 +176,14 @@ class ProjectController extends Controller
         return response()->json(['message' => 'The mark has been successfully created !'], 201);
     }
 
+    /**
+     * Update a mark on a project.
+     *
+     * @param VoteProjectRequest $request
+     * @param int $hackathon_id
+     * @param int $project_id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function updateVote(VoteProjectRequest $request, $hackathon_id, $project_id)
     {
         $project = Project::where('hackathon_id', $hackathon_id)->findOrFail($project_id);

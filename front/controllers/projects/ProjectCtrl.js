@@ -55,6 +55,9 @@
                 };
             };
             var error = function(response) {
+                if (response.data.error)
+                    messageCenterService.add('danger', response.data.error, {});
+
                 if (typeof response.data === 'string' || response.data instanceof String)
                     messageCenterService.add('danger', response.data, {});
             };
@@ -105,6 +108,9 @@
             var error = function(response) {
                 if (response.data.mark)
                     messageCenterService.add('danger', response.data.mark[0], {});
+
+                if (response.data.error)
+                    messageCenterService.add('danger', response.data.error, {});
 
                 if (typeof response.data === 'string' || response.data instanceof String)
                     messageCenterService.add('danger', response.data, {});

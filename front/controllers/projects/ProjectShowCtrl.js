@@ -58,6 +58,9 @@
                 };
             };
             var error = function(response) {
+                if (response.data.error)
+                    messageCenterService.add('danger', response.data.error, {});
+
                 if (typeof response.data === 'string' || response.data instanceof String)
                     messageCenterService.add('danger', response.data, {});
             };
@@ -107,6 +110,9 @@
             var error = function(response) {
                 if (response.data.error)
                     messageCenterService.add('danger', response.data.error, {});
+
+                if (typeof response.data === 'string' || response.data instanceof String)
+                    messageCenterService.add('danger', response.data, {});
             };
 
             ProjectMembers.update(data, success, error);

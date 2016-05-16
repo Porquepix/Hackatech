@@ -62,11 +62,25 @@ class UserController extends Controller
         return response()->json(compact('results'));
     }
 
+    /**
+     * Retrive the list of hackathon of a user.
+     *
+     * @param ShowProfileRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function hackathonParticipation(ShowProfileRequest $request, $id)
     {
         return User::findOrFail($id)->hackathons()->orderBy('beginning', 'DESC')->get();
     }
 
+    /**
+     * Retrive the list of hackathon of an organization.
+     *
+     * @param ShowProfileRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function hackathonOrganization(ShowProfileRequest $request, $id)
     {
         return $user = User::with([

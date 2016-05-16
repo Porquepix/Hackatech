@@ -53,6 +53,9 @@
                 if (response.data.content)
                     messageCenterService.add('danger', response.data.content[0], {});
 
+                if (response.data.error)
+                    messageCenterService.add('danger', response.data.error, {});
+
                 if (typeof response.data === 'string' || response.data instanceof String)
                     messageCenterService.add('danger', response.data, {});
 

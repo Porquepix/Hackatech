@@ -84,7 +84,6 @@ class Hackathon extends Model
         return false;
     }
 
-
     /**
      * Test is the user attends to the hackathon.
      * Always call isRegistered() method before call this one.
@@ -160,7 +159,5 @@ class Hackathon extends Model
     {
         return $this->hasMany('App\Project');
     }
-
-
 
 }

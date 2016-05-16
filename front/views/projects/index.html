@@ -18,8 +18,8 @@
 
         <h3>{{ project.name }} <small>#{{ project.id }}</small> <small ng-show="project.voting.length > 0" class="pull-right">{{ project.voting[0].pivot.mark }}/20</small></h3>
         <div ng-show="project.facebook || project.twitter || project.github">
-          <social-link of="project"></social-link>
           <hr>
+          <social-link of="project"></social-link>
         </div>
         <hr>
         <a ui-sref="hackathons_projects_view({hackathonId: projectCtrl.hackathon.data.id, projectId: project.id})" class="btn-floating waves-effect waves-light default-color"><i class="material-icons">remove_red_eye</i></a>

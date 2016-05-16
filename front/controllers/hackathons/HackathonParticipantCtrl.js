@@ -62,6 +62,9 @@
             var error = function(response) {
                 if (response.data.error)
                     messageCenterService.add('danger', response.data.error, {});
+
+                if (typeof response.data === 'string' || response.data instanceof String)
+                    messageCenterService.add('danger', response.data, {});
             };
 
             HackathonParticipants.delete(data, success, error);
@@ -84,6 +87,9 @@
             var error = function(response) {
                 if (response.data.error)
                     messageCenterService.add('danger', response.data.error, {});
+
+                if (typeof response.data === 'string' || response.data instanceof String)
+                    messageCenterService.add('danger', response.data, {});
             };
 
             HackathonParticipants.update(data, success, error);

@@ -230,8 +230,13 @@ class HackathonController extends Controller
         return response()->json(['message' => 'The user has been successfully removed from the list of participants !']);
     }
 
-
-
+    /**
+     * Display the ranking for an hackathon.
+     *
+     * @param ParticipantHackathonRequest $request
+     * @param int $hackathon_id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function ranking(ParticipantHackathonRequest $request, $hackathon_id)
     {
         $query = "SELECT p.id, p.name, AVG(mark) as finalMark, COUNT(mark) as voting

@@ -261,7 +261,6 @@
          $httpProvider.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
         datetimepickerProvider.setOptions({
-            inline: true,
             sideBySide: true,
             locale: 'en',
             format: 'Y-MM-DD HH:mm'
