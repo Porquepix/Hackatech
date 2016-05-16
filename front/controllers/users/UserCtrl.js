@@ -1,6 +1,3 @@
-    /**
-     * User Controller. Available in user pages.
-     */
     app.controller('UserCtrl', function($scope, $rootScope, $http, messageCenterService, authtification, form) {
         var ctrl = this;
 

@@ -1,12 +1,10 @@
-    /**
-     * Hackathon Controller. Available in hackathon pages.
-     */
     app.controller('HackathonMyCtrl', function($rootScope, $http, MyHackathon, dateStdFormater) {
         var ctrl = this;
 
         // All hackathons
         ctrl.hackathons = [];
 
+        // Init the my hackathon page
         ctrl.initMy = function() {
             var successP = function(response) {
                 ctrl.hackathons.participate = response;

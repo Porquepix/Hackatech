@@ -1,5 +1,5 @@
-    // Handle the logout phase
     app.controller('LogoutCtrl', function($state, authtification, $rootScope, messageCenterService) {
+        // Logout the current user
         this.logout = function() {
             authtification.logout(function() {
                 // Remove the authenticated user from local storage

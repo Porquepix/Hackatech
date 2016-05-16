@@ -1,6 +1,3 @@
-    /**
-     * Hackathon Controller. Available in hackathon pages.
-     */
     app.controller('HackathonShowCtrl', function($rootScope, $http, $state, messageCenterService, $stateParams, Hackathon, HackathonParticipants, dateStdFormater) {
         var ctrl = this;
 

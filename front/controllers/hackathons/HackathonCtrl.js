@@ -1,6 +1,3 @@
-    /**
-     * Hackathon Controller. Available in hackathon pages.
-     */
     app.controller('HackathonCtrl', function($http, $state, $stateParams, Hackathon, dateStdFormater) {
         var ctrl = this;
 
@@ -39,6 +36,7 @@
             hackathon.color = classes[random];
         };
 
+        // Callback when the search form is submited
         ctrl.search = function() {
             var page = $stateParams.page;
             if (page == null) {

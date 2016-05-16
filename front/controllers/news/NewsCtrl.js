@@ -1,12 +1,10 @@
-    /**
-     * News Controller. Available in news pages.
-     */
     app.controller('NewsCtrl', function($rootScope, $http, $state, $stateParams, Hackathon, News, dateStdFormater, messageCenterService) {
         var ctrl = this;
 
         // All news
         ctrl.news = {};
 
+        // Load hackathon data for the news
         ctrl.loadHackathonData = function(callback) {
             var success = function(response) {
                 ctrl.hackathon = response;
@@ -18,6 +16,7 @@
             Hackathon.get({hid: $stateParams.hackathonId}, success, error);
         };
 
+        // Load all news which concern the hackathon
         ctrl.init = function() {
             ctrl.loadHackathonData();
 
@@ -30,7 +29,7 @@
         };
         ctrl.init();
 
-
+        // Delete a news
         ctrl.delete = function(news) {
             messageCenterService.reset();
 

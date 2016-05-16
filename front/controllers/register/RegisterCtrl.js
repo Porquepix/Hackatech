@@ -1,6 +1,3 @@
-    /**
-     * Register Controller. Available in register page.
-     */
     app.controller('RegisterCtrl', function($http, $state, messageCenterService) {
         var ctrl = this;
 

@@ -1,6 +1,3 @@
-    /**
-     * Organization Controller. Available in organization pages.
-     */
     app.controller('OrganizationHackathonCtrl', function($http, $state, $stateParams, OrganizationHackathon, dateStdFormater) {
         var ctrl = this;
         // All Hackathons of the organization
@@ -19,5 +16,4 @@
             OrganizationHackathon.get({oid: $stateParams.organizationId}, success, error);
         };
         ctrl.loadHackathons();
-
     });

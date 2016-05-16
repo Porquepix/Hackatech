@@ -1,6 +1,3 @@
-    /**
-     * Organization Controller. Available in organization pages.
-     */
     app.controller('OrganizationCtrl', function($scope, $rootScope, $http, messageCenterService, Organization, OrganizationMember, MyOrganization) {
         var ctrl = this;
         // All organisations of the user
@@ -43,5 +40,4 @@
 
             OrganizationMember.delete({oid: orga.id, uid: $rootScope.currentUser.id}, success);
         };
-
     });

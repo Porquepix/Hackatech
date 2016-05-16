@@ -1,6 +1,3 @@
-    /**
-     * Hackathon Controller. Available in hackathon pages.
-     */
     app.controller('HackathonUpdateCtrl', function($scope, $rootScope, $http, $state, messageCenterService, form, $stateParams, Hackathon, MyOrganization, dateStdFormater) {
         var ctrl = this;
 
@@ -35,6 +32,7 @@
             }
         };
 
+        // Load the organisation of the current user, to do a select html list 
         ctrl.loadOrgas = function() {
             var success = function(response) {
                 ctrl.orgas = response.admin;

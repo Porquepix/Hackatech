@@ -1,6 +1,3 @@
-    /**
-     * Login Controller. Available in login page.
-     */
     app.controller('LoginCtrl', function($auth, $state, messageCenterService, authtification) {
         var ctrl = this;
 

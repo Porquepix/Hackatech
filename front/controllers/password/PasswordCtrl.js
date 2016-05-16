@@ -1,6 +1,3 @@
-    /**
-     * Password Controller. Available in password reset pages.
-     */
     app.controller('PasswordCtrl', function($location, $http, messageCenterService, authtification) {
         var ctrl = this;
 

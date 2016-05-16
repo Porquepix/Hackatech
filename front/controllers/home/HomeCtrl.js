@@ -1,6 +1,3 @@
-    /**
-     * Home Controller. Available in home page.
-     */
     app.controller('HomeCtrl', function($http) {
         var ctrl = this;
 

@@ -1,12 +1,10 @@
-    /**
-     * News Controller. Available in news pages.
-     */
     app.controller('NewsUpdateCtrl', function($scope, $http, $state, messageCenterService, form, $stateParams, Hackathon, News) {
         var ctrl = this;
 
         // Current news
         ctrl.current = {};
 
+        // Load the hackathon data for the form
         ctrl.loadHackathonData = function(callback) {
             var success = function(response) {
                 ctrl.hackathon = response;
@@ -19,6 +17,7 @@
             Hackathon.get({hid: $stateParams.hackathonId}, success, error);
         };
 
+        // Load the news data for the form
         ctrl.loadData = function() {
             ctrl.loadHackathonData(function() {
                 if (!ctrl.hackathon.isAdmin && !ctrl.hackathon.isOrganizator) {
@@ -35,6 +34,7 @@
         };
         ctrl.loadData();
 
+        // Save (create / update) the news
         ctrl.save = function(news) {
             messageCenterService.reset();
 

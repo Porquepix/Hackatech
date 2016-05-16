@@ -1,11 +1,10 @@
-    /**
-     * ProjectCtrl
-     */
     app.controller('ProjectCtrl', function(Project, $stateParams, $rootScope, Hackathon, messageCenterService, ProjectMembers, $state, Vote, $scope, form) {
         var ctrl = this;
 
+        // All the projects of an hackathon
         ctrl.projects = {}
 
+        // Load the data about the hackathon
         ctrl.loadHackathonData = function() {
             var success = function(response) {
                 ctrl.hackathon = response;
@@ -17,6 +16,7 @@
             Hackathon.get({hid: $stateParams.hackathonId}, success, error);
         };
 
+        // Load the data about all the projects of an hackathon
         ctrl.init = function() {
             ctrl.loadHackathonData();
 
@@ -92,6 +92,7 @@
             Project.delete({hid: project.hackathon_id, pid: project.id}, success);
         };
 
+        // Save (create / update) a mark for a project
         ctrl.vote = function(project) {
             messageCenterService.reset();
 

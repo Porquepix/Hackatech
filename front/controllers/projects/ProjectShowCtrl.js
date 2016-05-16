@@ -1,6 +1,3 @@
-    /**
-     * Organization Controller. Available in organization pages.
-     */
     app.controller('ProjectShowCtrl', function($scope, $rootScope, $http, $state, $stateParams, messageCenterService, form, Project, ProjectMembers, Hackathon) {
         var ctrl = this;
 

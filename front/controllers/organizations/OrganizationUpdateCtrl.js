@@ -1,6 +1,3 @@
-    /**
-     * Organization Controller. Available in organization pages.
-     */
     app.controller('OrganizationUpdateCtrl', function($scope, $rootScope, $http, $state, $stateParams, messageCenterService, form, Organization, OrganizationMember) {
         var ctrl = this;
 
