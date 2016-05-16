@@ -4,6 +4,8 @@
             <a class="btn btn-primary btn-md btn-raised" ui-sref="hackathons_view({hackathonId: projectCtrl.hackathon.id})"><i class="material-icons left">arrow_back</i> Back to hackathon home page</a>
             <h3>Ranking of {{ projectCtrl.hackathon.name }}</h3>
 
+            <a class="btn btn-primary btn-raised" ng-click="projectCtrl.loadData()"><i class="material-icons left">refresh</i>Refresh rank</a> 
+
               <table class="table table-bordered">
                 <thead>
                   <tr>

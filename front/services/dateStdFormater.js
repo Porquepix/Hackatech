@@ -9,10 +9,14 @@
                     });
                 });
             } else {
-                result = data.replace(/(.+) (.+)/, "$1T$2Z");
+                var result = data.replace(/(.+) (.+)/, "$1T$2Z");
                 result = new Date(result);
-                result = result.setHours(result.getHours() - 1);
-                return result;
+                return service.toUTCDate(result);
             }
+        };
+
+        service.toUTCDate = function(date){
+            var result = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+            return result;
         };
     });
