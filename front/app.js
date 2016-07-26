@@ -31,7 +31,7 @@
             hackathons_ranking: '/hackathons/{0}/ranking',
         };
 
-        return "http://api.hackatech.alexis-andrieu.fr" + routes[name];
+        return "https://api.hackatech.alexis-andrieu.fr" + routes[name];
     };
 
     // Define our application
